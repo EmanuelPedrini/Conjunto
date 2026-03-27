@@ -31,31 +31,28 @@ def character_choice():
 player = character_choice()
 
 print(f"Congrats! You chose, the {player.name}!")
+
+def gerador_de_eventos(player):
+    
+    escolhadeevento= ((player.luck * 3 ) + random.randint(1,100))
+    if escolhadeevento <= 25:
+        return random.choice(badevents)
+    
+    elif escolhadeevento > 25 and escolhadeevento <= 60:
+        quantidadeinimigos = random.randint(1, 3)
+        actenemy = [
+            copy.deepcopy(e) 
+            for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
+            ]
+        return combat(player, actenemy)
+    
+    elif escolhadeevento > 60 and escolhadeevento < 85:
+        return random.choice(neutralevents)
+    
+    else:
+        return random.choice(goodevents)
     
 while gamerunning==1:
-    escolhadeevento= ((player.luck * 3 ) + random.randint(1,100))
-    if escolhadeevento <= 30:
-        funcdeeventruim=random.choice(badevents)
-        funcdeeventruim.trigger(player)
-        continue
-#inimigo
-    elif escolhadeevento > 30 and escolhadeevento <= 70:
-         quantidadeinimigos = random.randint(1, 3)
-         
-         actenemy = [
-             copy.deepcopy(e) 
-             for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
-         ]
+    filadeeventos=[]
 
-         combat(player, actenemy)
-         continue
-#neutro
-    elif escolhadeevento > 70 and escolhadeevento <= 90:
-         funcdeeventneutro=random.choice(neutralevents)
-         funcdeeventneutro.trigger(player)
-         continue
-#bom
-    elif escolhadeevento > 90:
-        funcdeeventbom=random.choice(goodevents)
-        funcdeeventbom.trigger(player)
-        continue
+

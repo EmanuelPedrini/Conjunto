@@ -13,3 +13,6 @@ badevents=[pisadaemarmadilha]
 fontedecura = event("placeholder", "placeholder")
 
 goodevents=[fontedecura]
+
+#adicionar no futuro
+# ultraevents=[]
