@@ -47,13 +47,8 @@ class character:
         #calculo de hp maximo
         self.bonushp=0
         self.acthp = self.totalmaxhp
-    @property
-    def maxhp(self):
-        return 5 * self.vit
-
-    @property
-    def totalmaxhp(self):
-        return self.maxhp + self.bonushp
+        self.maxhp= 5 * self.vit
+        self.totalmaxhp = self.maxhp + self.bonushp
 
         #inventory system
         #inventario é so uma big lista anota ai
