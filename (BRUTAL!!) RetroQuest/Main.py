@@ -33,11 +33,14 @@ player = character_choice()
 print(f"Congrats! You chose, the {player.name}!")
 
 def gerador_de_eventos(player):
+    #número random que define o evento q vai retornar
+    escolhadeevento= int((1 + (player.luck/(player.luck+15))) * (random.randint(1, 100)))
 
-    escolhadeevento= ((player.luck * 3 ) + random.randint(1, 100))
+    #evento paia
     if escolhadeevento <= 25:
-        return (1,random.choice(badevents))
+        return (1, random.choice(badevents))
     
+    #Combate aleatório
     elif escolhadeevento > 25 and escolhadeevento <= 60:
         quantidadeinimigos = random.randint(1, 3)
         actenemy = [
