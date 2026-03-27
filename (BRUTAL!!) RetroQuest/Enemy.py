@@ -1,11 +1,11 @@
 import random
 from Globals import *
-from utils import rolld20
+from utils import rolld100
 from Itens_Data import todososequipamentos
 
 # from 
 class enemy:
-    def __init__(self, name, totalmaxhp, atk, atkbonus, vampirism, thorns, ac, centsondeath, xpondeath, atkdist):
+    def __init__(self, name, totalmaxhp, atk, atkbonus, vampirism, thorns, dodge, centsondeath, xpondeath, atkdist):
         self.name = f"{name} / [ Level {globaldanger }  ]"
         #hp
         self.totalmaxhp = int(round(totalmaxhp * globaldangercalc))
@@ -14,7 +14,7 @@ class enemy:
         #escala
         self.atkbonus = int(atkbonus * (1 * globaldangercalc))
         self.atk = int(round(atk * globaldangercalc))
-        self.ac = int(round(ac + (2 * globaldangercalc)))
+        self.dodge = int(dodge)
         self.centsondeath = int(centsondeath)
         self.xpondeath = int(xpondeath)
 
@@ -39,8 +39,8 @@ class enemy:
         print(f"> the enemy {self.name} healed [ {amount} ] Hp")
 
     def attack(self, player):
-        roll= rolld20() + self.atkbonus
-        if roll >= player.ac:
+        roll= rolld100()
+        if roll > player.totaldodge:
             damage =  self.atk
 
             HC = 10

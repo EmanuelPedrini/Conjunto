@@ -7,6 +7,6 @@ Vampire= character("Vampire", "She", "her", 4, 2, 6, -1, 2, 2, 10, 20, 0, 0, [],
 Penintent= character("Penitent", "He", "his", 2, 1, 8, -3, 1, 1, 9, 0, 5, 0, [], [], 0)
 Bull=character("Bull", "She", "her", 4, 2, 6, 0, 1, 2, 10, 0, 0, 5, [], [], 0)
 Huntress=character("Huntress", "She", "Her", 2, 6, 4, 4, 3, 3, 10, 0, 0, 0, [], [], 10 )
-Jammy=character("Jammy", "He", "His", 3, 3, 3, 6, 6, 3, 10, 0, 0, 0, [], [], 15)
+Jammy=character("Jammy", "He", "His", 3, 3, 3, 20, 6, 3, 10, 0, 0, 0, [], [], 15)
 
 allcharacters=[Knight, Mage, Vampire, Penintent, Bull, Huntress, Jammy]

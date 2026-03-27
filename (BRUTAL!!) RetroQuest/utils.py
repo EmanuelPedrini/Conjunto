@@ -1,6 +1,6 @@
 import random
-def rolld20():
-    return int(random.randint(1,20))
+def rolld100():
+    return int(random.randint(1,100))
 def rolld6():
     return int(random.randint(1,6))
 
