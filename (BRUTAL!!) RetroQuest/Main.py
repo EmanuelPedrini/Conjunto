@@ -33,10 +33,10 @@ player = character_choice()
 print(f"Congrats! You chose, the {player.name}!")
 
 def gerador_de_eventos(player):
-    
-    escolhadeevento= ((player.luck * 3 ) + random.randint(1,100))
+
+    escolhadeevento= ((player.luck * 3 ) + random.randint(1, 100))
     if escolhadeevento <= 25:
-        return random.choice(badevents)
+        return (1,random.choice(badevents))
     
     elif escolhadeevento > 25 and escolhadeevento <= 60:
         quantidadeinimigos = random.randint(1, 3)
@@ -44,15 +44,35 @@ def gerador_de_eventos(player):
             copy.deepcopy(e) 
             for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
             ]
-        return combat(player, actenemy)
+        return (2,combat(player, actenemy))
     
     elif escolhadeevento > 60 and escolhadeevento < 85:
-        return random.choice(neutralevents)
+        return (3, random.choice(neutralevents))
     
     else:
-        return random.choice(goodevents)
+        return (4, random.choice(goodevents))
     
-while gamerunning==1:
-    filadeeventos=[]
+filadeeventos=[]
 
+while len(filadeeventos) < 2:
+    filadeeventos.append(gerador_de_eventos(player))
+
+while True:
+    evento = filadeeventos.pop(0)  # pega o atual
+
+    tipo, oqé = evento
+
+    if tipo == 1:
+        oqé.trigger(player)
+
+    elif tipo == 2:
+        combat(player, oqé)
+
+    elif tipo == 3:
+        oqé.trigger(player)
+
+    elif tipo == 4:
+        oqé.trigger(player)
+
+    filadeeventos.append(gerador_de_eventos(player))
 
