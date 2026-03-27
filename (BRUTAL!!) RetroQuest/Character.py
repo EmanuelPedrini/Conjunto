@@ -1,9 +1,9 @@
 import random
-from utils import rolld20
+from utils import rolld100
 import sys
 
 class character:
-    def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, ac, vampirism, thorns, armor, skills, passives, cents):
+    def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, skills, passives, cents):
         #textos
         self.name = name 
         self.pronoun = pronoun
@@ -20,8 +20,6 @@ class character:
         #estados (não do brasil, lengo lengo lengo)
         self.stunned = False
 
-        self.ac= ac
-
         #atributes
         self.strg = int(strg)
         self.dex = int(dex)
@@ -34,7 +32,14 @@ class character:
         self.vampirism=vampirism
         self.realvampirism=float(vampirism*0.01)
         self.thorns=thorns
-        self.armor=armor
+        self.armor = armor
+        self.dodge = dodge 
+        self.totaldodge = int(min(5 * dex + self.dodge, 75))
+        self.critchance = 4 * luck
+        bonuscritchance = 0
+        self.totalcritchance = int(self.critchance + bonuscritchance)
+        self.critmult = 2
+
         #terminar
         # self.shield=self.shield
         # self.shieldstat=self.shield
@@ -90,6 +95,7 @@ class character:
     def equip(self,item):
         #so muda slot pra slot do item em questão
         slot = item.slot
+
         #removendo item se ja tem algo equipado
         if self.equipments[slot] is not None:
             retirado = self.equipments[slot]
@@ -125,28 +131,39 @@ class character:
     def rollbonusforbasicatt(self):
          return self.strg + self.rollbonus
 
-    def gain(self, attr, amount):
+    def gain_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) + amount)
-    def lose(self, attr, amount):
+
+    def lose_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) - amount)
     
     #BASIC ATTACK
     def basicattack(self, target, player):
             #rola o Dado
-            roll = rolld20() + self.rollbonusforbasicatt()
-            if roll >= target.ac:
+            roll = rolld100()
+            rollcrit = rolld100()
+            if roll > target.dodge:
+
                 #Computa o Dano
                 randomdmg = random.randint(int(0.5 * self.strg), self.strg)
                 damage = randomdmg + self.atkdmgbonus
+                crit = False
+                if rollcrit < self.totalcritchance:
+                    damage *= self.critmult
+                    crit = True
+                
+                if crit==True:
+                    print(f"> The [ {self.name} ] got A BRUTAL HIT!! Dealing [ {damage} ] MASSIVE DAMAGE to [ {target.name}!!]")
+                else:
+                    print(f"> The [ {self.name} ] HIT! Dealing [ {damage} ] DAMAGE to [ {target.name} ]")
 
-                #Mostra o dano e causa o dano ao inimigo
-                print(f"> The [ {self.name} ] HIT! {self.pronoun} rolled [ {roll} ]! dealing [ {damage} ( {randomdmg} + {self.atkdmgbonus} ) ] DAMAGE to [ {target.name} ]")
                 target.toma(damage, player)
 
                 #Computa o tanto que tu curo com o ataque
                 if self.vampirism != 0:
                     player.heal(int(damage*(self.realvampirism)))
                 
+                #Computa se o alvo tem Thorns
                 if target.thorns != 0:
                     Espinhado= int(target.thorns)
                     player.toma(int(Espinhado))
