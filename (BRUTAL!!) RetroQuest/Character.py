@@ -3,19 +3,15 @@ from utils import rolld100
 import sys
 
 class character:
-    def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, skills, passives, cents):
+    def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
+                 skills, passives, inbornpassives, atkform, cents):
         #textos
         self.name = name 
         self.pronoun = pronoun
         self.possessive = possessive
 
-        #atkbonus, perguntar pro akira se isso aqui é necessário
-        self.rollbonus = 0
         self.atkdmgbonus = 0
-        self.temprollbonuscombat = 0
-        self.tempatkdmgbonuscombat = 0
-        self.temprollbonusturn = 0
-        self.tempatkdmgbonusturn = 0
+       
 
         #estados (não do brasil, lengo lengo lengo)
         self.stunned = False
@@ -40,6 +36,9 @@ class character:
         self.totalcritchance = int(self.critchance + bonuscritchance)
         self.critmult = 2
 
+        self.inbornpassives=inbornpassives
+        self.atkform=atkform
+
         #terminar
         # self.shield=self.shield
         # self.shieldstat=self.shield
@@ -62,7 +61,7 @@ class character:
         self.equipments = {
             "Weapon": None,
             "Armor": None,
-            "Accessory": None,
+            "Accessory": None
         }
 
         #skills pqp
@@ -81,6 +80,13 @@ class character:
         self.actmana = self.manainicial
     
     #definições de sistema de Inventário
+
+    def gain_atr(self, attr, amount):
+        setattr(self, attr, getattr(self, attr) + amount)
+
+    def lose_atr(self, attr, amount):
+        setattr(self, attr, getattr(self, attr) - amount)
+
     def add_item(self, item):
             self.inventory.append(item)
             print(f"> You obtained {item.name}!")
@@ -92,6 +98,28 @@ class character:
             else:
                 print("> That item isn`t in your inventory")
 
+    def itemequipped(self, item):
+        for atrr, value in item.bonus.items():
+            if hasattr(self, atrr):
+                self.gain_atr(atrr, value)
+
+    def itemunequipped(self,item):
+        for atrr, value in item.bonus.items():
+            if hasattr(self, atrr):
+                self.gain_atr(atrr, -value)
+
+    def itemremove(self, slot):
+        retirado2=self.equipments.get(slot)
+        if retirado2 is not None:
+            retirado2 = self.equipments[slot]
+            self.itemunequipped(retirado2)
+            self.inventory.append(retirado2)
+            self.equipments[slot]=None
+            print(f"> You unequipped [ {retirado2.name} ]!")
+        else:
+            print("No items equipped!")
+        
+
     def equip(self,item):
         #so muda slot pra slot do item em questão
         slot = item.slot
@@ -99,12 +127,16 @@ class character:
         #removendo item se ja tem algo equipado
         if self.equipments[slot] is not None:
             retirado = self.equipments[slot]
+            self.itemunequipped(retirado)
             self.inventory.append(retirado)
             print(f"> You unequipped [ {retirado.name} ]!")
+
         self.equipments[slot] = item
         if item in self.inventory:
             self.inventory.remove(item)
             print(f"> Equipped {item.name}")
+        #
+        self.itemequipped(item)
 
         #regenerar mana
     def regen_mana(self):
@@ -127,15 +159,6 @@ class character:
             print(f"Now you have [ {self.actmana} / {self.maxmana} ] Mana Points!")
         else:
             print(f"You actually have [ {self.actmana} / {self.maxmana} ] Mana Points! This isn`t enough to cast this Ability!")
-
-    def rollbonusforbasicatt(self):
-         return self.strg + self.rollbonus
-
-    def gain_atr(self, attr, amount):
-        setattr(self, attr, getattr(self, attr) + amount)
-
-    def lose_atr(self, attr, amount):
-        setattr(self, attr, getattr(self, attr) - amount)
     
     #BASIC ATTACK
     def basicattack(self, target, player):
@@ -164,7 +187,7 @@ class character:
                     player.heal(int(damage*(self.realvampirism)))
                 
                 #Computa se o alvo tem Thorns
-                if target.thorns != 0:
+                if target.thorns != 0 and self.atkform=="melee":
                     Espinhado= int(target.thorns)
                     player.toma(int(Espinhado))
                     print(f"> You taked [ {Espinhado} ] damage from the enemy thorns!")

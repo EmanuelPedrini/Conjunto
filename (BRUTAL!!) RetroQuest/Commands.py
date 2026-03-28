@@ -3,15 +3,14 @@ from Globals import gamerunning
 from Skill_Data import *
 from Passive_Data import *
 
-
 def escolhadealvo(player, enemies):
 
     alive = [e for e in enemies if e.acthp > 0]
 
     print("Choose target:")
 
-    for i, e in enumerate(alive):
-        print(f"[{i+1}] {e.name} ({e.acthp} HP)")
+    for v, r in enumerate(alive):
+        print(f"[{v+1}] {r.name} ({r.acthp} HP)")
 
     while True:
         choice = input_player(player, None)
@@ -38,6 +37,7 @@ def lookyourteeth_command(player=None, enemy=None):
     print(f"LUCK: {player.luck}")
 
 def showinventory_command(player=None, enemy=None):
+    print("Your inventory:")
     for i, item in enumerate(player.inventory):
         print(f"[ {i+1} ] - {item.name}")
     if player.inventory==[]:
@@ -72,6 +72,10 @@ def Devconsole_InstaKillAllEnemies_command(player, actenemy):
 
 def Devconsole_Eventchange(player=None, enemy=None):
     pass
+def Removeitem_Command(player, enemy=None):
+    print(player.equipments)
+    itrm=input("Remove from which slot?")
+    player.itemremove(itrm)
 
 def Devconsole_AddSkill_Command(player=None, enemy=None):
     skilldevadd = input(f"Please, input the NAME of the skill.")
@@ -84,22 +88,40 @@ def Devconsole_AddSkill_Command(player=None, enemy=None):
 
 def Devconsole_ShowAllskills_Command(player=None, enemy=None):
     print("Skills:")
-    for s in todasskills:
-        print("-", s.basename)
-    
+    for o in todasskills:
+        print("-", o.basename)
+
+def EquipItem_Command(player, enemy=None):
+
+    print("Your inventory:")
+    for p, it in enumerate(player.inventory):
+        print(f"[ {p+1} ] - {it.name}")
+    if player.inventory==[]:
+        print("> You don`t have any item in your inventory.")
+        return
+    itmslc=input("Which item equip? ")
+    if itmslc.isdigit():
+        posicitem=int(itmslc)-1
+        if 0<= posicitem <len(player.inventory):
+            itmequip = player.inventory[posicitem]
+            player.equip(itmequip)
+    else:
+        print("Thats isnt a number, dumb ass.")
+
 def removeitemfrominventory_command(player=None, enemy=None):
     #mostra o inventário
-    for i, item in enumerate(player.inventory):
-        print(f"[ {i+1} ] - {item.name}")
+    print("Your inventory:")
+    for l, iti in enumerate(player.inventory):
+        print(f"[ {l+1} ] - {iti.name}")
     if player.inventory==[]:
         print("You don`t have any item in your inventory.")
         return
     #pede qual o item
     itemretirado= input("Please, input the NAME of the item you want to remove.")
     # executa a ação de retirar o item
-    for s in player.inventory:
-        if itemretirado == s.name:
-            player.remove_item(s)
+    for m in player.inventory:
+        if itemretirado == m.name:
+            player.remove_item(m)
             print(f"{itemretirado} got removed from your inventory.")
             return
     print("This item ins`t in your inventory.")
@@ -122,7 +144,9 @@ comandosglobais={
     "devconsoleshowskilllist": Devconsole_ShowAllskills_Command,
     "removeitem" : removeitemfrominventory_command,
     "devconsoleeraseenemy" : Devconsole_InstaKillEnemy_Command,
-    "devconsoleeraseallenemies": Devconsole_InstaKillAllEnemies_command
+    "devconsoleeraseallenemies": Devconsole_InstaKillAllEnemies_command,
+    "uneqitem":Removeitem_Command,
+    "equipitem": EquipItem_Command
 }
 
 

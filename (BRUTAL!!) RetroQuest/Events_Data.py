@@ -11,17 +11,19 @@ def nothing(player):
 def avoid(player):
     roll= random.randint(1,20) + player.dex
     if roll < 12:
-        player.toma(int(random.randint((6,12)))*globaldangermathsoftcap)
+        dmg=random.randint(6,12)*globaldangermathsoftcap
+        player.toma(int(dmg))
     else:
         print("You avoided the trap in a involuntary reflex!")
 def drinkfountain(player):
     roll= random.randint(1,20) + player.luck
     if roll > 7:
-        hl=(int(random.randint((9, 16)))*globaldangermathsoftcap)
-        player.heal(hl)
+        hl= random.randint(9,16)*globaldangermathsoftcap
+        player.heal(int(hl))
         print(f"The water have a taste of marshmallows and honey, you fell your body get refilled with jovial energy!")
-    else:
-        combat(player, marshmallowknight)
+    elif roll<=7:
+        actenemy=[marshmallowknight]
+        combat(player, actenemy)
 
 pedrasnocaminho=event("Stones in the path", "You encounter different rocks in the path and you decide to take a look",
     [

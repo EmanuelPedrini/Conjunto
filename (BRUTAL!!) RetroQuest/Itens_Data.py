@@ -1,8 +1,8 @@
 from Itens import item
 #weapons
-rustysword=item("Rusty sword", "Weapon", 0)
-iron_sword = item("Iron Sword", "Weapon", 3)
-butchers_cleaver = item("Butcher's Cleaver", "Weapon", 5)
+rustysword=item(name="Rusty sword", slot="Weapon",  bonus={"dex": 1}, atkform="melee")
+iron_sword = item(name="Iron Sword", slot="Weapon", bonus={"strg": 1}, atkform="melee")
+butchers_cleaver = item(name="Butcher's Cleaver", slot="Weapon", bonus={"vit": 2}, atkform="melee")
 
 #lista com todas as weapons
 todasaarmas=[rustysword, iron_sword, butchers_cleaver]
