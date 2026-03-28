@@ -47,7 +47,7 @@ def gerador_de_eventos(player):
             copy.deepcopy(e) 
             for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
             ]
-        return (2,combat(player, actenemy))
+        return (2, actenemy)
     
     elif escolhadeevento > 60 and escolhadeevento < 85:
         return (3, random.choice(neutralevents))

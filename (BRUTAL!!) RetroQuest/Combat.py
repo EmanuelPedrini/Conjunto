@@ -5,6 +5,22 @@ import random
 from Commands import input_player
 from Commands import escolhadealvo
 
+def combat_start(player):
+    player.actmana = player.manainicial
+    print("TIME TO DIE!, from the tar of the void some enemies arise!")
+
+def combat_end():
+     pass
+def player_turn_start():
+     pass
+def player_turn_end(player):
+     player.regen_mana()
+     pass
+def turn_start():
+     pass
+def turn_end():
+     pass
+
 #definições de combate
 def playerturn(player, actenemy):
         print("> It`s Your Turn!")
@@ -29,6 +45,8 @@ def playerturn(player, actenemy):
                     
                 else: 
                         target = escolhadealvo(player, actenemy)
+                        if target==None:
+                             continue
                         if target.acthp > 0:
                             player.basicattack(target, player)
                             ataquebasicoporturno=True
@@ -43,8 +61,6 @@ def playerturn(player, actenemy):
                 if 0 <= sedex < len(player.skills):
                     if skill.damage != 0:
                          target = escolhadealvo(player, actenemy)
-                    else:
-                        target = player
 
                     player.skills[sedex].use(player, target)
 
@@ -58,7 +74,7 @@ def playerturn(player, actenemy):
             #terminando seu turno
             elif choice == "endturn" or choice == "et":
                 print(f"{player.name} ended {player.possessive} turn!")
-                player.regen_mana()
+                player_turn_end(player)
                 break
 
             else:
@@ -70,17 +86,6 @@ def enemyturn(enemy, player):
         if player.acthp <=0:
             player.death()
 
-def combat_start(player):
-    player.actmana = player.manainicial
-    print("TIME TO DIE!, from the tar of the void some enemies arise!")
-
-def combat_end():
-     pass
-def turn_start():
-     pass
-def turn_end():
-     pass
-
 #ANCORA 1
 def combat(player, enemies):
 
@@ -88,6 +93,7 @@ def combat(player, enemies):
     tm = Turnmaster(oncombat)
 
     combat_start(player)
+
     print("ACTION QUEUE:\n")
     for e in oncombat:
             if e.acthp > 0:

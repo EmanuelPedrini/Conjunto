@@ -23,6 +23,7 @@ def escolhadealvo(player, enemies):
                 return alive[index]
 
         print("Invalid target.")
+        return
 
 def lookyourteeth_command(player=None, enemy=None):
     print(f"\n=== {player.name} STATS ===")
