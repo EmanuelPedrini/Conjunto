@@ -41,7 +41,7 @@ class enemy:
     def attack(self, player):
         roll= rolld100()
         if roll > player.totaldodge:
-            damage =  self.atk
+            damage =  self.atk + self.atkbonus
 
             HC = 10
             reduction = player.armor / (player.armor + HC)
