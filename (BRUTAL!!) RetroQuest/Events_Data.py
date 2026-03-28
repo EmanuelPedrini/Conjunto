@@ -6,15 +6,18 @@ from Enemies_Data import marshmallowknight
 #eventos neutros
 
 def nothing(player):
-    print("Nothing Happens, but sometimes...")
+    print("Nothing happens.")
+    return
 
 def avoid(player):
     roll= random.randint(1,20) + player.dex
     if roll < 12:
         dmg=random.randint(6,12)*globaldangermathsoftcap
         player.toma(int(dmg))
+        print(f"You accidentaly stepped on the trap and taked {int(dmg)} damage!")
     else:
         print("You avoided the trap in a involuntary reflex!")
+
 def drinkfountain(player):
     roll= random.randint(1,20) + player.luck
     if roll > 7:
