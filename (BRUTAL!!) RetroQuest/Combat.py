@@ -61,7 +61,6 @@ def playerturn(player, actenemy):
                 if 0 <= sedex < len(player.skills):
                     if skill.damage != 0:
                          target = escolhadealvo(player, actenemy)
-
                     player.skills[sedex].use(player, target)
 
                     if target.acthp <= 0:

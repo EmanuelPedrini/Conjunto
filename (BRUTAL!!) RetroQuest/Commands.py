@@ -59,7 +59,7 @@ def Devconsole_InstaKillEnemy_Command(player, actenemy):
         print("No enemies to erase")
         return
     target = escolhadealvo(player, actenemy)
-    target.toma(9999999999999999999999999999999999, player)
+    target.toma(999999999999999999999999999999999999, player)
     print(f"{target.name} got ERASED!")
 
 def Devconsole_InstaKillAllEnemies_command(player, actenemy):

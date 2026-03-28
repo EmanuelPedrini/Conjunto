@@ -1,3 +1,4 @@
+
 class skill:
     def __init__(self, name, description, damage, heal, cost):
           self.basename = name
