@@ -56,7 +56,7 @@ class enemy:
                 self.toma(tomado, player)
                 print(f"The {self.name} taked {tomado} damage from your thorns!")
 
-            print(f"[ {roll} ]! {self.name} hit the {player.name} dealing {damage} damage!")
+            print(f"{self.name} hit the {player.name} dealing {damage} damage!")
             player.toma(damage)
         else:
              print(f"{self.name} missed a attack against the {player.name}!")
@@ -68,10 +68,13 @@ class enemy:
             xpg = int(random.randint(self.xpondeath, self.xpondeath*3) * (1 + globaldanger   * 0.6))
 
             randomitemgain=random.randint(1, 100) + player.luck
+
             if randomitemgain <= 50:
                 maxitemgain=1
+
             elif randomitemgain <= 85:
                 maxitemgain=2
+                
             else:
                 maxitemgain=3
             
