@@ -76,6 +76,8 @@ while True:
 
     elif tipo == 4:
         oqé.trigger(player)
+    
+    #ultra events
 
     filadeeventos.append(gerador_de_eventos(player))
 
