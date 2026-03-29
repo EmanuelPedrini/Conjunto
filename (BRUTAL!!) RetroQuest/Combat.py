@@ -52,19 +52,20 @@ def playerturn(player, actenemy):
                             ataquebasicoporturno=True
 
                         if target.acthp <= 0:
-                            return
+                            if target in actenemy:
+                                actenemy.remove(target)
+                            continue
             
             elif choice.isdigit():
                 #calculo pra determinar a skill na posição
                 sedex= int(choice) - 2
+
                 #verificando se o número está nas skills do PLAYER
                 if 0 <= sedex < len(player.skills):
-                    if skill.damage != 0:
-                         target = escolhadealvo(player, actenemy)
-                    player.skills[sedex].use(player, target)
 
-                    if target.acthp <= 0:
-                        return
+                    skill = player.skills[sedex] 
+
+                    skill.use(player,escolhadealvo,actenemy)
 
                 #se n for uma skill do player, ou n estiver nas skills dele
                 else:

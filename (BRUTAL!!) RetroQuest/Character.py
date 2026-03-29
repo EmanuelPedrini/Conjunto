@@ -157,9 +157,8 @@ class character:
             print(f"You actually have [ {self.actmana} / {self.maxmana} ] Mana Points! This is enough to cast this Ability!")
             self.actmana -= amountused
             print(f"Now you have [ {self.actmana} / {self.maxmana} ] Mana Points!")
-        else:
-            print(f"You actually have [ {self.actmana} / {self.maxmana} ] Mana Points! This isn`t enough to cast this Ability!")
-    
+           
+        
     #BASIC ATTACK
     def basicattack(self, target, player):
             #rola o Dado
@@ -204,9 +203,9 @@ class character:
 
     def heal(self, amount):
         self.acthp += amount
+        print(f"> {self.name} healed [ {amount} ] Hp")
         if self.acthp > self.totalmaxhp:
             self.acthp = self.totalmaxhp
-        print(f"> {self.name} healed [ {amount} ] Hp")
     
     def gain_xp(self, xpamount):
         self.xp+=xpamount

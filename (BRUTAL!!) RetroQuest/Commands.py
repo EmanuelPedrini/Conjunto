@@ -82,7 +82,7 @@ def Devconsole_AddSkill_Command(player=None, enemy=None):
     for s in todasskills:
         if skilldevadd == s.basename:
             player.skills.append(s) 
-            print(f"Added {skilldevadd} to your actualturn skills!")
+            print(f"Added {skilldevadd} to your actual skills!")
             return
     print(f"{skilldevadd} don`t exist in the skill list, incorrect typing or non existent.")
 
