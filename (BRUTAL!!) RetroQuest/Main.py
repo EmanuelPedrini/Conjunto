@@ -3,10 +3,10 @@ from Combat import combat
 from Events_Data import badevents, neutralevents, goodevents
 from Enemies_Data import enemiespool
 from Characters_Data import allcharacters
+from ColorText import rainbow
 # from Combat import encounter
 
-
-print("Welcome to retroquest! if want to stop the game, type [EXIT] ")
+print(rainbow("Welcome to retroquest! if want to stop the game, type [EXIT]"))
 
 
 #characters

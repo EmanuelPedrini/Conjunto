@@ -5,9 +5,11 @@ from Passive_Data import todasaspassivas
 from Skill_Data import todasskills
 from Atribute_Rewards_Data import todososgatr
 from Commands import input_player
+from ColorText import *
+
 class character:
     def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
-                 skills, passives, inbornpassives, atkform, cents):
+                 skills, passives, inbornpassives, shieldstat, atkform, cents):
         #textos
         self.name = name 
         self.pronoun = pronoun
@@ -61,9 +63,8 @@ class character:
         self.skillmagicdmgbonus=0
         self.skillcostmodifier=0
 
-        #terminar
-        # self.shield=self.shield
-        # self.shieldstat=self.shield
+        self.shield = 0
+        self.shieldstat = shieldstat
 
         #level system
         self.level=int(1)
@@ -128,14 +129,14 @@ class character:
 
     def add_item(self, item):
             self.inventory.append(item)
-            print(f"> You obtained {item.name}!")
+            print(yellow(f"> You obtained {item.name}!"))
 
     def remove_item(self, item):
             if item in self.inventory:
                 self.inventory.remove(item)
-                print(f"> {item.name} got removed from your inventory!")
+                print(red(f"> {item.name} got removed from your inventory!"))
             else:
-                print("> That item isn`t in your inventory")
+                print(yellow("> That item isn`t in your inventory"))
 
     def itemequipped(self, item):
         for atrr, value in item.bonus.items():
@@ -158,9 +159,9 @@ class character:
             self.itemunequipped(retirado2)
             self.inventory.append(retirado2)
             self.equipments[slot]=None
-            print(f"> You unequipped [ {retirado2.name} ]!")
+            print(red(f"> You unequipped [ {retirado2.name} ]!"))
         else:
-            print("No items equipped!")
+            print(red("No items equipped!"))
         
 
     def equip(self,item):
@@ -172,19 +173,22 @@ class character:
             retirado = self.equipments[slot]
             self.itemunequipped(retirado)
             self.inventory.append(retirado)
-            print(f"> You unequipped [ {retirado.name} ]!")
+            print(red(f"> You unequipped [ {retirado.name} ]!"))
 
         self.equipments[slot] = item
         if item in self.inventory:
             self.inventory.remove(item)
-            print(f"> Equipped {item.name}")
+            print(yellow(f"> Equipped {item.name}"))
         #
         self.itemequipped(item)
+    def gain_shield(self, amount):
+            self.shield+=amount
+            print(yellow(f"You gained {amount} Shield Points!"))
 
         #regenerar mana
     def regen_mana(self):
         self.actmana += self.manaregen
-        print(f"{self.name} regenerated {self.manaregen} Mana Points!")
+        print(light_cyan(f"{self.name} regenerated {self.manaregen} Mana Points!"))
         if self.actmana > self.maxmana:
             self.actmana = self.maxmana
 
@@ -193,7 +197,7 @@ class character:
         self.actmana += amount
         if self.actmana > self.maxmana:
             self.actmana = self.maxmana
-        print(f"{self.name} obtained {amount} Mana Points! \nNow {self.pronoun} have [ {self.actmana} / {self.maxmana} ] Mana Points")
+        print(light_cyan(f"{self.name} obtained {amount} Mana Points! \nNow {self.pronoun} have [ {self.actmana} / {self.maxmana} ] Mana Points"))
 
     def mana_use(self, amountused):
         if self.actmana >= amountused:
@@ -220,9 +224,6 @@ class character:
                     print(f"> The [ {self.name} ] got A BRUTAL HIT!! Dealing [ {damage} ] MASSIVE DAMAGE to [ {target.name}!!]")
                 else:
                     print(f"> The [ {self.name} ] HIT! Dealing [ {damage} ] DAMAGE to [ {target.name} ]")
-
-                target.toma(damage, player)
-
                 #Computa o tanto que tu curo com o ataque
                 if self.vampirism != 0:
                     player.heal(max(1, int(damage*(self.realvampirism))))
@@ -236,6 +237,8 @@ class character:
                 for pas in player.passives:
                     if pas.trigger=="on_hit":
                         pas.passiveactivationtrigger(self, damage)
+                
+                target.toma(damage, player)
 
                 # if target.
                 if target.acthp <= 0:
@@ -244,7 +247,14 @@ class character:
                 print(f"You missed {target.name}, you rolled [ {roll} ] !")
 
     def toma(self, damage):
-        self.acthp -= damage
+
+        if damage>self.shield:
+            self.acthp -= (damage - self.shield)
+            self.shield=0
+
+        else:
+            self.shield -= damage
+
         for p in self.passives:
             if p.trigger=="on_damage":
                 p.passiveactivationtrigger(self)
@@ -252,7 +262,7 @@ class character:
 
     def heal(self, amount):
         self.acthp += amount
-        print(f"> {self.name} healed [ {amount} ] Hp")
+        print(light_green(f"> {self.name} healed [ {amount} ] Hp"))
         if self.acthp > self.totalmaxhp:
             self.acthp = self.totalmaxhp
             for pas in self.passives:

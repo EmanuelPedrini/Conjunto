@@ -15,17 +15,18 @@ def resetbonus(player):
 
 def combat_start(player):
     player.actmana = player.manainicial
+    player.shield=player.shieldstat
     resetbonus(player)
     print("TIME TO DIE!, from the tar of the void some enemies arise!")
 
-def combat_end(self, player):
+def combat_end(player):
     for ps in player.passives:
         if ps.trigger=="on_combat_end":
-            ps.passiveactivationtrigger(self)
+            ps.passiveactivationtrigger(player)
 
     resetbonus(player)
     while True:
-        if player.xp > player.xptonext:
+        if player.xp >= player.xptonext:
                player.level_system()
         if player.xp < player.xptonext:
                break

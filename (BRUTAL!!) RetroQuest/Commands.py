@@ -24,9 +24,9 @@ def escolhadealvo(player, enemies):
         print("Invalid target.")
         return
 
-def lookyourteeth_command(player=None, enemy=None):
+def lookyourteeth_command(player, enemy=None):
     print(f"\n=== {player.name} STATS ===")
-    print(f"Health Points   : [ {player.acthp} / {player.totalmaxhp} ]")
+    print(f"Health Points   : [ {player.acthp} / {player.totalmaxhp} ] + {player.shield}")
     print(f"Mana Points : [ {player.actmana} / {player.maxmana} ]")
     print(f"Attributes:")
     print(f"STR : {player.totalstrg}")
@@ -35,7 +35,22 @@ def lookyourteeth_command(player=None, enemy=None):
     print(f"INT : {player.totalintel}")
     print(f"CHA : {player.cha}")
     print(f"LUCK: {player.luck}")
+    print(f"ARMOR: {player.armor}")
+    print(f"VAMPIRISM: {player.vampirism}%")
+    print(f"THORNS: {player.thorns}")
+    
+    print("YOUR SKILLS:")
+    if player.skills==[]:
+        print("You don`t have any skills for now!")
+    for l, b in enumerate(player.skills):
+            print(f"{l+1} - {b.basename}")
 
+    print("YOUR PASSIVES:")
+    if player.passives==[]:
+        print("You don`t have any passives for now!")
+    for f, d in enumerate(player.passives):
+            print(f"{f+1} - {d.basename}")
+    
 def showinventory_command(player=None, enemy=None):
     print("Your inventory:")
     for i, item in enumerate(player.inventory):

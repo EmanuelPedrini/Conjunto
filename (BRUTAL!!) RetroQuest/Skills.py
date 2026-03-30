@@ -1,6 +1,6 @@
 
 class skill:
-    def __init__(self, name, text, damage=0, heal=0, cost=0, target="enemy"):
+    def __init__(self, name, text, damage=0, heal=0, shieldgain=0, cost=0, target="enemy"):
           other=0
           self.basename = name
           self.level=1
@@ -8,14 +8,14 @@ class skill:
           self.damage=damage
           self.cost=cost
           self.heal=heal
+          self.shieldgain=shieldgain
           self.target=target
 
     def total_mana_cost(self, player):
           return max(1, self.cost - player.skillcostmodifier)
-    @property
     def total_skill_damage(self, player):
           return max(1, self.damage + player.skillmagicdmgbonus)
-          
+       
 
     def nome_modificado(self):
         return f"{self.basename} Lv {self.level}"
@@ -26,41 +26,82 @@ class skill:
 
     def use(self, player, escolhadealvo, actenemy):
             cos = self.total_mana_cost(player)
+            bdmgs=self.total_skill_damage(player)
+
             if player.actmana < cos:
                    print(f"You actually have [ {player.actmana} / {player.maxmana} ] Mana Points! This isn`t enough to cast this Ability!")
                    return
-            
-            player.mana_use(cos)
-
-            for sp in player.passives:
-                  if sp.trigger=="on_spell":
-                        sp.passiveactivationtrigger(self)
-
 
             if self.target=="self":
+                  for sp in player.passives:
+                       if sp.trigger=="on_spell":
+                           sp.passiveactivationtrigger(player)
+                  player.mana_use(cos)
+
                   if self.heal!=0:
                         player.heal(self.heal)
+
+                  if self.shieldgain!=0:
+                       player.gain_shield(self.shieldgain)
                   return
             
             if self.target=="enemy":
-                  if self.damage!=0:
-                        dmgt=self.total_skill_damage
+                  dmgt=bdmgs
+                  if self.basename=="Toe Bite":
                         target = escolhadealvo(player, actenemy)
+                        if target==None:
+                              return
+                        player.mana_use(cos)
+                        print(f"{player.name} used {self.basename} and bited {target.name}")
+                        target.toma(dmgt, player)
+                        player.heal(int(dmgt * (1 + player.realvampirism)))
+                        for g in player.passives:
+                             if g.trigger=="on_spell":
+                                  g.passiveactivationtrigger(player)
 
+                  elif self.damage!=0:
+                        target = escolhadealvo(player, actenemy)
+                        if target==None:
+                              return
+                        player.mana_use(cos)
                         print(f"{player.name} used {self.basename} dealing {dmgt} damage to {target.name}")
                         target.toma(dmgt, player)
+                        for g in player.passives:
+                             if g.trigger=="on_spell":
+                                  g.passiveactivationtrigger(player)
 
                   if target.acthp<=0 and target in actenemy:
                         actenemy.remove(target)
                   return
 
             if self.target=="allenemies":
+                  player.mana_use(cos)
+                  dmgs = bdmgs
                   print(f"{player.name} used {self.basename}!")
-                  if self.damage!=0:
-                        dmgs = self.total_skill_damage
+
+                  if self.basename=="Blood Feast":
+                       for u in actenemy:
+                            u.toma(dmgs, player)
+                            print(f"{player.name} dealed {dmgs} DAMAGE to {u.name}!")
+                            player.heal(int(player.realvampirism * dmgs))
+
+                            for up in player.passives:
+                                 if up.trigger=="on_spell":
+                                      up.passiveactivationtrigger(player)
+                                      if u.acthp<=0:
+                                           actenemy.remove(u)
+                                           return
+
+                  elif self.damage!=0:
                         for e in actenemy:
                              e.toma(dmgs, player)
                              print(f"{player.name} dealed {dmgs} DAMAGE to {e.name}!")
-                             if e.acthp<=0:
-                              actenemy.remove(e)
+                             for sp in player.passives:
+                                  if sp.trigger=="on_spell":
+                                       sp.passiveactivationtrigger(player)
+                                       if e.acthp<=0:
+                                            actenemy.remove(e)
+                                            return
+            else:
+                  print("invalid target")
                   return
