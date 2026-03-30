@@ -5,6 +5,7 @@ iron_sword = item(name="Iron Sword", slot="Weapon", bonus={"strg": 2, "atkdmgbon
 butchers_cleaver = item(name="Butcher's Cleaver", slot="Weapon", bonus={"vit": 3, "atkdmgbonus": 2}, atkform="melee")
 crossbow=item(name="Crossbow", slot="Weapon", bonus={"atkdmgbonus": 5}, atkform="ranged")
 throwknife=item(name="Throw Knife", slot="Weapon", bonus={"atkdmgbonus": 3, "dex": 2}, atkform="ranged")
+
 # crossbow=item(name="", slot="Weapon", bonus={"":}, atkform="")
 # crossbow=item(name="", slot="Weapon", bonus={"":}, atkform="")
 #lista com todas as weapons

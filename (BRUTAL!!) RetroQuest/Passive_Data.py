@@ -1,12 +1,20 @@
 from Passives import passive
 
-def strgonhit(character, damage):
+def strgonhit(character):
     character.gain_atr("bonusstrg", 1)
+def intelonspell(character):
+    character.gain_atr("bonusintel", 1)
+def magicbnsonspell(character):
+    character.gain_atr("skillskillmagicdmgbonus", 1)
 #passivas
-# brutamontes= passive("Brute", "You dont fear Anyone, you gain", 0 )
-# assassin= passive("Assassin", "You blablabla", 0)
-# parede = passive("Human Wall", "Galhofinhas", 0)
-incansavel= passive("Tireless", "Gugu dada", strgonhit, "on_damage")
+incansavel= passive("Tireless", "+1 strength when you take damage", strgonhit, "on_damage")
+professionalconjurer=passive("Professional Conjurer", "+1 intel when you use a spell", intelonspell, "on_spell")
+
+#on_hit
+#on_heal
+#on_hit
+#on_combat_end
+
 
 #lista de passivas
 todasaspassivas =[incansavel]

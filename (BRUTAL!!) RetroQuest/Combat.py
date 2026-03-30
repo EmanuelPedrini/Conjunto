@@ -10,6 +10,7 @@ def resetbonus(player):
     player.bonusdex = 0
     player.bonusintel = 0
     player.bonusvit = 0
+    player.magicdmgbonus=0
     player.updating_atributes()
 
 def combat_start(player):
@@ -17,9 +18,17 @@ def combat_start(player):
     resetbonus(player)
     print("TIME TO DIE!, from the tar of the void some enemies arise!")
 
-def combat_end(player):
-     resetbonus(player)
-     pass
+def combat_end(self, player):
+    for ps in player.passives:
+        if ps.trigger=="on_combat_end":
+            ps.passiveactivationtrigger(self)
+
+    resetbonus(player)
+    while True:
+        if player.xp > player.xptonext:
+               player.level_system()
+        if player.xp < player.xptonext:
+               break
 
 def player_turn_start():
      pass

@@ -1,14 +1,14 @@
 #definindo passivas
 class passive:
-    def __init__(self, name, description, effect, trigger): #adicionar "TRIGGER" depois
+    def __init__(self, name, text, effect, trigger): #adicionar "TRIGGER" depois
         self.basename= name
         self.level=1
-        self.description=description
+        self.text=text
         self.effect=effect
         self.trigger=trigger
 
-    def passiveactivationtrigger(self, character, damage):
-        self.effect(character, damage)
+    def passiveactivationtrigger(self, character):
+        self.effect(character)
 
     def nome_modificado(self):
         return f"{self.basename} Lv {self.level}"

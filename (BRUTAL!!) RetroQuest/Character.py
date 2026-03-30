@@ -3,6 +3,7 @@ from utils import rolld100
 import sys
 from Passive_Data import todasaspassivas
 from Skill_Data import todasskills
+from Atribute_Rewards_Data import todososgatr
 from Commands import input_player
 class character:
     def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
@@ -56,6 +57,9 @@ class character:
 
         self.inbornpassives=inbornpassives
         self.atkform=atkform
+
+        self.skillmagicdmgbonus=0
+        self.skillcostmodifier=0
 
         #terminar
         # self.shield=self.shield
@@ -205,7 +209,7 @@ class character:
             rollcrit = rolld100()
             if roll > target.dodge:
                 #Computa o Dano
-                randomdmg = int((self.totalstrg * 0.8 )+ random.randint(0, int(self.totalstrg * 0.4)))
+                randomdmg = int((self.totalstrg * 0.75 )+ random.randint(0, int(self.totalstrg * 0.5)))
                 damage = randomdmg + self.atkdmgbonus
                 crit = False
                 if rollcrit < self.totalcritchance:
@@ -229,7 +233,7 @@ class character:
                     player.toma(int(Espinhado))
                     print(f"> You taked [ {Espinhado} ] damage from the enemy thorns!")
                 
-                for pas in player.skills:
+                for pas in player.passives:
                     if pas.trigger=="on_hit":
                         pas.passiveactivationtrigger(self, damage)
 
@@ -243,7 +247,7 @@ class character:
         self.acthp -= damage
         for p in self.passives:
             if p.trigger=="on_damage":
-                p.passiveactivationtrigger(self, damage)
+                p.passiveactivationtrigger(self)
         self.death()
 
     def heal(self, amount):
@@ -251,11 +255,15 @@ class character:
         print(f"> {self.name} healed [ {amount} ] Hp")
         if self.acthp > self.totalmaxhp:
             self.acthp = self.totalmaxhp
+            for pas in self.passives:
+                if pas.trigger=="on_heal":
+                    pas.passiveactivationtrigger(self)
+
+
     
     def gain_xp(self, xpamount):
         self.xp+=xpamount
         print(f"> {self.name} gained {xpamount} xp!")
-        self.level_system()
 
     def gain_cents(self, amount):
         self.cents+=amount
@@ -275,6 +283,7 @@ class character:
     
     def level_up_rewards(self):
         totaloptions=[]
+        totaloptions += random.sample(todososgatr, min(4, len(todososgatr)))
 
         #definindo se tu pode receber passivas
         if len(self.passives) < self.maxpassives:
@@ -286,7 +295,7 @@ class character:
 
         #receba tributos
         if not (len(self.passives) < self.maxpassives) and not (len(self.skills) < self.maxskills):
-            totaloptions = random.sample(self.Attribute_rewards, 4)
+            totaloptions = random.sample(todososgatr, 4)
         currentoptions = []
         currentoptions = random.sample(totaloptions, 3)
 
@@ -301,9 +310,14 @@ class character:
 
                 if slc in todasaspassivas:
                     self.passives.append(slc)
-                if slc in todasskills:
+                    print(f"{slc.basename} added to your skills!")
+                elif slc in todasskills:
                     self.skills.append(slc)
-                if slc in
+                    print(f"{slc.basename} added to your skills!")
+                elif slc in todososgatr:
+                    slc.apply(self)
+                    print(f"you gained {slc.basename}!")
+
 
     def death(self):
         if self.acthp<=0:
