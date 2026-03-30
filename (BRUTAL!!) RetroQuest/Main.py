@@ -5,6 +5,7 @@ from Enemies_Data import enemiespool
 from Characters_Data import allcharacters
 from ColorText import rainbow
 from Itens_Data import todososequipamentos
+from Commands import input_player
 # from Combat import encounter
 
 print(rainbow("Welcome to retroquest! if want to stop the game, type [EXIT]"))
@@ -17,8 +18,15 @@ def shop(player):
     shop_total_options = todososequipamentos
     shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
 
-    for n, m in enumerate(shopactoptions):
-        print(f"{n+1} - {m.name}")
+    for cont, itemI in enumerate(shopactoptions):
+        print(f"{cont+1} - {itemI.name}")
+
+    buyintend= input_player(player, None)
+    if buyintend.isdigit:
+        realbuyintend= int(buyintend)-1
+        if 0<= realbuyintend <len(shopactoptions):
+            buyed = shopactoptions[realbuyintend]
+            player.add_item(buyed)
 
     print()
 
