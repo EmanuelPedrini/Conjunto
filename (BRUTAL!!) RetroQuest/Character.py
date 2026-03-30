@@ -1,7 +1,9 @@
 import random
 from utils import rolld100
 import sys
-
+from Passive_Data import todasaspassivas
+from Skill_Data import todasskills
+from Commands import input_player
 class character:
     def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
                  skills, passives, inbornpassives, atkform, cents):
@@ -11,18 +13,34 @@ class character:
         self.possessive = possessive
 
         self.atkdmgbonus = 0
+        self.bonusstrg=0
+        self.bonusdex=0
+        self.bonusvit=0
+        self.bonusintel=0
+
        
 
         #estados (não do brasil, lengo lengo lengo)
         self.stunned = False
 
         #atributes
-        self.strg = int(strg)
+        self.strg=strg
+        self.totalstrg = int(self.strg + self.bonusstrg)
+
+        #dex
         self.dex = int(dex)
+        self.totaldex = int(self.dex + self.bonusdex)
+
+        #vit
         self.vit = int(vit)
+        self.totalvit = int(self.vit + self.bonusvit)
+
         self.luck = int(luck)
+
         self.cha = int(cha)
+
         self.intel=int(intel)
+        self.totalintel = int(self.intel + self.bonusintel)
 
         #secondary atributes
         self.vampirism=vampirism
@@ -30,7 +48,7 @@ class character:
         self.thorns=thorns
         self.armor = armor
         self.dodge = dodge 
-        self.totaldodge = int(min(5 * dex + self.dodge, 75))
+        self.totaldodge = int(min(5 * self.totaldex + self.dodge, 75))
         self.critchance = 4 * luck
         bonuscritchance = 0
         self.totalcritchance = int(self.critchance + bonuscritchance)
@@ -50,7 +68,7 @@ class character:
 
         #calculo de hp maximo
         self.bonushp=0
-        self.maxhp= 5 * self.vit
+        self.maxhp= 5 * self.totalvit
         self.totalmaxhp = self.maxhp + self.bonushp
         self.acthp = self.totalmaxhp
 
@@ -75,17 +93,34 @@ class character:
 
         #mana
         self.maxmana = 5 * self.cha
-        self.manaregen = self.intel
+        self.manaregen = self.totalintel
         self.manainicial = self.cha
         self.actmana = self.manainicial
     
     #definições de sistema de Inventário
+    def updating_atributes(self):
+        self.maxhp=5*self.vit
+        self.totalmaxhp = self.maxhp + self.bonushp
+        if self.acthp > self.totalmaxhp:
+            self.acthp=self.totalmaxhp
+        self.maxmana=5*self.cha
+        if self.actmana> self.maxmana:
+            self.actmana=self.maxmana
+        self.totalstrg = int(self.strg + self.bonusstrg)
+        self.totalvit = int(self.vit + self.bonusvit)
+        self.totaldex = int(self.dex + self.bonusdex)
+        self.totalintel = int(self.intel + self.bonusintel)
+
+        self.totaldodge = min(5 * self.dex + self.dodge, 75)
+        self.totalcritchance = 4 * self.luck + self.critchance
 
     def gain_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) + amount)
+        self.updating_atributes()
 
     def lose_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) - amount)
+        self.updating_atributes()
 
     def add_item(self, item):
             self.inventory.append(item)
@@ -102,11 +137,15 @@ class character:
         for atrr, value in item.bonus.items():
             if hasattr(self, atrr):
                 self.gain_atr(atrr, value)
+            if item.slot=="Weapon":
+                self.atkform=item.atkform
 
     def itemunequipped(self,item):
         for atrr, value in item.bonus.items():
             if hasattr(self, atrr):
                 self.gain_atr(atrr, -value)
+            if item.slot=="Weapon":
+                self.atkform = "melee"
 
     def itemremove(self, slot):
         retirado2=self.equipments.get(slot)
@@ -165,9 +204,8 @@ class character:
             roll = rolld100()
             rollcrit = rolld100()
             if roll > target.dodge:
-
                 #Computa o Dano
-                randomdmg = random.randint(int(0.5 * self.strg), self.strg)
+                randomdmg = int((self.totalstrg * 0.8 )+ random.randint(0, int(self.totalstrg * 0.4)))
                 damage = randomdmg + self.atkdmgbonus
                 crit = False
                 if rollcrit < self.totalcritchance:
@@ -183,7 +221,7 @@ class character:
 
                 #Computa o tanto que tu curo com o ataque
                 if self.vampirism != 0:
-                    player.heal(int(damage*(self.realvampirism)))
+                    player.heal(max(1, int(damage*(self.realvampirism))))
                 
                 #Computa se o alvo tem Thorns
                 if target.thorns != 0 and self.atkform=="melee":
@@ -191,6 +229,10 @@ class character:
                     player.toma(int(Espinhado))
                     print(f"> You taked [ {Espinhado} ] damage from the enemy thorns!")
                 
+                for pas in player.skills:
+                    if pas.trigger=="on_hit":
+                        pas.passiveactivationtrigger(self, damage)
+
                 # if target.
                 if target.acthp <= 0:
                     return
@@ -199,6 +241,9 @@ class character:
 
     def toma(self, damage):
         self.acthp -= damage
+        for p in self.passives:
+            if p.trigger=="on_damage":
+                p.passiveactivationtrigger(self, damage)
         self.death()
 
     def heal(self, amount):
@@ -227,38 +272,39 @@ class character:
             print(f"> The {self.name}  leveled up! Now {self.pronoun} is level {self.level}!")
             self.level_up_rewards()
             self.xptonext = int(100 * (1.5 ** (self.level - 1)))
-
-    Attribute_rewards = [
-    ("+2 Strength", lambda p: p.gain("strg", 2)),
-    ("+2 Vitality", lambda p: p.gain("strg", 2)),
-    ("+2 Dexterity", lambda p: p.gain("strg", 2)),
-    ("+2 Charisma", lambda p: p.gain("strg", 2)),
-    ("+2 Luck", lambda p: p.gain("strg", 2)),
-    ("+2 Intelligence", lambda p: p.gain("strg", 2)),
-
-    ]
     
     def level_up_rewards(self):
-        pass
-        #     #amostra total que tu pode receber
-        # options=[]
+        totaloptions=[]
 
-        # #tu pode receber (la ele)
-        # canskills = len(self.skills) < self.maxskills
-        # canpassives = len(self.passives) < self.maxpassives
+        #definindo se tu pode receber passivas
+        if len(self.passives) < self.maxpassives:
+            totaloptions += random.sample(todasaspassivas, min (4, len(todasaspassivas)))
 
-        # #definindo se tu pode receber passivas
-        # if canpassives:
-        #     options += random.sample(todasaspassivas, min (3, len(todasaspassivas)))
-        # #mema traquera mas comm skills
-        # if canskills:
-        #     option += random.sample(todasskills, min (3, len(todasskills)))
+        #mema traquera mas comm skills
+        if len(self.skills) < self.maxskills:
+            totaloptions += random.sample(todasskills, min (4, len(todasskills)))
 
-        # #receba tributos
-        # if not canpassives and not canskills:
-        #     options = random.sample(self.Attribute_rewards, 3)
+        #receba tributos
+        if not (len(self.passives) < self.maxpassives) and not (len(self.skills) < self.maxskills):
+            totaloptions = random.sample(self.Attribute_rewards, 4)
+        currentoptions = []
+        currentoptions = random.sample(totaloptions, 3)
 
-        pass
+        for x, y in enumerate(currentoptions):
+            print(f"{x+1} - {y.basename}")
+
+        choice = input_player(player=None, actenemy=None)
+        if choice.isdigit():
+            sd=int(choice)-1
+            if 0<= sd < len(currentoptions):
+                slc= currentoptions[sd]
+
+                if slc in todasaspassivas:
+                    self.passives.append(slc)
+                if slc in todasskills:
+                    self.skills.append(slc)
+                if slc in
+
     def death(self):
         if self.acthp<=0:
             print(f"the {self.name} got killed by a enemy and died in a horrible way!")

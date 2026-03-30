@@ -5,19 +5,31 @@ import random
 from Commands import input_player
 from Commands import escolhadealvo
 
+def resetbonus(player):
+    player.bonusstrg = 0
+    player.bonusdex = 0
+    player.bonusintel = 0
+    player.bonusvit = 0
+    player.updating_atributes()
+
 def combat_start(player):
     player.actmana = player.manainicial
+    resetbonus(player)
     print("TIME TO DIE!, from the tar of the void some enemies arise!")
 
-def combat_end():
+def combat_end(player):
+     resetbonus(player)
      pass
+
 def player_turn_start():
      pass
+
 def player_turn_end(player):
      player.regen_mana()
-     pass
+
 def turn_start():
      pass
+
 def turn_end():
      pass
 
@@ -114,6 +126,7 @@ def combat(player, enemies):
         alive = [e for e in enemies if e.acthp > 0]
         if not alive:
             print("Enemies are all dead!")
+            combat_end(player)
             break
         
         actualturn = tm.vezdequem()
