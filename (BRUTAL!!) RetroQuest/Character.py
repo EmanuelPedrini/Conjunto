@@ -296,6 +296,7 @@ class character:
             self.xptonext = int(100 * (1.5 ** (self.level - 1)))
     
     def level_up_rewards(self):
+        wh
         totaloptions=[]
         totaloptions += random.sample(todososgatr, min(4, len(todososgatr)))
 
@@ -331,6 +332,12 @@ class character:
                 elif slc in todososgatr:
                     slc.apply(self)
                     print(f"you gained {slc.basename}!")
+            else:
+                print("Invalid Choice")
+                return
+        else:
+            print("Invalid Option")
+            return
 
 
     def death(self):

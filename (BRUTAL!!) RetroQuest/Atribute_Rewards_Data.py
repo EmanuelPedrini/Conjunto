@@ -8,3 +8,4 @@ gluck  = atribute_reward(f"{light_green('+2 Luck')}", "luck", 2)
 gcha   = atribute_reward(f"{pink('+2 Charisma')}", "cha", 2)
 
 todososgatr=[gstrg, gdex, gvit, gintel, gluck, gcha]
+

@@ -151,16 +151,17 @@ def EXIT_command(player=None, enemy=None):
     sys.exit()
 
 def CallBoss_Command(player, enemy=None):
-    ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].")
-    if ccc=="YES":
-        floorboss= copy.deepcopy(random.choice(bossesact1))
-        filadeeventos.insert(0, (67, [floorboss]))
-    elif ccc=="NO":
-        print("Boss call cancelled.")
-        return False
-    else:
-        print("Give a real answer, Dumb ass.")
-        return False
+    pass
+    # ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].")
+    # if ccc=="YES":
+    #     floorboss= copy.deepcopy(random.choice(bossesact1))
+    #     # filadeeventos.insert(0, (67, [floorboss]))
+    # elif ccc=="NO":
+    #     print("Boss call cancelled.")
+    #     return False
+    # else:
+    #     print("Give a real answer, Dumb ass.")
+    #     return False
 
 comandosglobais={
     "lookteeths" : lookyourteeth_command,
@@ -179,7 +180,7 @@ comandosglobais={
     "devconsoleeraseallenemies": Devconsole_InstaKillAllEnemies_command,
     "uneqitem":Removeitem_Command,
     "equipitem": EquipItem_Command,
-    "callboss": callboss
+    # "callboss": callboss
 }
 
 

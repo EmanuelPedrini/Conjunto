@@ -2,7 +2,7 @@ from Events_Data import badevents, neutralevents, goodevents
 from Enemies_Data import enemiespool
 import random
 import copy
-from Commands import input_player, callboss
+from Commands import input_player
 from Bosses_Data import bossesact1
 from Itens_Data import todososequipamentos
 def shop(player):
