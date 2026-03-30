@@ -1,34 +1,12 @@
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
-from Events_Data import badevents, neutralevents, goodevents
-from Enemies_Data import enemiespool
 from Characters_Data import allcharacters
 from ColorText import rainbow
-from Itens_Data import todososequipamentos
-from Commands import input_player
-# from Combat import encounter
+from Event_Generator import gerador_de_eventos
+# from Bosses_Data import bossesact1
+# from Commands import input_player
 
 print(rainbow("Welcome to retroquest! if want to stop the game, type [EXIT]"))
-
-def shop(player):
-    print(f"In distance, you can see a small hut and you decide to investigate.")
-    print(f"Entering on the the small hut, you discover it is a shop, a buff woman in a armor is leaning on the counter")
-    print(f"(Agnes) - Hey BRO! what`s up? want to buy something from my shop?")
-
-    shop_total_options = todososequipamentos
-    shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
-
-    for cont, itemI in enumerate(shopactoptions):
-        print(f"{cont+1} - {itemI.name}")
-
-    buyintend= input_player(player, None)
-    if buyintend.isdigit:
-        realbuyintend= int(buyintend)-1
-        if 0<= realbuyintend <len(shopactoptions):
-            buyed = shopactoptions[realbuyintend]
-            player.add_item(buyed)
-
-    print()
 
 #characters
 def character_choice():
@@ -51,34 +29,10 @@ def character_choice():
 player = character_choice()
 
 print(f"Congrats! You chose, the {player.name}!")
-
-def gerador_de_eventos(player):
-    #número random que define o evento q vai retornar
-    escolhadeevento= int((1 + (player.luck/(player.luck+15))) * (random.randint(1, 100)))
-
-    #evento paia
-    if escolhadeevento <= 25:
-        return (1, random.choice(badevents))
-    
-    #Combate aleatório
-    elif escolhadeevento > 25 and escolhadeevento <= 50:
-        quantidadeinimigos = random.randint(1, 3)
-        actenemy = [
-            copy.deepcopy(e) 
-            for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
-            ]
-        return (2, actenemy)
-    
-    elif 50 < escolhadeevento <=60:
-        return (123, shop)
-    
-    elif escolhadeevento > 60 and escolhadeevento < 85:
-        return (3, random.choice(neutralevents))
-    
-    else:
-        return (4, random.choice(goodevents))
     
 filadeeventos=[]
+
+# callboss(player=player, events=filadeeventos, bosses=bossesact1)
 
 while len(filadeeventos) < 2:
     filadeeventos.append(gerador_de_eventos(player))
@@ -102,7 +56,9 @@ while True:
 
     elif tipo == 123:
         oqé(player)
-    
+
+    elif tipo == 67:
+        combat(player, oqé)
     #ultra events
 
     filadeeventos.append(gerador_de_eventos(player))

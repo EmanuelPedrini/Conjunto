@@ -29,6 +29,29 @@ def drinkfountain(player):
         actenemy=[ copy.deepcopy(marshmallowknight) ]
         combat(player, actenemy)
 
+def pactop1(player):
+    player.lose_atr("bonushp", 5)
+    player.gain_atr("strg", 2)
+    print("Ok, Sup kid.")
+
+def pactop2(player):
+    player.lose_atr("bonushp", 5)
+    player.gain_atr("intel", 2)
+    print("Ok, Sup kid.")
+
+def pactop3(player):
+    player.lose_atr("bonushp", 5)
+    player.gain_atr("luck", 2)
+    print("Ok, Sup kid.")
+
+def pactop4(player):
+    player.lose_atr("bonushp", 5)
+    player.gain_atr("vampirism", 5)
+    print("Ok, Sup kid.")
+
+def ignore(player):
+    print("You ignore.")
+
 pedrasnocaminho=event("Stones in the path", "You encounter different rocks in the path and you decide to take a look",
     [
     ("Look under the rocks", nothing)
@@ -46,7 +69,18 @@ pisadaemarmadilha=event(
     ]
 )
 
-badevents=[pisadaemarmadilha]
+pactocomdiabo=event(
+    "Pact with the Devil", "The Devil appears in you front, and he says:\n (The Devil) - I offer you a pact, creature!",
+    [
+    ("+2 Stregth / -5 Max HP", pactop1),
+    ("+2 Intelligence / -5 Max HP", pactop2),
+    ("+2 Luck / -5 Max HP", pactop3),
+    ("+5% Vampirism / -5 Max HP", pactop4),
+    ("Ignore the Devil Pact", ignore)
+    ]
+)
+
+badevents=[pisadaemarmadilha, pactocomdiabo]
 
 #eventos bons
 fontedecura = event(

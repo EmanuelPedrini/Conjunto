@@ -2,6 +2,10 @@ import sys
 from Globals import gamerunning
 from Skill_Data import *
 from Passive_Data import *
+import copy
+import random
+from Bosses_Data import bossesact1
+# from Main import listadeeventos
 
 def escolhadealvo(player, enemies):
 
@@ -26,6 +30,7 @@ def escolhadealvo(player, enemies):
 
 def lookyourteeth_command(player, enemy=None):
     print(f"\n=== {player.name} STATS ===")
+    print(f"Level: [ {player.level} ]\nExperience Points:\n [ {player.xp} / {player.xptonext} ]")
     print(f"Health Points   : [ {player.acthp} / {player.totalmaxhp} ] + {player.shield}")
     print(f"Mana Points : [ {player.actmana} / {player.maxmana} ]")
     print(f"Attributes:")
@@ -145,6 +150,19 @@ def EXIT_command(player=None, enemy=None):
     print("Bye Bye, Friend!")
     sys.exit()
 
+def callboss(player=None, enemy=None):
+    ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].")
+    if ccc=="YES":
+        return True
+
+    elif ccc=="NO":
+        print("Boss call cancelled.")
+        return False
+    
+    else:
+        print("Give a real answer, Dumb ass.")
+        return False
+
 comandosglobais={
     "lookteeths" : lookyourteeth_command,
     "lk": lookyourteeth_command,
@@ -161,7 +179,8 @@ comandosglobais={
     "devconsoleeraseenemy" : Devconsole_InstaKillEnemy_Command,
     "devconsoleeraseallenemies": Devconsole_InstaKillAllEnemies_command,
     "uneqitem":Removeitem_Command,
-    "equipitem": EquipItem_Command
+    "equipitem": EquipItem_Command,
+    "callboss": callboss
 }
 
 

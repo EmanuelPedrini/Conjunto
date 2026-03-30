@@ -119,6 +119,8 @@ class character:
 
         self.totaldodge = min(5 * self.dex + self.dodge, 75)
         self.totalcritchance = 4 * self.luck + self.critchance
+        self.realvampirism = float(self.vampirism*0.01)
+        self.manainicial=self.cha
 
     def gain_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) + amount)
@@ -314,7 +316,7 @@ class character:
         for x, y in enumerate(currentoptions):
             print(f"{x+1} - {y.basename}")
 
-        choice = input_player(player=None, actenemy=None)
+        choice = input_player(player=self, actenemy=None)
         if choice.isdigit():
             sd=int(choice)-1
             if 0<= sd < len(currentoptions):
