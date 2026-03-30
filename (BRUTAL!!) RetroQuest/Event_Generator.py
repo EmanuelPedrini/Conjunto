@@ -2,7 +2,7 @@ from Events_Data import badevents, neutralevents, goodevents
 from Enemies_Data import enemiespool
 import random
 import copy
-from Commands import input_player
+from Commands import input_player, callboss
 from Bosses_Data import bossesact1
 from Itens_Data import todososequipamentos
 def shop(player):
@@ -30,11 +30,14 @@ def gerador_de_eventos(player):
     escolhadeevento= int((1 + (player.luck/(player.luck+15))) * (random.randint(1, 100)))
 
     #evento paia
-    if bosscall==True:
-        floorboss= copy.deepcopy(random.choice(bossesact1))
-        return (67, floorboss)
+    # if callboss==True:
+    #     floorboss= [
+    #         copy.deepcopy(random.choice(bossesact1))
+    #         ]
+    #     print(f"{floorboss.name} is going for YOU!")
+    #     return (67, floorboss)
 
-    elif escolhadeevento <= 25:
+    if escolhadeevento <= 25:
         return (1, random.choice(badevents))
     
     #Combate aleatório

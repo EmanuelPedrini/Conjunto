@@ -150,15 +150,14 @@ def EXIT_command(player=None, enemy=None):
     print("Bye Bye, Friend!")
     sys.exit()
 
-def callboss(player=None, enemy=None):
+def CallBoss_Command(player, enemy=None):
     ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].")
     if ccc=="YES":
-        return True
-
+        floorboss= copy.deepcopy(random.choice(bossesact1))
+        filadeeventos.insert(0, (67, [floorboss]))
     elif ccc=="NO":
         print("Boss call cancelled.")
         return False
-    
     else:
         print("Give a real answer, Dumb ass.")
         return False

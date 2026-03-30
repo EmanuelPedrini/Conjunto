@@ -42,6 +42,8 @@ while True:
 
     tipo, oqé = evento
 
+    
+
     if tipo == 1:
         oqé.trigger(player)
 
