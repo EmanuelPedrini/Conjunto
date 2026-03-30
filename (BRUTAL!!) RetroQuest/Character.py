@@ -115,6 +115,7 @@ class character:
         self.totalvit = int(self.vit + self.bonusvit)
         self.totaldex = int(self.dex + self.bonusdex)
         self.totalintel = int(self.intel + self.bonusintel)
+        self.manaregen = self.totalintel
 
         self.totaldodge = min(5 * self.dex + self.dodge, 75)
         self.totalcritchance = 4 * self.luck + self.critchance
@@ -187,6 +188,7 @@ class character:
 
         #regenerar mana
     def regen_mana(self):
+        self.updating_atributes()
         self.actmana += self.manaregen
         print(light_cyan(f"{self.name} regenerated {self.manaregen} Mana Points!"))
         if self.actmana > self.maxmana:

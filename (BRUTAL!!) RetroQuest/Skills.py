@@ -1,6 +1,6 @@
 
 class skill:
-    def __init__(self, name, text, damage=0, heal=0, shieldgain=0, cost=0, target="enemy"):
+    def __init__(self, name, text, damage=0, heal=0, shieldgain=0, cost=0, target="enemy", skproperty="any"):
           other=0
           self.basename = name
           self.level=1
@@ -10,6 +10,7 @@ class skill:
           self.heal=heal
           self.shieldgain=shieldgain
           self.target=target
+          self.skproperty=skproperty
 
     def total_mana_cost(self, player):
           return max(1, self.cost - player.skillcostmodifier)
@@ -47,14 +48,15 @@ class skill:
             
             if self.target=="enemy":
                   dmgt=bdmgs
-                  if self.basename=="Toe Bite":
+                  if self.skproperty=="HealOnHit":
                         target = escolhadealvo(player, actenemy)
                         if target==None:
                               return
                         player.mana_use(cos)
-                        print(f"{player.name} used {self.basename} and bited {target.name}")
                         target.toma(dmgt, player)
-                        player.heal(int(dmgt * (1 + player.realvampirism)))
+                        hkl=(int(dmgt * (1 + player.realvampirism)))
+                        player.heal(hkl)
+                        print(f"{player.name} used {self.basename} and caused {dmgt} Damage to {target.name} and healed {hkl} health points based on the damage!")
                         for g in player.passives:
                              if g.trigger=="on_spell":
                                   g.passiveactivationtrigger(player)
@@ -79,7 +81,7 @@ class skill:
                   dmgs = bdmgs
                   print(f"{player.name} used {self.basename}!")
 
-                  if self.basename=="Blood Feast":
+                  if self.skproperty=="MassHealOnDmg":
                        for u in actenemy:
                             u.toma(dmgs, player)
                             print(f"{player.name} dealed {dmgs} DAMAGE to {u.name}!")

@@ -3,11 +3,11 @@ import random
 from Globals import *
 from Combat import combat
 from Enemies_Data import marshmallowknight
+import copy
 #eventos neutros
 
 def nothing(player):
     print("Nothing happens.")
-    return
 
 def avoid(player):
     roll= random.randint(1,20) + player.dex
@@ -26,7 +26,7 @@ def drinkfountain(player):
         print(f"The water have a taste of marshmallows and honey, you fell your body get refilled with jovial energy!")
     elif roll<=7:
         print("A marshmallow knight appears from the bushes before you can drink from the fountain, ainda starts a combat!")
-        actenemy=[marshmallowknight]
+        actenemy=[ copy.deepcopy(marshmallowknight) ]
         combat(player, actenemy)
 
 pedrasnocaminho=event("Stones in the path", "You encounter different rocks in the path and you decide to take a look",

@@ -4,6 +4,7 @@ from Enemies_Data import enemiespool
 import random
 from Commands import input_player
 from Commands import escolhadealvo
+from ColorText import*
 
 def resetbonus(player):
     player.bonusstrg = 0
@@ -51,10 +52,10 @@ def playerturn(player, actenemy):
 
         #Ações possíveis
         print("> Time to Act!\n> Actions:")
-        print("[1] - BASIC ATTACK")
+        print(light_red("[1] - BASIC ATTACK"))
 
         for i, skill in enumerate(player.skills):
-            print(f"[{i+2}] - {skill.basename}")
+            print(light_red(f"[{i+2}] - {skill.basename}"))
         ataquebasicoporturno = False
 
         #Escolha do player
@@ -119,7 +120,7 @@ def combat(player, enemies):
     print("ACTION QUEUE:\n")
     for e in oncombat:
             if e.acthp > 0:
-                print(f"- {e.name} ({e.acthp} / {e.totalmaxhp} HP)")
+                print(red(f"- {e.name} ( {e.acthp} / {e.totalmaxhp} HP )"))
             print("")
             
     #essa é a parte que define o loop do combat
