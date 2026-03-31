@@ -50,7 +50,7 @@ class character:
         self.realvampirism=float(vampirism*0.01)
         self.thorns=thorns
         self.armor = armor
-        self.dodge = dodge 
+        self.dodge = dodge
         self.totaldodge = int(min(5 * self.totaldex + self.dodge, 75))
         self.critchance = 4 * luck
         bonuscritchance = 0
@@ -251,11 +251,9 @@ class character:
                 print(f"You missed {target.name}, you rolled [ {roll} ] !")
 
     def toma(self, damage):
-
-        if damage>self.shield:
+        if damage > self.shield:
             self.acthp -= (damage - self.shield)
             self.shield=0
-
         else:
             self.shield -= damage
 
@@ -296,7 +294,6 @@ class character:
             self.xptonext = int(100 * (1.5 ** (self.level - 1)))
     
     def level_up_rewards(self):
-        wh
         totaloptions=[]
         totaloptions += random.sample(todososgatr, min(4, len(todososgatr)))
 

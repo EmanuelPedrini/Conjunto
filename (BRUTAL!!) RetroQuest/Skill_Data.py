@@ -1,17 +1,18 @@
 from Skills import skill
 
 #skills
-fireball=skill("Fireball", "You cast a giant fireball to destroy your enemies!", 14, 0, 9,target="allenemies", skproperty="")
-healing= skill("Healing", "You heal your wounds", 0, 5, 4,target="self", skproperty="any")
-satorogojonaooooo= skill("Deep Purple", "GOJO NOOOO", 15, 0, 12,target="enemy", skproperty="any")
+fireball=skill("Fireball", "You cast a giant fireball to destroy your enemies!", 14, 0, 0, 9, target="allenemies", skproperty="")
+healing= skill("Healing", "You heal your wounds", 0, 5, 0, 4, target="self", skproperty="any")
+satorogojonaooooo= skill("Deep Purple", "GOJO NOOOO", 18, 0, 0, 12, target="enemy", skproperty="any")
 # manaflow=skill("Mana Flow", f"you use all your actual mana (0) and heal a equivalent amount.", 0, 0, 0, target="self")
-lightning=skill("Lightning", "Balls", 8, 0, 5,target="allenemies",skproperty="any")
-magicspark=skill("Magic Spark", "A simple spell that every mage needs to know!", 4, 0, 3,target="enemy",skproperty="any")
-donothing=skill("Do nothing!", "You do nothing.", 0, 0, 2, target="self", skproperty="any")
+lightning=skill("Lightning", "You cast multiple lightnings in a area", 8, 0, 0, 5, target="allenemies", skproperty="any")
+magicspark=skill("Magic Spark", "A simple spell that every mage needs to know!", 4, 0, 0, 3, target="enemy",skproperty="any")
+donothing=skill("Do nothing!", "You do nothing.", 0, 0, 0, 2, target="self", skproperty="any")
 block =skill("Block", "You receive shield", 0, 0, 3, 2, target="self", skproperty="any")
-bite=skill("Toe Bite", "You bite your enemy with the strength of a lion!", 3, 0, 0, 2, target="enemy",skproperty="HealOnHit")
+bite=skill("Toe Bite", "You bite your enemy with the strength of a lion!", 3, 0, 0, 2, target="enemy", skproperty="HealOnHit")
 bloodfeast=skill("Blood Feast", "You drink the blood of your enemies!", 6, 0, 0, 7, target="allenemies",skproperty="MassHealOnDmg")
-# =skill("", "", 0, 0, 0, target="")
+teleport=skill("Teleport","You teleport above a enemy and cause damage.", 9, 0, 0, 5, target="enemy", skproperty="any")
+arranhar=skill("Scratch", "aaaaaa",4, 0, 0, 2, target="enemy", skproperty="any")
 
 #lista de todas as skills
-todasskills=[fireball,healing,satorogojonaooooo, lightning, magicspark, donothing]
+todasskills = [fireball,healing,satorogojonaooooo, lightning, magicspark, donothing, bite, bloodfeast, teleport, arranhar]

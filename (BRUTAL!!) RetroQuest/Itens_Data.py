@@ -5,11 +5,15 @@ iron_sword = item(name="Iron Sword", slot="Weapon", bonus={"strg": 2, "atkdmgbon
 butchers_cleaver = item(name="Butcher's Cleaver", slot="Weapon", bonus={"vit": 3, "atkdmgbonus": 2}, atkform="melee")
 crossbow=item(name="Crossbow", slot="Weapon", bonus={"atkdmgbonus": 5}, atkform="ranged")
 throwknife=item(name="Throw Knife", slot="Weapon", bonus={"atkdmgbonus": 3, "dex": 2}, atkform="ranged")
+longbow=item(name="Long Bow", slot="Weapon", bonus={"atkdmgbonus": 4, "dex": 1}, atkform="ranged")
+boomerang=item(name="Boomerang", slot="Weapon", bonus={"atkdmgbonus": 2, "dex": 1}, atkform="ranged")
+brassknuckles=item(name="Brass Knuckles", slot="Weapon", bonus={"atkdmgbonus": 3, "strg": 2}, atkform="melee")
+cajado=item(name="Magic Staff", slot="Weapon", bonus={"intel": 4}, atkform="ranged")
 
 # crossbow=item(name="", slot="Weapon", bonus={"":}, atkform="")
 # crossbow=item(name="", slot="Weapon", bonus={"":}, atkform="")
 #lista com todas as weapons
-todasaarmas=[rustysword, iron_sword, butchers_cleaver, crossbow, throwknife]
+todasaarmas=[rustysword, iron_sword, butchers_cleaver, crossbow, throwknife,boomerang,brassknuckles,longbow,cajado]
 
 #armors
 torn_clothes = item("Torn Clothes", "Armor", bonus={"thorns": 3} )
