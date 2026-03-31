@@ -9,16 +9,17 @@ from Bosses import boss
 import Globals
 # from Event_Generator import 
 def resetbonus(player):
-    player.bonusstrg = 0
-    player.bonusdex = 0
-    player.bonusintel = 0
-    player.bonusvit = 0
+    player.bonus_strg = 0
+    player.bonus_dex = 0
+    player.bonus_vit = 0
+    player.bonus_luck = 0
+    player.bonus_cha = 0
+    player.bonus_intel = 0
     player.magicdmgbonus=0
-    player.updating_atributes()
 
 def combat_start(player):
-    player.actmana = player.manainicial
-    player.shield=player.shieldstat
+    player.actmana = player.mana_inicial
+    player.shield = player.shieldstat
     resetbonus(player)
 
 def combat_end(player):
@@ -48,8 +49,8 @@ def turn_end():
 #definições de combate
 def playerturn(player, actenemy):
         print("> It`s Your Turn!")
-        print(f"> {player.name} actually have {player.acthp}/{player.totalmaxhp} health points!")
-        print(f"> You actually have [ {player.actmana} / {player.maxmana} ] Mana Points!")
+        print(f"> {player.name} actually have {player.acthp}/{player.total_max_hp} health points!")
+        print(f"> You actually have [ {player.actmana} / {player.max_mana} ] Mana Points!")
 
         #Ações possíveis
         print("> Time to Act!\n> Actions:")
@@ -105,7 +106,7 @@ def playerturn(player, actenemy):
                 print("Sorry, thats a invalid Command.")
                 
 def enemyturn(enemy, player):
-        print(f">It`s {enemy.name} TURN!\n>He (she) is going to...")
+        # print(f">It`s {enemy.name} TURN!\n>He (she) is going to...")
         enemy.attack(player)
         if player.acthp <=0:
             player.death()
@@ -124,7 +125,9 @@ def combat(player, enemies):
          print(light_red("TIME TO DIE!, from the tar of the void some enemies arise!"))
 
     print("ACTION QUEUE:\n")
-    for e in oncombat:
+    print(yellow(f"- {player.name} ( {player.actmana} / {player.total_max_hp})"))
+    print("")
+    for e in enemies:
             if e.acthp > 0:
                 print(red(f"- {e.name} ( {e.acthp} / {e.totalmaxhp} HP )"))
             print("")

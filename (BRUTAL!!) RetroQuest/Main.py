@@ -30,6 +30,8 @@ def run_expedition():
     player = kimera_choice()
     print(f"Congrats! You chose, the {player.name}!")
 
+    player.acthp = player.total_max_hp
+
     filadeeventos=[]
     while len(filadeeventos) < 2:
         filadeeventos.append(gerador_de_eventos(player))

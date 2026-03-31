@@ -10,7 +10,7 @@ def nothing(player):
     print("Nothing happens.")
 
 def avoid(player):
-    roll= random.randint(1,20) + player.dex
+    roll= random.randint(1,20) + player.total_dex
     if roll < 12:
         dmg=random.randint(4,7)*globaldangermathsoftcap
         player.toma(int(dmg))
@@ -19,7 +19,7 @@ def avoid(player):
         print("You avoided the trap in a involuntary reflex!")
 
 def drinkfountain(player):
-    roll= random.randint(1,20) + player.luck
+    roll= random.randint(1,20) + player.total_luck
     if roll > 7:
         hl= random.randint(9,16)*globaldangermathsoftcap
         player.heal(int(hl))
@@ -30,22 +30,22 @@ def drinkfountain(player):
         combat(player, actenemy)
 
 def pactop1(player):
-    player.lose_atr("bonushp", 5)
-    player.gain_atr("strg", 2)
+    player.lose_atr("bonus_hp", 5)
+    player.gain_atr("gained_strg", 2)
     print("Ok, Sup kid.")
 
 def pactop2(player):
-    player.lose_atr("bonushp", 5)
-    player.gain_atr("intel", 2)
+    player.lose_atr("bonus_hp", 5)
+    player.gain_atr("gained_intel", 2)
     print("Ok, Sup kid.")
 
 def pactop3(player):
-    player.lose_atr("bonushp", 5)
-    player.gain_atr("luck", 2)
+    player.lose_atr("bonus_hp", 5)
+    player.gain_atr("gained_luck", 2)
     print("Ok, Sup kid.")
 
 def pactop4(player):
-    player.lose_atr("bonushp", 5)
+    player.lose_atr("bonus_hp", 5)
     player.gain_atr("vampirism", 5)
     print("Ok, Sup kid.")
 

@@ -19,9 +19,9 @@ class enemy:
         self.xpondeath = int(xpondeath)
 
         #secondary atributes
-        self.vampirism=vampirism
-        self.realvampirism=float(vampirism*0.01)
-        self.thorns=thorns
+        self.vampirism = vampirism
+        self.realvampirism = float(vampirism*0.01)
+        self.thorns = thorns
 
         self.atkdist = atkdist
 
@@ -40,7 +40,7 @@ class enemy:
 
     def attack(self, player):
         roll= rolld100()
-        if roll > player.totaldodge:
+        if roll > player.total_dodge:
             damage =  self.atk + self.atkbonus
 
             HC = 10
@@ -52,7 +52,7 @@ class enemy:
                 self.heal(int(damage*(self.realvampirism)))
             
             if player.thorns != 0 and self.atkdist == "m":
-                tomado= player.thorns
+                tomado = player.thorns
                 self.toma(tomado, player)
                 print(f"The {self.name} taked {tomado} damage from your thorns!")
 
@@ -67,14 +67,11 @@ class enemy:
             centsg = int(random.randint(self.centsondeath, self.centsondeath*3) * (1 + globaldanger   * 0.4))
             xpg = int(random.randint(self.xpondeath, self.xpondeath*3) * (1 + globaldanger   * 0.6))
 
-            randomitemgain=random.randint(1, 100) + player.luck
-
+            randomitemgain=random.randint(1, 100) + player.total_luck
             if randomitemgain <= 50:
                 maxitemgain=1
-
             elif randomitemgain <= 85:
-                maxitemgain=2
-                
+                maxitemgain=2  
             else:
                 maxitemgain=3
             
@@ -89,5 +86,5 @@ class enemy:
             for item in itemg:
                 player.add_item(item)
             
-            return True
-        return False
+        #     return True
+        # return False

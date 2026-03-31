@@ -36,7 +36,7 @@ def shop(player):
 def gerador_de_eventos(player):
 
     #número random que define o evento q vai retornar
-    escolhadeevento= int((1 + (player.luck/(player.luck+15))) * (random.randint(1, 100)))
+    escolhadeevento= int((1 + (player.total_luck / (player.total_luck + 15))) * (random.randint(1, 100)))
 
     if Globals.bosscall!="notcalled":
         Globals.bosscall = "notcalled"

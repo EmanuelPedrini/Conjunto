@@ -9,75 +9,79 @@ from ColorText import *
 import Globals
 
 class kimera:
-    def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
-                 skills, passives, inbornpassives, shieldstat, atkform, cents):
-        #textos
-        self.name = name 
+    def __init__(self, name, pronoun, possessive, 
+                 strg, dex, vit, luck, cha, intel, 
+                 dodge, 
+                 vampirism, 
+                 thorns, 
+                 armor,
+                 atkform, 
+                 skills, 
+                 passives,
+                 shieldstat = 0,  
+                 status="daughter"):
+        
+        #COISAS REVELANTES SÓ PARA A ESCRITA
+        #NOME
+        self.name = name
+
+        #PRONOME (SHE / HE)
         self.pronoun = pronoun
+
+        #PRONOME POSSESSIVO (HER / HIS)
         self.possessive = possessive
+        
+        #TRIBUTOS BASE(SOMENTE COM BASE NA GENÉTICA)
+        self.base_strg=strg
+        self.base_dex=dex
+        self.base_vit=vit
+        self.base_luck=luck
+        self.base_cha=cha
+        self.base_intel=intel
 
-        self.atkdmgbonus = 0
-        self.bonusstrg=0
-        self.bonusdex=0
-        self.bonusvit=0
-        self.bonusintel=0
+        #TRIBUTOS SEM BONUS
+        self.gained_strg=0
+        self.gained_dex=0
+        self.gained_vit=0
+        self.gained_luck=0
+        self.gained_cha=0
+        self.gained_intel=0
 
-       
+        #TRIBUTOS BONUS
+        self.bonus_strg = 0
+        self.bonus_dex = 0
+        self.bonus_vit = 0
+        self.bonus_luck = 0
+        self.bonus_cha = 0
+        self.bonus_intel = 0
 
-        #estados (não do brasil, lengo lengo lengo)
-        self.stunned = False
-
-        #atributes
-        self.strg=strg
-        self.totalstrg = int(self.strg + self.bonusstrg)
-
-        #dex
-        self.dex = int(dex)
-        self.totaldex = int(self.dex + self.bonusdex)
-
-        #vit
-        self.vit = int(vit)
-        self.totalvit = int(self.vit + self.bonusvit)
-
-        self.luck = int(luck)
-
-        self.cha = int(cha)
-
-        self.intel=int(intel)
-        self.totalintel = int(self.intel + self.bonusintel)
-
-        #secondary atributes
-        self.vampirism=vampirism
-        self.realvampirism=float(vampirism*0.01)
-        self.thorns=thorns
-        self.armor = armor
+        #OUTROS
+        self.bonus_mana_regen = 0
+        self.bonus_mana_inicial = 0
+        self.bonus_hp = 0
         self.dodge = dodge
-        self.totaldodge = int(min(5 * self.totaldex + self.dodge, 75))
-        self.critchance = 4 * luck
-        bonuscritchance = 0
-        self.totalcritchance = int(self.critchance + bonuscritchance)
-        self.critmult = 2
-
-        self.inbornpassives=inbornpassives
-        self.atkform=atkform
-
-        self.skillmagicdmgbonus=0
-        self.skillcostmodifier=0
-
-        self.shield = 0
+        self.vampirism = vampirism
+        self.thorns = thorns
+        self.armor = armor
         self.shieldstat = shieldstat
+        self.bonus_crit_chance = 0
+        self.magicdmgbonus = 0
+        self.shield = 0
+        self.atkdmgbonus = 0
+        self.critmult = 2
+        
+        self.atkform = atkform
+        self.status = status
 
-        #level system
-        self.level=int(1)
-        self.xp=int(0)
-        self.xptonext=int(100)
+        #ACT
+        self.actmana = 0
+        self.acthp = 0
 
-        #calculo de hp maximo
-        self.bonushp=0
-        self.maxhp= 5 * self.totalvit
-        self.totalmaxhp = self.maxhp + self.bonushp
-        self.acthp = self.totalmaxhp
-
+        #EXPERIÊNCIA
+        self.level = 1
+        self.xp = 0
+        self.xptonext = 100
+        
         #inventory system
         #inventario é so uma big lista anota ai
         self.inventory =[]
@@ -89,47 +93,84 @@ class kimera:
         }
 
         #skills pqp
-        self.skills= skills
-        self.passives = passives
+        self.skills= list(skills)
+        self.passives = list(passives)
         self.maxskills = 4
         self.maxpassives = 2
-
-        #dineiro
-        self.cents=int(cents)
-
-        #mana
-        self.maxmana = 5 * self.cha
-        self.manaregen = self.totalintel
-        self.manainicial = self.cha
-        self.actmana = self.manainicial
     
-    #definições de sistema de Inventário
-    def updating_atributes(self):
-        self.maxhp=5*self.vit
-        self.totalmaxhp = self.maxhp + self.bonushp
-        if self.acthp > self.totalmaxhp:
-            self.acthp=self.totalmaxhp
-        self.maxmana=5*self.cha
-        if self.actmana> self.maxmana:
-            self.actmana=self.maxmana
-        self.totalstrg = int(self.strg + self.bonusstrg)
-        self.totalvit = int(self.vit + self.bonusvit)
-        self.totaldex = int(self.dex + self.bonusdex)
-        self.totalintel = int(self.intel + self.bonusintel)
-        self.manaregen = self.totalintel
-
-        self.totaldodge = min(5 * self.dex + self.dodge, 75)
-        self.totalcritchance = 4 * self.luck + self.critchance
-        self.realvampirism = float(self.vampirism*0.01)
-        self.manainicial=self.cha
+    #TOTAIS
+    #TOTAL STRENGTH
+    @property
+    def total_strg(self):
+        return self.base_strg + self.gained_strg + self.bonus_strg
+    
+    #TOTAL DEXTERITY
+    @property
+    def total_dex(self):
+        return self.base_dex + self.gained_dex + self.bonus_dex
+    
+    #TOTAL VITALITY
+    @property    
+    def total_vit(self):
+        return self.base_vit + self.gained_vit + self.bonus_vit
+    
+    #TOTAL LUCK
+    @property    
+    def total_luck(self):
+        return self.base_luck + self.gained_luck + self.bonus_luck
+    
+    #TOTAL CHARISMA
+    @property    
+    def total_cha(self):
+        return self.base_cha + self.gained_cha + self.bonus_cha
+    
+    #TOTAL INTELLIGENCE
+    @property    
+    def total_intel(self):
+        return self.base_intel + self.gained_intel + self.bonus_intel
+       
+    #MAX HEALTH POINTS
+    @property
+    def max_hp(self):
+        return (self.total_vit * 5)
+    
+    #TOTAL HEALTH POINTS
+    @property
+    def total_max_hp(self):
+        return self.max_hp + self.bonus_hp
+    
+    #MAX_MANA
+    @property
+    def max_mana(self):
+        return self.total_cha * 5
+    
+    #MANA REGEN
+    @property
+    def mana_regen(self):
+        return self.total_intel + self.bonus_mana_regen
+    
+    #MANA INICIAL
+    @property
+    def mana_inicial(self):
+        return self.total_cha + self.bonus_mana_inicial
+    
+    @property
+    def real_vampirism(self):
+        return float(self.vampirism * (0.01))
+    
+    @property
+    def total_dodge(self):
+        return (4 * self.total_dex) + self.dodge
+    
+    @property
+    def total_crit_chance(self):
+        return (4 * self.total_luck) + self.bonus_crit_chance
 
     def gain_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) + amount)
-        self.updating_atributes()
 
     def lose_atr(self, attr, amount):
         setattr(self, attr, getattr(self, attr) - amount)
-        self.updating_atributes()
 
     def add_item(self, item):
             self.inventory.append(item)
@@ -166,7 +207,6 @@ class kimera:
             print(red(f"> You unequipped [ {retirado2.name} ]!"))
         else:
             print(red("No items equipped!"))
-        
 
     def equip(self,item):
         #so muda slot pra slot do item em questão
@@ -185,30 +225,32 @@ class kimera:
             print(yellow(f"> Equipped {item.name}"))
         #
         self.itemequipped(item)
+
     def gain_shield(self, amount):
-            self.shield+=amount
+            self.shield += amount
             print(yellow(f"You gained {amount} Shield Points!"))
 
         #regenerar mana
     def regen_mana(self):
-        self.updating_atributes()
-        self.actmana += self.manaregen
-        print(light_cyan(f"{self.name} regenerated {self.manaregen} Mana Points!"))
-        if self.actmana > self.maxmana:
-            self.actmana = self.maxmana
+        mnamt= self.mana_regen
+        self.actmana += mnamt
+        print(light_cyan(f"{self.name} regenerated {mnamt} Mana Points!"))
+        #Máximo de MANA
+        if self.actmana > self.max_mana:
+            self.actmana = self.max_mana
 
         #ganhar mana != regenerar mana
     def gain_mana(self, amount):
         self.actmana += amount
-        if self.actmana > self.maxmana:
-            self.actmana = self.maxmana
-        print(light_cyan(f"{self.name} obtained {amount} Mana Points! \nNow {self.pronoun} have [ {self.actmana} / {self.maxmana} ] Mana Points"))
+        if self.actmana > self.max_mana:
+            self.actmana = self.max_mana
+        print(light_cyan(f"{self.name} obtained {amount} Mana Points! \nNow {self.pronoun} have [ {self.actmana} / {self.max_mana} ] Mana Points"))
 
     def mana_use(self, amountused):
         if self.actmana >= amountused:
-            print(f"You actually have [ {self.actmana} / {self.maxmana} ] Mana Points! This is enough to cast this Ability!")
+            print(f"You actually have [ {self.actmana} / {self.max_mana} ] Mana Points! This is enough to cast this Ability!")
             self.actmana -= amountused
-            print(f"Now you have [ {self.actmana} / {self.maxmana} ] Mana Points!")
+            print(f"Now you have [ {self.actmana} / {self.max_mana} ] Mana Points!")
            
         
     #BASIC ATTACK
@@ -216,22 +258,28 @@ class kimera:
             #rola o Dado
             roll = rolld100()
             rollcrit = rolld100()
+
             if roll > target.dodge:
+
                 #Computa o Dano
-                randomdmg = int((self.totalstrg * 0.75 )+ random.randint(0, int(self.totalstrg * 0.5)))
-                damage = randomdmg + self.atkdmgbonus
+                basedmg = max(1, self.total_strg * 0.75)
+                randdmg = random.randint(0, int(self.total_strg * 0.5))
+                damage = int(basedmg + randdmg) + self.atkdmgbonus
+
                 crit = False
-                if rollcrit < self.totalcritchance:
+                if rollcrit < self.total_crit_chance:
                     damage *= self.critmult
                     crit = True
                 
                 if crit==True:
                     print(f"> The [ {self.name} ] got A BRUTAL HIT!! Dealing [ {damage} ] MASSIVE DAMAGE to [ {target.name}!!]")
+
                 else:
                     print(f"> The [ {self.name} ] HIT! Dealing [ {damage} ] DAMAGE to [ {target.name} ]")
+
                 #Computa o tanto que tu curo com o ataque
                 if self.vampirism != 0:
-                    player.heal(max(1, int(damage*(self.realvampirism))))
+                    player.heal(max(1, int ( damage * (self.real_vampirism) ) ) )
                 
                 #Computa se o alvo tem Thorns
                 if target.thorns != 0 and self.atkform=="melee":
@@ -254,7 +302,7 @@ class kimera:
     def toma(self, damage):
         if damage > self.shield:
             self.acthp -= (damage - self.shield)
-            self.shield=0
+            self.shield = 0
         else:
             self.shield -= damage
 
@@ -277,11 +325,11 @@ class kimera:
         print(f"> {self.name} gained {xpamount} xp!")
 
     def gain_cents(self, amount):
-        self.cents+=amount
+        Globals.cents += amount
         print(f"> {self.name} gained {amount} cents!")
 
     def lose_cents(self, amount):
-        self.cents -=amount
+        Globals.cents -=amount
         print(f"> {amount} cents got away from your wallet!")
 
     def level_system(self):
@@ -333,7 +381,11 @@ class kimera:
                 return
         else:
             print("Invalid Option")
+
             return
+    @classmethod
+    def breeding(parent1, parent2):
+        pass
 
 
     def death(self):
