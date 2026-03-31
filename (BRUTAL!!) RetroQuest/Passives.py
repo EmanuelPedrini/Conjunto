@@ -7,8 +7,8 @@ class passive:
         self.effect=effect
         self.trigger=trigger
 
-    def passiveactivationtrigger(self, character):
-        self.effect(character)
+    def passiveactivationtrigger(self, kimera):
+        self.effect(kimera)
 
     def nome_modificado(self):
         return f"{self.basename} Lv {self.level}"

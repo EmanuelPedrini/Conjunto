@@ -1,16 +1,16 @@
 from Passives import passive
 
-def strgonhit(character):
-    character.gain_atr("bonusstrg", 1)
+def strgonhit(kimera):
+    kimera.gain_atr("bonusstrg", 1)
 
-def intelonhit(character):
-    character.gain_atr("bonusintel", 1)
+def intelonhit(kimera):
+    kimera.gain_atr("bonusintel", 1)
 
-def intelonspell(character):
-    character.gain_atr("bonusintel", 1)
+def intelonspell(kimera):
+    kimera.gain_atr("bonusintel", 1)
 
-def magicbnsonspell(character):
-    character.gain_atr("skillmagicdmgbonus", 1)
+def magicbnsonspell(kimera):
+    kimera.gain_atr("skillmagicdmgbonus", 1)
 
 
 #passivas

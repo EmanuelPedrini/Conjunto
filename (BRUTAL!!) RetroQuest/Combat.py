@@ -6,6 +6,7 @@ from Commands import input_player
 from Commands import escolhadealvo
 from ColorText import*
 from Bosses import boss
+import Globals
 # from Event_Generator import 
 def resetbonus(player):
     player.bonusstrg = 0
@@ -26,7 +27,7 @@ def combat_end(player):
             ps.passiveactivationtrigger(player)
 
     resetbonus(player)
-    while True:
+    while Globals.gamerunning==1:
         if player.xp >= player.xptonext:
                player.level_system()
         if player.xp < player.xptonext:
@@ -59,7 +60,7 @@ def playerturn(player, actenemy):
         ataquebasicoporturno = False
 
         #Escolha do player
-        while True:
+        while Globals.gamerunning==1:
             choice = input_player(player, actenemy)
             if choice =="1":
                 if ataquebasicoporturno==True:
@@ -129,7 +130,7 @@ def combat(player, enemies):
             print("")
             
     #essa é a parte que define o loop do combat
-    while True:
+    while Globals.gamerunning==1:
         #primeiro ele usa a função que remove os inimigos mortos, ela vem do turnmaster que ta em outro arquivo
         tm.removermortos()
 

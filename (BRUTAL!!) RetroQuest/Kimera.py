@@ -6,8 +6,9 @@ from Skill_Data import todasskills
 from Atribute_Rewards_Data import todososgatr
 from Commands import input_player
 from ColorText import *
+import Globals
 
-class character:
+class kimera:
     def __init__(self, name, pronoun, possessive, strg, dex, vit, luck, cha, intel, dodge, vampirism, thorns, armor, 
                  skills, passives, inbornpassives, shieldstat, atkform, cents):
         #textos
@@ -338,5 +339,5 @@ class character:
     def death(self):
         if self.acthp<=0:
             print(f"the {self.name} got killed by a enemy and died in a horrible way!")
-            sys.exit()
+            Globals.gamerunning = 2
         

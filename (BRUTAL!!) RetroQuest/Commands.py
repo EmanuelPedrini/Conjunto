@@ -15,7 +15,7 @@ def escolhadealvo(player, enemies):
     for v, r in enumerate(alive):
         print(f"[{v+1}] {r.name} ({r.acthp} HP)")
 
-    while True:
+    while Globals.gamerunning==1:
         choice = input_player(player, None)
 
         if choice.isdigit():
@@ -192,7 +192,7 @@ comandosglobais={
 
 # negocio para ler input sempe
 def input_player(player, actenemy=None):
-    while True:
+    while Globals.gamerunning==1:
         comando = input("> ")
         if comando in comandosglobais:
             comandosglobais[comando](player, actenemy)

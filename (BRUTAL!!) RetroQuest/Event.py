@@ -1,4 +1,5 @@
 from Commands import input_player
+import Globals
 
 class event:
     def __init__(self, name, text, choices):
@@ -13,7 +14,7 @@ class event:
         
         for i, (optiontext, _) in enumerate(self.choices,1):
              print(f"{i} - {optiontext}")
-        while True:
+        while Globals.gamerunning==1:
             choice = input_player(player)
             if choice.isdigit():
                     choice= int(choice)-1
