@@ -69,6 +69,7 @@ def run_expedition():
 while True:
     if Globals.gamerunning==1:
         run_expedition()
+        
     if Globals.gamerunning==2:
         ch=input("HEY BRO! WHATS UP? i see... you are kinda dead... BUT DON`T WORRY!\nYOU CAN TRY AGAIN! just assign [ YES ] in this contract!\n> ")
         if ch=="YES":

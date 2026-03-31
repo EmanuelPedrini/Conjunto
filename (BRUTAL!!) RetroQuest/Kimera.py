@@ -7,6 +7,7 @@ from Atribute_Rewards_Data import todososgatr
 from Commands import input_player
 from ColorText import *
 import Globals
+from Random_Names import generate_a_random_name, generate_a_random_second_name, generate_a_random_surname
 
 class kimera:
     def __init__(self, name, pronoun, possessive, 
@@ -18,8 +19,9 @@ class kimera:
                  atkform, 
                  skills, 
                  passives,
+                 mutations,
                  shieldstat = 0,  
-                 status="daughter"):
+                 status="Bone Eater"):
         
         #COISAS REVELANTES SÓ PARA A ESCRITA
         #NOME
@@ -96,6 +98,7 @@ class kimera:
         #skills pqp
         self.skills= list(skills)
         self.passives = list(passives)
+        self.mutations = list(mutations)
         self.maxskills = 4
         self.maxpassives = 2
     
@@ -391,19 +394,79 @@ class kimera:
         if self.acthp<=0:
             print(f"the {self.name} got killed by a enemy and died in a horrible way!")
             Globals.gamerunning = 2
-
-# def generate_a_random_name():
-#     silabasnomeprincipal = ["ki", "me", "ra", "ar", "em", "ik"]
-#     nome = []
-#     for i in range(random.randint(1, 4)):
-#         nome.append(random.choice(silabasnomeprincipal))
-#     listadesobrenomes=["",]
-#     sobrenome=random.choice(listadesobrenomes)
-#     nomefinal = ("".join(nome)) + " " + sobrenome 
-#     return (nomefinal)
     
     @classmethod
     def breeding(cls, parent1, parent2):
+        pronoun = random.choice(["She", "He"])
+        if pronoun == "She":
+            pos = "Her"
+        else:
+            pos=="His"
+        
+        def chooseATKFORM():
+            AtkChoice = random.randint(1, 10)
+            if AtkChoice <= 3:
+                atf = "ranged"
+            else:
+                atf ="melee"
+            return atf
+        
+        def inherit(stat1, stat2):
+            return (random.choice([stat1, stat2]) + random.randint(-1, 1))
+        
+        filho_totalskills = parent1.skills + parent2.skills
+        filho_skills = random.sample(filho_totalskills, random.randint(1, 2))
+
+        filho_totalpassives = parent1.passives + parent2.passives
+        filho_passives = random.choice(filho_totalpassives)
+
+        bs_name = {generate_a_random_name()} + " " + {generate_a_random_second_name()},
+        bs_pronoun = pronoun,
+        bs_possessive = pos,
+        bs_strg = inherit(parent1.base_strg, parent2.base_strg),
+        bs_dex = inherit(parent1.base_dex, parent2.base_dex),
+        bs_vit = inherit(parent1.base_vit, parent2.base_vit),
+        bs_luck = inherit(parent1.base_luck, parent2.base_luck),
+        bs_cha = inherit(parent1.base_cha, parent2.base_cha),
+        bs_intel = inherit(parent1.base_intel, parent2.base_intel),
+        bs_dodge = 0,
+        bs_vampirism = 0,
+        bs_thorns = 0,
+        bs_armor = 0,
+        bs_atkform = chooseATKFORM,
+        bs_skills = filho_skills
+        bs_passives = filho_passives
+
+        
+
+        u = random.randint()
         return cls(
 
         )
+    
+    #USAR DEEPCOPY NO LUGAR?
+    # @classmethod
+    # def clone(cls, cloned):
+    #     bs_name = str(cloned.name + " " + "CLONE")
+    #     bs_pronoun = cloned.pronoun
+    #     bs_possessive = cloned.possessive
+    #     bs_st = cloned.base_strg
+    #     bs_dx = cloned.base_dex
+    #     bs_vt = cloned.base_vit
+    #     bs_lk = cloned.base_luck
+    #     bs_ch = cloned.base_cha
+    #     bs_it = cloned.base_intel
+    #     bs_dodge = 0
+    #     bs_vampirism = 0
+    #     bs_thorns = 0
+    #     bs_armor = 0 
+    #     bs_atkform = cloned.atkform
+    #     bs_skills = cloned.skills
+    #     bs_passives = cloned.passives
+    #     bs_shieldstat = 0
+    #     bs_status = "Bone Eater" 
+    #     return cls( bs_name, bs_pronoun, bs_possessive, 
+    #                bs_st, bs_dx, bs_vt, bs_lk, bs_ch, bs_it, 
+    #                bs_dodge, bs_vampirism, bs_thorns, bs_armor, bs_atkform,
+    #                bs_skills, bs_passives, bs_shieldstat, bs_status
+    #     )
