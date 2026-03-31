@@ -69,6 +69,7 @@ class kimera:
         self.shield = 0
         self.atkdmgbonus = 0
         self.critmult = 2
+        self.skillcostmodifier = 0
         
         self.atkform = atkform
         self.status = status
@@ -279,7 +280,7 @@ class kimera:
 
                 #Computa o tanto que tu curo com o ataque
                 if self.vampirism != 0:
-                    player.heal(max(1, int ( damage * (self.real_vampirism) ) ) )
+                    self.heal(max(1, int ( damage * (self.real_vampirism) ) ) )
                 
                 #Computa se o alvo tem Thorns
                 if target.thorns != 0 and self.atkform=="melee":
@@ -303,8 +304,10 @@ class kimera:
         if damage > self.shield:
             self.acthp -= (damage - self.shield)
             self.shield = 0
+            self.acthp = max(0, self.acthp)
         else:
             self.shield -= damage
+            
 
         for p in self.passives:
             if p.trigger=="on_damage":
@@ -314,8 +317,8 @@ class kimera:
     def heal(self, amount):
         self.acthp += amount
         print(light_green(f"> {self.name} healed [ {amount} ] Hp"))
-        if self.acthp > self.totalmaxhp:
-            self.acthp = self.totalmaxhp
+        if self.acthp > self.total_max_hp:
+            self.acthp = self.total_max_hp
             for pas in self.passives:
                 if pas.trigger=="on_heal":
                     pas.passiveactivationtrigger(self)

@@ -1,21 +1,21 @@
 
 class skill:
     def __init__(self, name, text, damage=0, heal=0, shieldgain=0, cost=0, target="enemy", skproperty="any"):
-          other=0
           self.basename = name
-          self.level=1
-          self.text=text
-          self.damage=damage
-          self.cost=cost
-          self.heal=heal
-          self.shieldgain=shieldgain
-          self.target=target
-          self.skproperty=skproperty
+          self.level = 1
+          self.text = text
+          self.damage = damage
+          self.cost = cost
+          self.heal = heal
+          self.shieldgain = shieldgain
+          self.target = target
+          self.skproperty = skproperty
 
     def total_mana_cost(self, player):
           return max(1, self.cost - player.skillcostmodifier)
+    
     def total_skill_damage(self, player):
-          return max(1, self.damage + player.skillmagicdmgbonus)
+          return max(1, self.damage + player.magicdmgbonus)
        
 
     def nome_modificado(self):
@@ -30,7 +30,7 @@ class skill:
             bdmgs=self.total_skill_damage(player)
 
             if player.actmana < cos:
-                   print(f"You actually have [ {player.actmana} / {player.maxmana} ] Mana Points! This isn`t enough to cast this Ability!")
+                   print(f"You actually have [ {player.actmana} / {player.max_mana} ] Mana Points! This isn`t enough to cast this Ability!")
                    return
 
             if self.target=="self":
@@ -54,7 +54,7 @@ class skill:
                               return
                         player.mana_use(cos)
                         target.toma(dmgt, player)
-                        hkl=(int(dmgt * (1 + player.realvampirism)))
+                        hkl=(int(dmgt * (1 + player.real_vampirism)))
                         player.heal(hkl)
                         print(f"{player.name} used {self.basename} and caused {dmgt} Damage to {target.name} and healed {hkl} health points based on the damage!")
                         for g in player.passives:
@@ -86,24 +86,22 @@ class skill:
                             u.toma(dmgs, player)
                             print(f"{player.name} dealed {dmgs} DAMAGE to {u.name}!")
                             player.heal(int(player.realvampirism * dmgs))
+                            if u.acthp<=0:
+                                 actenemy.remove(u)
 
                             for up in player.passives:
                                  if up.trigger=="on_spell":
                                       up.passiveactivationtrigger(player)
-                                      if u.acthp<=0:
-                                           actenemy.remove(u)
-                                           return
 
                   elif self.damage!=0:
                         for e in actenemy:
                              e.toma(dmgs, player)
                              print(f"{player.name} dealed {dmgs} DAMAGE to {e.name}!")
+                             if e.acthp<=0:
+                                  actenemy.remove(e)
                              for sp in player.passives:
                                   if sp.trigger=="on_spell":
                                        sp.passiveactivationtrigger(player)
-                                       if e.acthp<=0:
-                                            actenemy.remove(e)
-                                            return
             else:
                   print("invalid target")
                   return
