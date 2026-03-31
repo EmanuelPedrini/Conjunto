@@ -1,12 +1,11 @@
 import sys
-from Globals import gamerunning
+import Globals
 from Skill_Data import *
 from Passive_Data import *
 import copy
 import random
 from Bosses_Data import bossesact1
 # from Main import listadeeventos
-
 def escolhadealvo(player, enemies):
 
     alive = [e for e in enemies if e.acthp > 0]
@@ -151,17 +150,22 @@ def EXIT_command(player=None, enemy=None):
     sys.exit()
 
 def CallBoss_Command(player, enemy=None):
-    pass
-    # ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].")
-    # if ccc=="YES":
-    #     floorboss= copy.deepcopy(random.choice(bossesact1))
-    #     # filadeeventos.insert(0, (67, [floorboss]))
-    # elif ccc=="NO":
-    #     print("Boss call cancelled.")
-    #     return False
-    # else:
-    #     print("Give a real answer, Dumb ass.")
-    #     return False
+    if Globals.bosscall=="called":
+        print("The boss got called already, it`s on your on own now!!")
+
+    else:
+        ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].\n")
+    if ccc=="YES":
+        Globals.bosscall = "called"
+    elif ccc=="NO":
+        print("Boss call cancelled.")
+        Globals.bosscall = "notcalled"
+    else:
+        print("Give a real answer, Dumb ass.")
+        Globals.bosscall = "notcalled"
+    
+def testeskill(player=None, enemy=None):
+    print(Globals.bosscall)
 
 comandosglobais={
     "lookteeths" : lookyourteeth_command,
@@ -180,14 +184,15 @@ comandosglobais={
     "devconsoleeraseallenemies": Devconsole_InstaKillAllEnemies_command,
     "uneqitem":Removeitem_Command,
     "equipitem": EquipItem_Command,
-    # "callboss": callboss
+    "callboss": CallBoss_Command,
+    "test":testeskill
 }
 
 
 
 # negocio para ler input sempe
 def input_player(player, actenemy=None):
-    while gamerunning==1:
+    while True:
         comando = input("> ")
         if comando in comandosglobais:
             comandosglobais[comando](player, actenemy)

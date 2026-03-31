@@ -270,8 +270,6 @@ class character:
             for pas in self.passives:
                 if pas.trigger=="on_heal":
                     pas.passiveactivationtrigger(self)
-
-
     
     def gain_xp(self, xpamount):
         self.xp+=xpamount

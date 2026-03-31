@@ -1,8 +1,10 @@
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
 from Characters_Data import allcharacters
+import Globals
 from ColorText import rainbow
 from Event_Generator import gerador_de_eventos
+# from Commands import callboss
 # from Bosses_Data import bossesact1
 # from Commands import input_player
 
@@ -32,12 +34,15 @@ print(f"Congrats! You chose, the {player.name}!")
     
 filadeeventos=[]
 
-# callboss(player=player, events=filadeeventos, bosses=bossesact1)
-
 while len(filadeeventos) < 2:
-    filadeeventos.append(gerador_de_eventos(player))
+        filadeeventos.append(gerador_de_eventos(player))
 
 while True:
+    if Globals.bosscall == "called":
+        Globals.bosscall = "notcalled"
+        filadeeventos.clear()
+        filadeeventos.append(gerador_de_eventos(player))
+
     evento = filadeeventos.pop(0)  # pega o atual
 
     tipo, oqé = evento
@@ -59,7 +64,6 @@ while True:
 
     elif tipo == 67:
         combat(player, oqé)
-    #ultra events
 
     filadeeventos.append(gerador_de_eventos(player))
 
