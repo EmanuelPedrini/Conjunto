@@ -386,13 +386,24 @@ class kimera:
             print("Invalid Option")
 
             return
-    @classmethod
-    def breeding(parent1, parent2):
-        pass
-
 
     def death(self):
         if self.acthp<=0:
             print(f"the {self.name} got killed by a enemy and died in a horrible way!")
             Globals.gamerunning = 2
-        
+
+# def generate_a_random_name():
+#     silabasnomeprincipal = ["ki", "me", "ra", "ar", "em", "ik"]
+#     nome = []
+#     for i in range(random.randint(1, 4)):
+#         nome.append(random.choice(silabasnomeprincipal))
+#     listadesobrenomes=["",]
+#     sobrenome=random.choice(listadesobrenomes)
+#     nomefinal = ("".join(nome)) + " " + sobrenome 
+#     return (nomefinal)
+    
+    @classmethod
+    def breeding(cls, parent1, parent2):
+        return cls(
+
+        )
