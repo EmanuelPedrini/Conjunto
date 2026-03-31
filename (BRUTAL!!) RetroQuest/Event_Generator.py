@@ -40,8 +40,8 @@ def gerador_de_eventos(player):
 
     if Globals.bosscall!="notcalled":
         Globals.bosscall = "notcalled"
-        boss= copy.deepcopy(random.choice(bossesact1))
-        floorboss=[boss]
+        boss = copy.deepcopy(random.choice(bossesact1))
+        floorboss=[ boss ]
         print(light_red(f"{boss.name} is going for YOU!\n HA!\n HAHA!\n HAHAHA!\n"))
         return(67, floorboss)
 

@@ -5,7 +5,8 @@ import random
 from Commands import input_player
 from Commands import escolhadealvo
 from ColorText import*
-
+from Bosses import boss
+# from Event_Generator import 
 def resetbonus(player):
     player.bonusstrg = 0
     player.bonusdex = 0
@@ -18,7 +19,6 @@ def combat_start(player):
     player.actmana = player.manainicial
     player.shield=player.shieldstat
     resetbonus(player)
-    print("TIME TO DIE!, from the tar of the void some enemies arise!")
 
 def combat_end(player):
     for ps in player.passives:
@@ -116,6 +116,11 @@ def combat(player, enemies):
     tm = Turnmaster(oncombat)
 
     combat_start(player)
+    boss_enemy = next((e for e in enemies if isinstance(e,boss)), None)
+    if boss_enemy:
+         print(light_red(f"{boss_enemy.intro}"))
+    else:
+         print(light_red("TIME TO DIE!, from the tar of the void some enemies arise!"))
 
     print("ACTION QUEUE:\n")
     for e in oncombat:
