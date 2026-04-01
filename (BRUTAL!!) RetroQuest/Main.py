@@ -4,6 +4,7 @@ from Kimeras_Data import allkimeras
 import Globals
 from ColorText import rainbow
 from Event_Generator import gerador_de_eventos
+from THE_HOLE import THE_HOLE
 # from Commands import callboss
 # from Bosses_Data import bossesact1
 # from Commands import input_player
@@ -67,17 +68,11 @@ def run_expedition():
     return("ended_run")
 
 while True:
-    if Globals.gamerunning==1:
+    if Globals.gamerunning == 0:
+        pass
+
+    elif Globals.gamerunning==1:
         run_expedition()
         
     if Globals.gamerunning==2:
-        ch=input("HEY BRO! WHATS UP? i see... you are kinda dead... BUT DON`T WORRY!\nYOU CAN TRY AGAIN! just assign [ YES ] in this contract!\n> ")
-        if ch=="YES":
-            print("Good choice, BRO! HA! HAHa..haha.. OK! SEE YOU LATER!")
-            Globals.gamerunning=1
-        elif ch == "NO":
-            print("Nhe... OK, man, Bye bye!")
-            sys.exit()
-        else:
-            print("WHAT FUCK YOU WRITING BRO??!!")
-            continue
+        THE_HOLE()

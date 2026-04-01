@@ -7,10 +7,10 @@ from Atribute_Rewards_Data import todososgatr
 from Commands import input_player
 from ColorText import *
 import Globals
-from Random_Names import generate_a_random_name, generate_a_random_second_name, generate_a_random_surname
+from Random_Names import generate_a_random_name, generate_a_random_nickname, generate_a_random_surname
 
 class kimera:
-    def __init__(self, name, pronoun, possessive, 
+    def __init__(self, name, surname, nickname, pronoun, possessive, 
                  strg, dex, vit, luck, cha, intel, 
                  dodge, 
                  vampirism, 
@@ -26,12 +26,15 @@ class kimera:
         #COISAS REVELANTES SÓ PARA A ESCRITA
         #NOME
         self.name = name
+        self.surname = surname
+        self.nickname = nickname
 
         #PRONOME (SHE / HE)
         self.pronoun = pronoun
 
         #PRONOME POSSESSIVO (HER / HIS)
         self.possessive = possessive
+
         
         #TRIBUTOS BASE(SOMENTE COM BASE NA GENÉTICA)
         self.base_strg=strg
@@ -401,7 +404,7 @@ class kimera:
         if pronoun == "She":
             pos = "Her"
         else:
-            pos=="His"
+            pos = "His"
         
         def chooseATKFORM():
             AtkChoice = random.randint(1, 10)
@@ -414,35 +417,58 @@ class kimera:
         def inherit(stat1, stat2):
             return (random.choice([stat1, stat2]) + random.randint(-1, 1))
         
+        if parent1.status=="Queen" or parent2.status=="Queen":
+            st = "Princess"
+        else:
+            st = "Bone Eater"
+
         filho_totalskills = parent1.skills + parent2.skills
-        filho_skills = random.sample(filho_totalskills, random.randint(1, 2))
-
-        filho_totalpassives = parent1.passives + parent2.passives
-        filho_passives = random.choice(filho_totalpassives)
-
-        bs_name = {generate_a_random_name()} + " " + {generate_a_random_second_name()},
-        bs_pronoun = pronoun,
-        bs_possessive = pos,
-        bs_strg = inherit(parent1.base_strg, parent2.base_strg),
-        bs_dex = inherit(parent1.base_dex, parent2.base_dex),
-        bs_vit = inherit(parent1.base_vit, parent2.base_vit),
-        bs_luck = inherit(parent1.base_luck, parent2.base_luck),
-        bs_cha = inherit(parent1.base_cha, parent2.base_cha),
-        bs_intel = inherit(parent1.base_intel, parent2.base_intel),
-        bs_dodge = 0,
-        bs_vampirism = 0,
-        bs_thorns = 0,
-        bs_armor = 0,
-        bs_atkform = chooseATKFORM,
-        bs_skills = filho_skills
-        bs_passives = filho_passives
-
+        if filho_totalskills:
+            filho_skills = [random.sample(filho_totalskills, random.randint(1, min(2, len(filho_totalskills))))]
+        else:
+            filho_skills = []
         
+        
+        filho_totalpassives = parent1.passives + parent2.passives
 
-        u = random.randint()
-        return cls(
+        if filho_totalpassives:
+            filho_passives = [random.choice(filho_totalpassives)]
+        else:
+            filho_passives = []
+        
+        filho_totalmutations = parent1.mutations + parent2.mutations
+        if filho_totalmutations:
+            filho_mutations = [random.sample(filho_totalskills, random.randint(1, len(filho_totalskills)))]
+        else:
+            filho_mutations = []
 
-        )
+        name = generate_a_random_name()
+        surname = generate_a_random_surname()
+        nickname = generate_a_random_nickname()
+        bs_strg0 = inherit(parent1.base_strg, parent2.base_strg)
+        bs_dex0 = inherit(parent1.base_dex, parent2.base_dex)
+        bs_vit0 = inherit(parent1.base_vit, parent2.base_vit)
+        bs_luck0 = inherit(parent1.base_luck, parent2.base_luck)
+        bs_cha0 = inherit(parent1.base_cha, parent2.base_cha)
+        bs_intel0 = inherit(parent1.base_intel, parent2.base_intel)
+        bs_dodge0 = 0
+        bs_vampirism0 = 0
+        bs_thorns0 = 0
+        bs_armor0 = 0
+        bs_atkform0 = chooseATKFORM()
+        bs_skills0 = filho_skills
+        bs_passives0 = filho_passives
+        bs_shieldstat0 = 0
+        bs_status0 = st
+        bs_mutations0 = filho_mutations
+
+        return cls(name, surname, nickname, pronoun, pos,
+                    bs_strg0, bs_dex0, bs_vit0, bs_luck0, bs_cha0, bs_intel0,
+                    bs_dodge0, bs_vampirism0, bs_thorns0, bs_armor0, bs_atkform0,
+                    bs_skills0,bs_passives0, bs_mutations0, bs_shieldstat0, bs_status0
+                    )
+    
+
     
     #USAR DEEPCOPY NO LUGAR?
     # @classmethod

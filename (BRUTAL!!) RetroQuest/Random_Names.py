@@ -10,15 +10,16 @@ def generate_a_random_name():
 
     return (nomefinal)
 
-def generate_a_random_second_name():
+def generate_a_random_surname():
     listadesobrenomes=["Bafemoth", "Teeths", "Intestines", "Smash"]
     sobrenome = random.choice(listadesobrenomes)
     return sobrenome
 
-def generate_a_random_surname():
+def generate_a_random_nickname():
     listadeapelidos=['"Blow"','"Small Head"', '"Hammer Head"', '"Nail"', '"Hand Finger"']
-    surn=random.choice(listadeapelidos)
-    return surn
+    nickname=random.choice(listadeapelidos)
+    return nickname
+
 def generate_a_full_name():
-    fullname = (f"{generate_a_random_name()} {generate_a_random_surname()} {generate_a_random_second_name()}")
+    fullname = (f"{generate_a_random_name()} {generate_a_random_nickname()} {generate_a_random_surname()}")
     return fullname
