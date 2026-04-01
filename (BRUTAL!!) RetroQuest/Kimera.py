@@ -35,6 +35,9 @@ class kimera:
         #PRONOME POSSESSIVO (HER / HIS)
         self.possessive = possessive
 
+        #ONLY RELEVANT FOR BREEDING
+        self.exhausted = False
+
         
         #TRIBUTOS BASE(SOMENTE COM BASE NA GENÉTICA)
         self.base_strg=strg
