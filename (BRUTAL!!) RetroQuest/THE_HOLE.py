@@ -25,7 +25,14 @@ def full_name_with_nickname(chose):
     return full_name_nickname
 
 def Breeding_Command():
-    breeding = True
+
+    if Globals.breeding == True:
+        print("You are breeding already, restarting the process...\n")
+        Globals.breeding = False
+        return
+    
+    Globals.breeding = True
+
     print("Please, choose 2 kimeras to procreate!")
     for number, kimerainlist  in enumerate(allthekimerasforbreed):
         print((f"[{number+1}] - {kimerainlist.name}"))
@@ -59,15 +66,28 @@ def Breeding_Command():
                             baby = kimera.breeding(kimeraescolhida01, kimeraescolhida02)
                             print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
                             allthekimerasforbreed.append(baby)
+                            Globals.breeding = False
+
                             return
+            
 
                         else:
                             print("Type a valid number.")
-                            break   
+                            Globals.breeding = False
+                            break  
+                else:
+                    print("Type a valid number.") 
+                    Globals.breeding = False
+                    break
                             
             else:
                 print("Type a valid number.")
+                Globals.breeding = False
                 break
+        else:
+            print("Type a valid number.")
+            Globals.breeding = False
+            break
 
 actions = {
     "breed": Breeding_Command
