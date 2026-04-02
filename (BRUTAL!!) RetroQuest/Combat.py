@@ -7,6 +7,14 @@ from Commands import escolhadealvo
 from ColorText import*
 from Bosses import boss
 import Globals
+# sav = None
+
+def check_alive(playercur, enemieslist):
+    alive = [e for e in enemieslist if e.acthp > 0]
+    if not alive:
+        combat_end(playercur)
+        return True
+        
 
 # from Event_Generator import 
 def resetbonus(player):
@@ -48,7 +56,7 @@ def turn_end():
      pass
 
 #definições de combate
-def playerturn(player, actenemy):
+def playerturn(player, actenemy, sav2):
         print("> It`s Your Turn!")
         print(f"> {player.name} actually have {player.acthp}/{player.total_max_hp} health points!")
         print(f"> You actually have [ {player.actmana} / {player.max_mana} ] Mana Points!")
@@ -83,6 +91,10 @@ def playerturn(player, actenemy):
                         if target.acthp <= 0:
                             if target in actenemy:
                                 actenemy.remove(target)
+                            bomb = check_alive(player, sav2)
+                            if bomb:
+                                 print("All enemies are DEAD! you WIN!")
+                                 break
                             continue
             
             elif choice.isdigit():
@@ -95,7 +107,11 @@ def playerturn(player, actenemy):
                     skill = player.skills[sedex] 
 
                     skill.use(player,escolhadealvo,actenemy)
-
+                    conf = check_alive(player, sav2)
+                    if conf:
+                         print("All enemies are DEAD! you WIN!")
+                         break
+                    
                 #se n for uma skill do player, ou n estiver nas skills dele
                 else:
                     print("Sorry, that is a invalid Ability.")
@@ -117,10 +133,9 @@ def enemyturn(enemy, player):
 
 #ANCORA 1
 def combat(player, enemies):
-
+    sav = enemies
     oncombat=[player] + enemies
     tm = Turnmaster(oncombat)
-
     combat_start(player)
     boss_enemy = next((e for e in enemies if isinstance(e, boss)), None)
     if boss_enemy:
@@ -148,15 +163,13 @@ def combat(player, enemies):
             break
 
         #checa se os inimigos morreram
-        alive = [e for e in enemies if e.acthp > 0]
-        if not alive:
-            print("Enemies are all dead!")
-            combat_end(player)
-            break
+        comb = check_alive(player, enemies)
+        if comb:
+             break
         
         actualturn = tm.vezdequem()
         if actualturn==player:
-             playerturn(player,enemies)
+             playerturn(player, enemies, sav2=enemies)
         else:
              enemyturn(actualturn, player)
 
