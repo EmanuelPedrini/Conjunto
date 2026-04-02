@@ -1,16 +1,18 @@
+import Globals
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
 from Kimeras_Data import allkimeras
-import Globals
 from ColorText import rainbow
 from Event_Generator import gerador_de_eventos
 from THE_HOLE import THE_HOLE
+from Tutorial import tutorial
+
 # from Commands import callboss
 # from Bosses_Data import bossesact1
 # from Commands import input_player
 
 def run_expedition():
-    print(rainbow("Welcome to retroquest! if want to stop the game, type [EXIT]"))
+    (print("Welcome to retroquest! if want to stop the game, type [EXIT]"))
 #kimeras
     def kimera_choice():
         while Globals.gamerunning==1:
@@ -69,7 +71,7 @@ def run_expedition():
 
 while True:
     if Globals.gamerunning == 0:
-        pass
+        tutorial()
 
     elif Globals.gamerunning==1:
         run_expedition()

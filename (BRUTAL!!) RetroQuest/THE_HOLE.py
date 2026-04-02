@@ -3,6 +3,7 @@ from Kimera import kimera
 from Kimeras_Data import allkimeras, allthekimerasforbreed
 from ColorText import *
 
+
 def THE_HOLE():
     print("Type your action!")
     input_player_in_the_hole()
@@ -78,7 +79,7 @@ def Breeding_Command():
                             print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
 
                             baby.acthp = baby.total_max_hp
-                            
+
                             allkimeras.append(baby)
 
                             kimeraescolhida01.exhausted = True

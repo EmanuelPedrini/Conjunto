@@ -1,6 +1,5 @@
 from Commands import input_player
 import Globals
-
 class event:
     def __init__(self, name, text, choices):
         self.name=name

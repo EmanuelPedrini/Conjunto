@@ -5,6 +5,7 @@ from Passive_Data import *
 import copy
 import random
 from Bosses_Data import bossesact1
+
 # from Main import listadeeventos
 def escolhadealvo(player, enemies):
 

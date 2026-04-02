@@ -1,9 +1,9 @@
-import time
-import sys
+# import time
+# import sys
 
-def slowprint(text, speed=0.02):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(speed)
-    print()
+# def slowprint(text, speed=0.02):
+#     for char in text:
+#         sys.stdout.write(char)
+#         sys.stdout.flush()
+#         time.sleep(speed)
+#     print()

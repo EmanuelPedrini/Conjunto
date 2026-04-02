@@ -7,6 +7,7 @@ from Commands import escolhadealvo
 from ColorText import*
 from Bosses import boss
 import Globals
+
 # from Event_Generator import 
 def resetbonus(player):
     player.bonus_strg = 0
