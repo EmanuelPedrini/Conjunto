@@ -8,6 +8,7 @@ from Commands import input_player
 from ColorText import *
 import Globals
 from Random_Names import generate_a_random_name, generate_a_random_nickname, generate_a_random_surname
+from Mutation import allthemuts
 
 class kimera:
     def __init__(self, name, surname, nickname, pronoun, possessive, 
@@ -80,6 +81,7 @@ class kimera:
         
         self.atkform = atkform
         self.status = status
+        self.age = 1
 
         #ACT
         self.actmana = 0
@@ -470,6 +472,41 @@ class kimera:
                     bs_skills0,bs_passives0, bs_mutations0, bs_shieldstat0, bs_status0
                     )
     
+    @classmethod
+    def random(cls, statusquokk):
+
+        def random_status():
+            qualidade = random.randint(1, 100)
+            if qualidade <= 22:
+                sts = 4
+            elif 22 < qualidade <= 76:
+                sts = 5
+            else:
+                sts = 6
+            return sts
+        
+        pronoun = random.choice(["She", "He"])
+        if pronoun == "She":
+            pos = "Her"
+        else:
+            pos = "His"
+        bs_skills = [random.choice(todasskills)]
+        bs_mut = [random.choice(allthemuts)]
+
+        def random_passive():
+            rd = random.randint(1, 20)
+            if rd <= 13:
+                return []
+            else:
+                return [random.choice(todasaspassivas)]
+                
+        name = generate_a_random_name()
+        surname = generate_a_random_surname()
+        nickname = generate_a_random_nickname()
+        return cls( name, surname, nickname, pronoun, pos, 
+                   random_status(), random_status(), random_status(), random_status(), random_status(), random_status(),
+                   0, 0, 0, 0, "melee", bs_skills, random_passive(), bs_mut, 0, statusquokk
+        )
 
     
     #USAR DEEPCOPY NO LUGAR?

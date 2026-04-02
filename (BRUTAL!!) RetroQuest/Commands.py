@@ -2,9 +2,10 @@ import sys
 import Globals
 from Skill_Data import *
 from Passive_Data import *
-import copy
-import random
-from Bosses_Data import bossesact1
+# import copy
+# import random
+# from Bosses_Data import bossesact1
+from Globals import looktheirtheeths
 
 # from Main import listadeeventos
 def escolhadealvo(player, enemies):
@@ -28,22 +29,8 @@ def escolhadealvo(player, enemies):
         print("Invalid target.")
         return
 
-def lookyourteeth_command(player, enemy=None):
-    print(f"\n=== {player.name} STATS ===")
-    print(f"Level: [ {player.level} ]\nExperience Points:\n [ {player.xp} / {player.xptonext} ]")
-    print(f"Health Points   : [ {player.acthp} / {player.total_max_hp} ] + ( {player.shield} ) SHIELD")
-    print(f"Mana Points : [ {player.actmana} / {player.max_mana} ]")
-    print(f"Attributes:")
-    print(f"STR : {player.total_strg} ( {player.base_strg} )")
-    print(f"DEX : {player.total_dex} ( {player.base_dex} )")
-    print(f"VIT : {player.total_vit} ( {player.base_vit} )")
-    print(f"INT : {player.total_intel} ( {player.base_intel} )")
-    print(f"CHA : {player.total_cha} ( {player.base_cha} )")
-    print(f"LUCK: {player.total_luck} ( {player.base_luck} )")
-    print(f"ARMOR: {player.armor}")
-    print(f"DODGE: {player.total_dodge} %")
-    print(f"VAMPIRISM: {player.vampirism} %")
-    print(f"THORNS: {player.thorns}")
+def lookyourteeth_command(player):
+    looktheirtheeths(player)
     
     print("YOUR SKILLS:")
     if player.skills==[]:

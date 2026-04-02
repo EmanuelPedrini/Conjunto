@@ -1,8 +1,19 @@
 from Kimera import kimera
 from Skill_Data import *
-mizutest = kimera("Mizu", "001" ,"Gay", "She","Her", 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, "melee", [bite], [], [], 0, status="Bone Eater")
-mizutest02 = kimera("Miko", "002" ,"Homosexual", "She","Her", 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, "melee", [bite], [], [], 0, status="Bone Eater")
 
-allkimeras=[mizutest, mizutest02]
-allthekimerasforbreed=[mizutest, mizutest02]
+allkimeras = []
+allthekimerasforbreed=[]
 princesses = []
+
+def actualize_breed(lista):
+    allthekimerasforbreed.clear()
+    for i in lista:
+        if i.age > 1:
+            allthekimerasforbreed.append(i)
+
+def actualize_princesses(lista):
+    princesses.clear()
+    for k in lista:
+        if k.age > 1 and k.status == "Princess":
+            princesses.append(k)
+    

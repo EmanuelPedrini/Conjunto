@@ -1,12 +1,11 @@
 import Globals
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
-from Kimeras_Data import allkimeras
-from ColorText import rainbow
+from Kimeras_Data import princesses, allkimeras
 from Event_Generator import gerador_de_eventos
 from THE_HOLE import THE_HOLE
 from Tutorial import tutorial
-
+from Kimeras_Data import actualize_princesses
 # from Commands import callboss
 # from Bosses_Data import bossesact1
 # from Commands import input_player
@@ -17,7 +16,7 @@ def run_expedition():
     def kimera_choice():
         while Globals.gamerunning==1:
             print("Choose your kimera!")
-            for i, char in enumerate(allkimeras):
+            for i, char in enumerate(princesses):
                 print(f"[{i+1}] - {char.name}")
 
      #escolha
@@ -25,8 +24,8 @@ def run_expedition():
 
             if choice.isdigit():
                 charpos=int(choice)-1
-                if 0<=charpos<len(allkimeras):
-                    return allkimeras[charpos]
+                if 0<=charpos<len(princesses):
+                    return princesses[charpos]
             else:
                 print("Sorry, that's ins't a valid choice")
 
