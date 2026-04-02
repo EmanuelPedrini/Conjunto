@@ -441,9 +441,10 @@ class kimera:
         filho_totalpassives = parent1.passives + parent2.passives
 
         if filho_totalpassives:
-            filho_passives = random.choice(filho_totalpassives)
+            filho_passives = [random.choice(filho_totalpassives)]
         else:
             filho_passives = []
+
         
         filho_totalmutations = list(set(parent1.mutations + parent2.mutations))
         if filho_totalmutations:

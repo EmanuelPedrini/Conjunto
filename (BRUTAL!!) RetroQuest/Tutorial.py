@@ -4,7 +4,7 @@ from Kimera import kimera
 from THE_HOLE import full_name_with_nickname
 from Kimeras_Data import allkimeras
 from Kimeras_Data import actualize_princesses
-from Globals import looktheirtheethsforsure
+from Globals import looktheirteeths
 listatmp =[]
 for i in range(3):
     kimimpossible = kimera.random("Queen")
@@ -35,7 +35,7 @@ def big_ass_choice(lista):
                 ex_kimera = int(examchoice) - 1
                 if 0<= ex_kimera < len(lista):
                      bixaalisada = lista[ex_kimera]
-                     looktheirtheethsforsure(bixaalisada)
+                     looktheirteeths(bixaalisada)
             else:
                 print("SAY A NUMBER BRO!")
         else:

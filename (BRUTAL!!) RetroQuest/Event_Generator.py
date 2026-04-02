@@ -1,5 +1,4 @@
 from Events_Data import badevents, neutralevents, goodevents
-from Enemies_Data import enemiespool
 import random
 import copy
 import Globals
@@ -8,6 +7,7 @@ from Bosses_Data import bossesact1
 from Itens_Data import todososequipamentos
 from ColorText import *
 # from Commands import 
+
 def shop(player):
     print(f"In distance, you can see a small hut and you decide to investigate.")
     print(f"Entering on the the small hut, you discover it is a shop, a buff woman in a armor is leaning on the counter")
@@ -53,10 +53,11 @@ def gerador_de_eventos(player):
     
     #Combate aleatório
     elif escolhadeevento > 25 and escolhadeevento <= 50:
+
         quantidadeinimigos = random.randint(1, 3)
         actenemy = [
             copy.deepcopy(e) 
-            for e in random.sample(enemiespool, k=min(quantidadeinimigos, len(enemiespool)))
+            for e in random.sample(Globals.actualpool, k=min(quantidadeinimigos, len(Globals.actualpool)))
             ]
         return (2, actenemy)
     

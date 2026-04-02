@@ -6,6 +6,16 @@ gamerunning = 0
 bosscall = str("notcalled")
 cents = 0
 breeding = False
+endofarun = False
+act = 1
+actualpool = list
+from Enemies_Data import enemiespool, enemiespoolact2
+
+if act == 1:
+        actualpool = enemiespool
+elif act == 2:
+        actualpool = enemiespoolact2
+
 from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses
 
 def reds(who):
@@ -50,7 +60,7 @@ def safe_input(prompt=""):
 builtins._original_input = builtins.input
 builtins.input = safe_input
 
-def looktheirtheethsforsure(analized):
+def looktheirteeths(analized):
     builtins._original_print(f"\n=== {analized.nickname} STATS ===")
     builtins._original_print(f"Level: [ {analized.level} ]\nExperience Points:\n [ {analized.xp} / {analized.xptonext} ]")
     builtins._original_print(f"Health Points   : [ {analized.acthp} / {analized.total_max_hp} ] + ( {analized.shield} ) SHIELD")

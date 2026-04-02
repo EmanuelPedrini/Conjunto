@@ -9,3 +9,5 @@ ironmaiden=enemy("Iron Maiden", 16, 2, 0, 0, 3, 0, 5, 45, "m")
 marshmallowknight=enemy("Marshmallow Knight", 20, 4, 0, 0, 0, 0, 20, 40, "m")
 
 enemiespool =[fluffyskeleton, undeadgrandma, dasbinich, unthought, kidvampire, ironmaiden, marshmallowknight]
+
+enemiespoolact2 = []

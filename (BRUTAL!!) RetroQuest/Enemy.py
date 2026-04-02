@@ -1,18 +1,19 @@
 import random
-from Globals import globaldangercalc, globaldanger, reds
+import Globals
+
 from utils import rolld100
 from Itens_Data import todososequipamentos
 # from 
 class enemy:
     def __init__(self, name, totalmaxhp, atk, atkbonus, vampirism, thorns, dodge, centsondeath, xpondeath, atkdist):
-        self.name = f"{name} / [ Level {globaldanger }  ]"
+        self.name = f"{name} / [ Level {Globals.globaldanger}  ]"
         #hp
-        self.totalmaxhp = int(round(totalmaxhp * globaldangercalc))
+        self.totalmaxhp = int(round(totalmaxhp * Globals.globaldangercalc))
         self.acthp = self.totalmaxhp
 
         #escala
-        self.atkbonus = int(atkbonus * (1 * globaldangercalc))
-        self.atk = int(round(atk * globaldangercalc))
+        self.atkbonus = int(atkbonus * (1 * Globals.globaldangercalc))
+        self.atk = int(round(atk * Globals.globaldangercalc))
         self.dodge = int(dodge)
         self.centsondeath = int(centsondeath)
         self.xpondeath = int(xpondeath)
@@ -41,8 +42,8 @@ class enemy:
         roll= rolld100()
         if roll > player.total_dodge:
             damage =  self.atk + self.atkbonus
-            
-            damage = max(1, round(damage * (1 - reds(player))))
+
+            damage = max(1, round(damage * (1 - Globals.reds(player))))
 
             if self.vampirism != 0:
                 self.heal(int(damage*(self.realvampirism)))
@@ -60,8 +61,8 @@ class enemy:
 
     def death(self, player):
         if self.acthp <= 0:
-            centsg = int(random.randint(self.centsondeath, self.centsondeath*3) * (1 + globaldanger   * 0.4))
-            xpg = int(random.randint(self.xpondeath, self.xpondeath*3) * (1 + globaldanger   * 0.6))
+            centsg = int(random.randint(self.centsondeath, self.centsondeath*3) * (1 + Globals.globaldanger   * 0.4))
+            xpg = int(random.randint(self.xpondeath, self.xpondeath*3) * (1 + Globals.globaldanger   * 0.6))
 
             randomitemgain=random.randint(1, 100) + player.total_luck
             if randomitemgain <= 50:

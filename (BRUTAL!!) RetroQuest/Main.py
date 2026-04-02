@@ -6,7 +6,7 @@ from Event_Generator import gerador_de_eventos
 from THE_HOLE import THE_HOLE
 from Tutorial import tutorial, full_name_with_nickname
 from Kimeras_Data import actualize_princesses
-from Globals import looktheirtheethsforsure
+from Globals import looktheirteeths
 from Globals import banned_from_twitter
 # from Commands import callboss
 # from Bosses_Data import bossesact1
@@ -38,7 +38,7 @@ def run_expedition():
                 if lookedteeths.isdigit():
                     lkth=int(lookedteeths)-1
                     if 0<= lkth <len(princesses):
-                        looktheirtheethsforsure(princesses[lkth])
+                        looktheirteeths(princesses[lkth])
                         continue
                 continue
 

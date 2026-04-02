@@ -5,7 +5,6 @@ from Passive_Data import *
 # import copy
 # import random
 # from Bosses_Data import bossesact1
-from Globals import looktheirtheethsforsure
 
 # from Main import listadeeventos
 def escolhadealvo(player, enemies):
@@ -32,7 +31,8 @@ def escolhadealvo(player, enemies):
         return
 
 def lookyourteeth_command(player, enemy=None):
-    looktheirtheethsforsure(player)
+    from Globals import looktheirteeths
+    looktheirteeths(player)
     
     print("YOUR SKILLS:")
     if player.skills==[]:

@@ -1,6 +1,6 @@
 import random; import copy
 from Turnmaster import Turnmaster
-from Enemies_Data import enemiespool
+# from Enemies_Data import actualpool
 import random
 from Commands import input_player
 from Commands import escolhadealvo
@@ -64,7 +64,7 @@ def playerturn(player, actenemy):
         #Escolha do player
         while Globals.gamerunning==1:
             choice = input_player(player, actenemy)
-            
+
             if not isinstance(choice, str):
                 return
             if choice =="1":
@@ -122,7 +122,7 @@ def combat(player, enemies):
     tm = Turnmaster(oncombat)
 
     combat_start(player)
-    boss_enemy = next((e for e in enemies if isinstance(e,boss)), None)
+    boss_enemy = next((e for e in enemies if isinstance(e, boss)), None)
     if boss_enemy:
          print(light_red(f"{boss_enemy.intro}"))
     else:
