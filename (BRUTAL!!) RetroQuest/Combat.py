@@ -56,8 +56,8 @@ def playerturn(player, actenemy):
         print("> Time to Act!\n> Actions:")
         print(light_red("[1] - BASIC ATTACK"))
 
-        for i, skill in enumerate(player.skills):
-            print(light_red(f"[{i+2}] - {skill.basename}"))
+        for i, ski in enumerate(player.skills):
+            print(light_red(f"[{i+2}] - {ski.basename}"))
         ataquebasicoporturno = False
 
         #Escolha do player
@@ -125,7 +125,7 @@ def combat(player, enemies):
          print(light_red("TIME TO DIE!, from the tar of the void some enemies arise!"))
 
     print("ACTION QUEUE:\n")
-    print(yellow(f"- {player.name} ( {player.actmana} / {player.total_max_hp})"))
+    print(yellow(f"- {player.name} ( {player.acthp} / {player.total_max_hp})"))
     print("")
     for e in enemies:
             if e.acthp > 0:

@@ -4,17 +4,8 @@ from Kimeras_Data import allkimeras, allthekimerasforbreed
 from ColorText import *
 
 def THE_HOLE():
-    print("Welcome to the THE HOLE!")
+    print("Type your action!")
     input_player_in_the_hole()
-    # print("TYPE [ 1 ] TO START A NEW RUN WITH A PRINCESS!")
-    # print("TYPE [ 2 ] TO SEE ONE OF YOUR KIMERAS!")
-    # print("TYPE [ 3 ] TO SEE YOUR HISTORY OF EXPEDITIONS!")
-    # print("TYPE [ 4 ] TO BREED TWO OF YOUR SUITORS")
-    # print("TYPE [ 5 ] TO BREED A PRINCESS!")
-    # print("TYPE [ 6 ] TO SEE ALL YOUR PRINCESSES!")
-# def show_kimeras_for_breed()
-#     for number, kimerainlist  in enumerate(allthekimerasforbreed):
-#         print((f"[{number+1}] - {kimerainlist.name}"))
 
 def print_status(chosen):
     print(f"NAME: {chosen.name}")
@@ -23,6 +14,10 @@ def print_status(chosen):
 def full_name_with_nickname(chose):
     full_name_nickname = f"{chose.name} {chose.nickname} {chose.surname}"
     return full_name_nickname
+
+
+def Start_Command():
+    Globals.gamerunning = 1
 
 def Breeding_Command():
     if Globals.breeding == True:
@@ -49,7 +44,7 @@ def Breeding_Command():
         else:    
             print((f"[{number+1}] - {kimerainlist.name}"))
 
-    while Globals.gamerunning==2:
+    while Globals.gamerunning == 2:
         print("Choose the first kimera!")
 
         choice_for_breed = input_player_in_the_hole()
@@ -82,6 +77,8 @@ def Breeding_Command():
                             baby = kimera.breeding(kimeraescolhida01, kimeraescolhida02)
                             print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
 
+                            baby.acthp = baby.total_max_hp
+                            
                             allkimeras.append(baby)
 
                             kimeraescolhida01.exhausted = True
@@ -111,7 +108,8 @@ def Breeding_Command():
             break
 
 actions = {
-    "breed": Breeding_Command
+    "breed": Breeding_Command,
+    "start": Start_Command
 }
 
 def input_player_in_the_hole():

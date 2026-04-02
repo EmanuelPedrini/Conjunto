@@ -37,7 +37,6 @@ class kimera:
 
         #ONLY RELEVANT FOR BREEDING
         self.exhausted = False
-
         
         #TRIBUTOS BASE(SOMENTE COM BASE NA GENÉTICA)
         self.base_strg=strg
@@ -425,9 +424,9 @@ class kimera:
         else:
             st = "Bone Eater"
 
-        filho_totalskills = parent1.skills + parent2.skills
+        filho_totalskills = list(set(parent1.skills + parent2.skills))
         if filho_totalskills:
-            filho_skills = [random.sample(filho_totalskills, random.randint(1, min(2, len(filho_totalskills))))]
+            filho_skills = random.sample(filho_totalskills, random.randint(1, min(2, len(filho_totalskills))))
         else:
             filho_skills = []
         
@@ -435,11 +434,11 @@ class kimera:
         filho_totalpassives = parent1.passives + parent2.passives
 
         if filho_totalpassives:
-            filho_passives = [random.choice(filho_totalpassives)]
+            filho_passives = random.choice(filho_totalpassives)
         else:
             filho_passives = []
         
-        filho_totalmutations = parent1.mutations + parent2.mutations
+        filho_totalmutations = list(set(parent1.mutations + parent2.mutations))
         if filho_totalmutations:
             filho_mutations = [random.sample(filho_totalskills, random.randint(1, len(filho_totalskills)))]
         else:
