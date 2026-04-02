@@ -20,6 +20,8 @@ def shop(player):
         print(f"{cont+1} - {itemI.name}")
 
     buyintend= input_player(player, None)
+    if not isinstance(buyintend, str):
+            return
     if buyintend.isdigit:
         realbuyintend= int(buyintend)-1
         if 0<= realbuyintend <len(shopactoptions):

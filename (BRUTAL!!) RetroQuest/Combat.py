@@ -64,6 +64,9 @@ def playerturn(player, actenemy):
         #Escolha do player
         while Globals.gamerunning==1:
             choice = input_player(player, actenemy)
+            
+            if not isinstance(choice, str):
+                return
             if choice =="1":
                 if ataquebasicoporturno==True:
                     print("You already used your basic attack this turn!")

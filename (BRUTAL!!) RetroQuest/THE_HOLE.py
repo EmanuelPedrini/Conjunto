@@ -1,10 +1,11 @@
 import Globals
 from Kimera import kimera
-from Kimeras_Data import allkimeras, allthekimerasforbreed
+from Kimeras_Data import allkimeras, allthekimerasforbreed, actualize_breed, actualize_princesses
 from ColorText import *
 
 
 def THE_HOLE():
+    actualize_breed(allkimeras)
     print("Type your action!")
     input_player_in_the_hole()
 

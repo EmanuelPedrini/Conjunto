@@ -1,8 +1,7 @@
 import random
-from Globals import *
+from Globals import globaldangercalc, globaldanger, reds
 from utils import rolld100
 from Itens_Data import todososequipamentos
-
 # from 
 class enemy:
     def __init__(self, name, totalmaxhp, atk, atkbonus, vampirism, thorns, dodge, centsondeath, xpondeath, atkdist):
@@ -42,11 +41,8 @@ class enemy:
         roll= rolld100()
         if roll > player.total_dodge:
             damage =  self.atk + self.atkbonus
-
-            HC = 10
-            reduction = player.armor / (player.armor + HC)
-            reduction = min(reduction, 0.90)
-            damage = max(1, round(damage * (1 - reduction)))
+            
+            damage = max(1, round(damage * (1 - reds(player))))
 
             if self.vampirism != 0:
                 self.heal(int(damage*(self.realvampirism)))

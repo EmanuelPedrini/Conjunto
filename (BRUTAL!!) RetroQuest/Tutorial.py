@@ -4,7 +4,7 @@ from Kimera import kimera
 from THE_HOLE import full_name_with_nickname
 from Kimeras_Data import allkimeras
 from Kimeras_Data import actualize_princesses
-from Globals import looktheirtheeths
+from Globals import looktheirtheethsforsure
 listatmp =[]
 for i in range(3):
     kimimpossible = kimera.random("Queen")
@@ -29,13 +29,13 @@ def big_ass_choice(lista):
             else:
                 print("WHY ARE POINTING TO THE WALL?!")
 
-        elif bixachoice == "lookteeths":
+        elif bixachoice == "lookteeths" or bixachoice=="lk":
             examchoice = input("Which one you want to see more closely?\n> ")
             if examchoice.isdigit():
                 ex_kimera = int(examchoice) - 1
                 if 0<= ex_kimera < len(lista):
                      bixaalisada = lista[ex_kimera]
-                     looktheirtheeths(bixaalisada)
+                     looktheirtheethsforsure(bixaalisada)
             else:
                 print("SAY A NUMBER BRO!")
         else:

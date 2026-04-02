@@ -15,6 +15,8 @@ class event:
              print(f"{i} - {optiontext}")
         while Globals.gamerunning==1:
             choice = input_player(player)
+            if not isinstance(choice, str):
+                return
             if choice.isdigit():
                     choice= int(choice)-1
                     if 0<= choice < (len(self.choices)):

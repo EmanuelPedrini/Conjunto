@@ -5,7 +5,7 @@ from Passive_Data import *
 # import copy
 # import random
 # from Bosses_Data import bossesact1
-from Globals import looktheirtheeths
+from Globals import looktheirtheethsforsure
 
 # from Main import listadeeventos
 def escolhadealvo(player, enemies):
@@ -19,6 +19,8 @@ def escolhadealvo(player, enemies):
 
     while Globals.gamerunning==1:
         choice = input_player(player, None)
+        if not isinstance(choice, str):
+            return
 
         if choice.isdigit():
             index = int(choice) - 1
@@ -30,7 +32,7 @@ def escolhadealvo(player, enemies):
         return
 
 def lookyourteeth_command(player, enemy=None):
-    looktheirtheeths(player)
+    looktheirtheethsforsure(player)
     
     print("YOUR SKILLS:")
     if player.skills==[]:
@@ -135,8 +137,8 @@ def removeitemfrominventory_command(player=None, enemy=None):
     print("This item ins`t in your inventory.")
 
 def EXIT_command(player=None, enemy=None):
-    print("Bye Bye, Friend!")
-    sys.exit()
+    Globals.gamerunning = 2
+    print("You COWARDLY go back to THE HOLE!")
 
 def CallBoss_Command(player, enemy=None):
     if Globals.bosscall=="called":
@@ -181,11 +183,14 @@ comandosglobais={
 
 # negocio para ler input sempe
 def input_player(player, actenemy=None):
-    while Globals.gamerunning==1:
+    while True:
+        if Globals.gamerunning!=1:
+            return None
+        
         comando = input("> ")
+
         if comando in comandosglobais:
             comandosglobais[comando](player, actenemy)
             continue
+
         return comando
-    else:
-        print("invalid")

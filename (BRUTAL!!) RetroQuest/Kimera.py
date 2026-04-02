@@ -378,6 +378,8 @@ class kimera:
             print(f"{x+1} - {y.basename}")
 
         choice = input_player(player=self, actenemy=None)
+        if not isinstance(choice, str):
+            return
         if choice.isdigit():
             sd=int(choice)-1
             if 0<= sd < len(currentoptions):

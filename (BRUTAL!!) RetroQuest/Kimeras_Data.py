@@ -1,15 +1,21 @@
 from Kimera import kimera
 from Skill_Data import *
+#BEBEZES
+allthebabies = []
 
+#KIMERAS
 allkimeras = []
-allthekimerasforbreed=[]
+#TODAS DISPÓNIVEIS PARA REPRODUZIR
+allthekimerasforbreed = []
+
+#PRINCESAS
 princesses = []
 
 def actualize_breed(lista):
     allthekimerasforbreed.clear()
-    for i in lista:
-        if i.age > 1:
-            allthekimerasforbreed.append(i)
+    for kim in lista:
+        if kim.age > 1:
+            allthekimerasforbreed.append(kim)
 
 def actualize_princesses(lista):
     princesses.clear()

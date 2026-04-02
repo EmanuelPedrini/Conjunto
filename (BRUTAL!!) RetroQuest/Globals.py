@@ -6,6 +6,13 @@ gamerunning = 0
 bosscall = str("notcalled")
 cents = 0
 breeding = False
+from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses
+
+def reds(who):
+    HC = 15
+    reduction = who.armor / (who.armor + HC) 
+    rdss = min(reduction, 0.90)
+    return rdss
 
 import time
 import builtins
@@ -43,7 +50,7 @@ def safe_input(prompt=""):
 builtins._original_input = builtins.input
 builtins.input = safe_input
 
-def looktheirtheeths(analized):
+def looktheirtheethsforsure(analized):
     builtins._original_print(f"\n=== {analized.nickname} STATS ===")
     builtins._original_print(f"Level: [ {analized.level} ]\nExperience Points:\n [ {analized.xp} / {analized.xptonext} ]")
     builtins._original_print(f"Health Points   : [ {analized.acthp} / {analized.total_max_hp} ] + ( {analized.shield} ) SHIELD")
@@ -55,7 +62,12 @@ def looktheirtheeths(analized):
     builtins._original_print(f"INT : {analized.total_intel} ( {analized.base_intel} )")
     builtins._original_print(f"CHA : {analized.total_cha} ( {analized.base_cha} )")
     builtins._original_print(f"LUCK: {analized.total_luck} ( {analized.base_luck} )")
-    builtins._original_print(f"ARMOR: {analized.armor}")
+    builtins._original_print(f"ARMOR: {analized.armor} [ {reds(analized)}% ]")
     builtins._original_print(f"DODGE: {analized.total_dodge} %")
     builtins._original_print(f"VAMPIRISM: {analized.vampirism} %")
     builtins._original_print(f"THORNS: {analized.thorns}")
+
+def banned_from_twitter(banned):
+    for lista in (allkimeras, allthekimerasforbreed, princesses):
+        if banned in lista:
+            lista.remove(banned) 
