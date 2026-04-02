@@ -18,10 +18,11 @@ def end_day():
     from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses
     print(f"you finished the Day [ TOTAL DAYS: {Globals.day} ]")
     for baba in (allkimeras, allthekimerasforbreed, princesses):
-        baba.age += 1
-        baba.exhausted = False
-        Globals.day += 1
-        return
+        for i in baba:
+            i.age += 1
+            i.exhausted = False
+            Globals.day += 1
+            return
 
 def print_status(chosen):
     print(f"NAME: {chosen.name}")

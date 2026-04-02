@@ -129,7 +129,8 @@ def combat(player, enemies):
          print(light_red("TIME TO DIE!, from the tar of the void some enemies arise!"))
 
     print("ACTION QUEUE:\n")
-    print(yellow(f"- {player.name} ( {player.acthp} / {player.total_max_hp})"))
+    savis = (player.total_max_hp)
+    print(yellow(f"- {player.name} ( {player.acthp} / {savis})"))
     print("")
     for e in enemies:
             if e.acthp > 0:
