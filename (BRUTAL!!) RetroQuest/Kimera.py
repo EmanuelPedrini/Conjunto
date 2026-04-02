@@ -148,7 +148,10 @@ class kimera:
     #TOTAL HEALTH POINTS
     @property
     def total_max_hp(self):
-        return self.max_hp + self.bonus_hp
+        t = self.max_hp + self.bonus_hp
+        if self.acthp > t:
+            self.acthp = t
+        return t
     
     #MAX_MANA
     @property

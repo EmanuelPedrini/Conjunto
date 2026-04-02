@@ -10,7 +10,7 @@ breeding = False
 import time
 import builtins
 
-def slowprint(*args, sep=" ", end="\n", delay=0.0001, line_delay=0.4, flush=True):
+def slowprint(*args, sep=" ", end="\n", delay=0.00001, line_delay=0.2, flush=True):
     text = sep.join(map(str, args)) + end
     skip = False
     i=0
@@ -44,7 +44,7 @@ builtins._original_input = builtins.input
 builtins.input = safe_input
 
 def looktheirtheeths(analized):
-    builtins._original_print(f"\n=== {analized.name} STATS ===")
+    builtins._original_print(f"\n=== {analized.nickname} STATS ===")
     builtins._original_print(f"Level: [ {analized.level} ]\nExperience Points:\n [ {analized.xp} / {analized.xptonext} ]")
     builtins._original_print(f"Health Points   : [ {analized.acthp} / {analized.total_max_hp} ] + ( {analized.shield} ) SHIELD")
     builtins._original_print(f"Mana Points : [ {analized.actmana} / {analized.max_mana} ]")

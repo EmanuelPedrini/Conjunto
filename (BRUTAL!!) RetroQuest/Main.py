@@ -4,20 +4,22 @@ from Combat import combat
 from Kimeras_Data import princesses, allkimeras
 from Event_Generator import gerador_de_eventos
 from THE_HOLE import THE_HOLE
-from Tutorial import tutorial
+from Tutorial import tutorial, full_name_with_nickname
 from Kimeras_Data import actualize_princesses
+from Globals import looktheirtheeths
 # from Commands import callboss
 # from Bosses_Data import bossesact1
 # from Commands import input_player
 
 def run_expedition():
-    (print("Welcome to retroquest! if want to stop the game, type [EXIT]"))
+    actualize_princesses(allkimeras)
+    (print("Welcome to KIMERAHALLA! if want to go back to THE HOLE, type [EXIT]"))
 #kimeras
     def kimera_choice():
         while Globals.gamerunning==1:
             print("Choose your kimera!")
             for i, char in enumerate(princesses):
-                print(f"[{i+1}] - {char.name}")
+                print(f"[{i+1}] - { full_name_with_nickname(char) }")
 
      #escolha
             choice=input(">  ")
@@ -26,11 +28,26 @@ def run_expedition():
                 charpos=int(choice)-1
                 if 0<=charpos<len(princesses):
                     return princesses[charpos]
+                
+            elif choice == "lookteeths" or choice == "lk":
+                lookedteeths = input("Who you wanna see closely?")
+                if lookedteeths.isdigit():
+                    lkth=int(lookedteeths)-1
+                    if 0<= lkth <len(princesses):
+                        looktheirtheeths(princesses[lkth])
+                continue
+
+                
+            elif choice == "EXIT":
+                print("BYE BYE, FRIEND!")
+                sys.exit()
+
             else:
                 print("Sorry, that's ins't a valid choice")
+                continue
 
     player = kimera_choice()
-    print(f"Congrats! You chose, the {player.name}!")
+    print(f"Congrats! You chosed {full_name_with_nickname(player)}!")
 
     player.acthp = player.total_max_hp
 

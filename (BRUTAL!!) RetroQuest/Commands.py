@@ -29,7 +29,7 @@ def escolhadealvo(player, enemies):
         print("Invalid target.")
         return
 
-def lookyourteeth_command(player):
+def lookyourteeth_command(player, enemy=None):
     looktheirtheeths(player)
     
     print("YOUR SKILLS:")

@@ -26,7 +26,9 @@ def big_ass_choice(lista):
             if 0<= sex_kimera < len(lista):
                  bixaescolhida = lista[sex_kimera]
                  return bixaescolhida
-            
+            else:
+                print("WHY ARE POINTING TO THE WALL?!")
+
         elif bixachoice == "lookteeths":
             examchoice = input("Which one you want to see more closely?\n> ")
             if examchoice.isdigit():
@@ -71,7 +73,7 @@ def choice():
 
 def tutorial():
     print("Hello! I see it's your first time, playing so i need to teach you how things work here")
-    print("First of all you gonna need a bixaCH for your KIMERA family!")
+    print("First of all you gonna need a MATRIARCH for your KIMERA family!")
     print(red("Uh WHAT???!!!"))
     print("YOU DON'T KNOW WHAT IS A KIMERA??!!")
     print("OH MAN!")
@@ -82,7 +84,7 @@ def tutorial():
     print("You can STRETCH and SMASH THEM!")
     print("AND THEY STILL ALIVE!")
     print("So kimeras have a very restrictive HIERARCHY.")
-    print("You have 3 kimera status in a colony, QUEENS, PRINCESS AND BONE EATERS.")
+    print("You have 3 kimera status in a colony, QUEENS, PRINCESSES AND BONE EATERS.")
     print("BONE EATERS are the lowest rank in a colony, they serve only to reproduce between them and create new PRINCESS")
     print("Only the QUEEN can give birth to new PRINCESSES")
     print("And only the PRINCESSES, can go in expeditions!")
@@ -91,8 +93,6 @@ def tutorial():
     print("So in a act of of kindness, i'll give you some of my kimeras")
 
     choice()
-
-actualize_princesses(allkimeras)
 
 
 
