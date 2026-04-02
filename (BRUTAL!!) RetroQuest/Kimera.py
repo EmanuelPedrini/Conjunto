@@ -261,8 +261,10 @@ class kimera:
         print(light_cyan(f"{self.name} obtained {amount} Mana Points! \nNow {self.pronoun} have [ {self.actmana} / {self.max_mana} ] Mana Points"))
 
     def mana_use(self, amountused):
+        self.max_mana
         if self.actmana >= amountused:
             print(f"You actually have [ {self.actmana} / {self.max_mana} ] Mana Points! This is enough to cast this Ability!")
+
             self.actmana -= amountused
             print(f"Now you have [ {self.actmana} / {self.max_mana} ] Mana Points!")
            
@@ -374,33 +376,36 @@ class kimera:
         currentoptions = []
         currentoptions = random.sample(totaloptions, 3)
 
-        for x, y in enumerate(currentoptions):
-            print(f"{x+1} - {y.basename}")
+        while Globals.gamerunning == 1:
+            for x, y in enumerate(currentoptions):
+                print(f"{x+1} - {y.basename}")
+            choice = input_player(player=self, actenemy=None)
+            if not isinstance(choice, str):
+                continue
+            if choice.isdigit():
+                sd=int(choice)-1
+                if 0<= sd < len(currentoptions):
+                    slc= currentoptions[sd]
 
-        choice = input_player(player=self, actenemy=None)
-        if not isinstance(choice, str):
-            return
-        if choice.isdigit():
-            sd=int(choice)-1
-            if 0<= sd < len(currentoptions):
-                slc= currentoptions[sd]
+                    if slc in todasaspassivas:
+                        self.passives.append(slc)
+                        print(f"{slc.basename} added to your skills!")
+                        break
 
-                if slc in todasaspassivas:
-                    self.passives.append(slc)
-                    print(f"{slc.basename} added to your skills!")
-                elif slc in todasskills:
-                    self.skills.append(slc)
-                    print(f"{slc.basename} added to your skills!")
-                elif slc in todososgatr:
-                    slc.apply(self)
-                    print(f"you gained {slc.basename}!")
+                    elif slc in todasskills:
+                        self.skills.append(slc)
+                        print(f"{slc.basename} added to your skills!")
+                        break
+
+                    elif slc in todososgatr:
+                        slc.apply(self)
+                        print(f"you gained {slc.basename}!")
+                        break
+                else:
+                    print("Bro... choose something, stop scratching your butt")
             else:
-                print("Invalid Choice")
-                return
-        else:
-            print("Invalid Option")
+                print("Really? this isn't is going to work you know that.")
 
-            return
 
     def death(self):
         if self.acthp<=0:

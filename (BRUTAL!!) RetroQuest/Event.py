@@ -18,9 +18,15 @@ class event:
             if not isinstance(choice, str):
                 return
             if choice.isdigit():
+                    
                     choice= int(choice)-1
+
                     if 0<= choice < (len(self.choices)):
+                         
                          _, effect =self.choices[choice]
+
                          effect(player)
+
                          break
+                    
             print("Invalid Option")

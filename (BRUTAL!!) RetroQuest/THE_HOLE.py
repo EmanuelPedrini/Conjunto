@@ -15,14 +15,16 @@ def THE_HOLE():
     input_player_in_the_hole()
 
 def end_day():
-    from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses
+    from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses, actualize_breed, actualize_princesses
     print(f"you finished the Day [ TOTAL DAYS: {Globals.day} ]")
     for baba in (allkimeras, allthekimerasforbreed, princesses):
         for i in baba:
             i.age += 1
             i.exhausted = False
-            Globals.day += 1
-            return
+        Globals.day += 1
+        actualize_breed(allkimeras)
+        actualize_princesses(allkimeras)
+        
 
 def print_status(chosen):
     print(f"NAME: {chosen.name}")

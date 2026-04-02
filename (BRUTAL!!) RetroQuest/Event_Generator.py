@@ -9,30 +9,28 @@ from ColorText import *
 # from Commands import 
 
 def shop(player):
-    print(f"In distance, you can see a small hut and you decide to investigate.")
-    print(f"Entering on the the small hut, you discover it is a shop, a buff woman in a armor is leaning on the counter")
-    print(f"(Agnes) - Hey BRO! what`s up? want to buy something from my shop?")
+        print(f"In distance, you can see a small hut and you decide to investigate.")
+        print(f"Entering on the the small hut, you discover it is a shop, a buff woman in a armor is leaning on the counter")
+        print(f"(Agnes) - Hey BRO! what`s up? want to buy something from my shop?")
+        shop_total_options = todososequipamentos
+        shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
 
-    shop_total_options = todososequipamentos
-    shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
+        while Globals.gamerunning == 1:
+            for cont, itemI in enumerate(shopactoptions):
+                print(f"{cont+1} - {itemI.name}")
 
-    for cont, itemI in enumerate(shopactoptions):
-        print(f"{cont+1} - {itemI.name}")
-
-    buyintend= input_player(player, None)
-    if not isinstance(buyintend, str):
-            return
-    if buyintend.isdigit:
-        realbuyintend= int(buyintend)-1
-        if 0<= realbuyintend <len(shopactoptions):
-            buyed = shopactoptions[realbuyintend]
-            player.add_item(buyed)
-        else:
-            print("BRO! STOP POINTING TO THE WALL!")
-            return
-    else:
-        print("Invalid, BRO!")
-        return
+            buyintend= input_player(player, None)
+            
+            if buyintend.isdigit():
+                realbuyintend = int(buyintend)-1
+                if 0<= realbuyintend <len(shopactoptions):
+                    buyed = shopactoptions[realbuyintend]
+                    player.add_item(buyed)
+                    break
+                else:
+                    print("BRO! STOP POINTING TO THE WALL!")
+            else:
+                print(f"Lil sis, stop asking for {str(buyintend)}, you ask that every time!")
 
 
 def gerador_de_eventos(player):

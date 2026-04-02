@@ -15,7 +15,7 @@ def escolhadealvo(player, enemies):
     print("Choose target:")
 
     for v, r in enumerate(alive):
-        print(f"[{v+1}] {r.name} ({r.acthp} HP)")
+        print(f"[{v+1}] {r.name} ({r.acthp} / {r.totalmaxhp} HP)")
 
     while Globals.gamerunning==1:
         choice = input_player(player, None)
@@ -58,11 +58,15 @@ def exam_enemy_command(player, actenemy):
         for e in actenemy:
             if e.acthp > 0:
                 print(f"- {e.name} ( {e.acthp} / {e.totalmaxhp} HP )")
+        if actenemy==None:
+            print("Any enemy to analise.")
+
+
 def look_wallet_command(player=None, enemy=None):
-    print(f"You actually have {player.cents} cents!")
+    print(f"You actually have {Globals.cents} cents!")
 
 def Devconsole_FullHealth_Command(player=None, enemy=None):
-    player.heal(player.totalmaxhp)
+    player.heal(player.total_max_hp)
     print("You healed to full now, cheater.")
 
 def Devconsole_InstaKillEnemy_Command(player, actenemy):
@@ -83,10 +87,14 @@ def Devconsole_InstaKillAllEnemies_command(player, actenemy):
 
 def Devconsole_Eventchange(player=None, enemy=None):
     pass
+
 def Removeitem_Command(player, enemy=None):
     print(player.equipments)
-    itrm=input("Remove from which slot?")
-    player.itemremove(itrm)
+    itrm = input("Remove from which slot?\nWeapon, Armor or Accessory?")
+    if itrm == "Weapon" or itrm == "Armor" or itrm == "Accessory":
+        player.itemremove(itrm)
+    else:
+        print("Invalid Slot")
 
 def Devconsole_AddSkill_Command(player=None, enemy=None):
     skilldevadd = input(f"Please, input the NAME of the skill.")
@@ -151,9 +159,11 @@ def CallBoss_Command(player, enemy=None):
         ccc= input("Are you sure? Calling a Boss is a irreversible action! Type [YES] or [NO].\n")
     if ccc=="YES":
         Globals.bosscall = "called"
+
     elif ccc=="NO":
         print("Boss call cancelled.")
         Globals.bosscall = "notcalled"
+
     else:
         print("Give a real answer, Dumb ass.")
         Globals.bosscall = "notcalled"

@@ -11,7 +11,7 @@ def generate_a_random_name():
     return (nomefinal)
 
 def generate_a_random_surname():
-    listadesobrenomes=["Bafemoth", "Teeths", "Intestines", "Smash", "Poer Drill", "Bubble", "Goofy Butt", "Dog Tongues", "ThunderBones"]
+    listadesobrenomes=["Bafemoth", "Teeths", "Intestines", "Smash", "Power Drill", "Bubble", "Goofy Butt", "Dog Tongues", "ThunderBones", "StupdAs'fuk"]
     num = rolld100()
     if num <= 75:
         adicional = ""

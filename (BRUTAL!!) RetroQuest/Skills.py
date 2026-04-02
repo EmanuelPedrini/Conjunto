@@ -85,9 +85,9 @@ class skill:
                        for u in actenemy:
                             u.toma(dmgs, player)
                             print(f"{player.name} dealed {dmgs} DAMAGE to {u.name}!")
-                            player.heal(int(player.realvampirism * dmgs))
-                            if u.acthp<=0:
-                                 actenemy.remove(u)
+                            player.heal(int(player.real_vampirism * dmgs))
+                        #     if u.acthp<=0:
+                        #          actenemy.remove(u)
 
                             for up in player.passives:
                                  if up.trigger=="on_spell":
@@ -96,9 +96,11 @@ class skill:
                   elif self.damage!=0:
                         for e in actenemy:
                              e.toma(dmgs, player)
+
                              print(f"{player.name} dealed {dmgs} DAMAGE to {e.name}!")
-                             if e.acthp<=0:
-                                  actenemy.remove(e)
+                        #      if e.acthp<=0:
+                        #           actenemy.remove(e)
+
                              for sp in player.passives:
                                   if sp.trigger=="on_spell":
                                        sp.passiveactivationtrigger(player)
