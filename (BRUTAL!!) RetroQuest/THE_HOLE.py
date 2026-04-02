@@ -1,13 +1,27 @@
 import Globals
-from Kimera import kimera
-from Kimeras_Data import allkimeras, allthekimerasforbreed, actualize_breed, actualize_princesses
 from ColorText import *
 
 
 def THE_HOLE():
+    from Kimeras_Data import allkimeras, actualize_breed, actualize_princesses
     actualize_breed(allkimeras)
+    actualize_princesses(allkimeras)
+
     print("Type your action!")
+    print("Type [start] to start a NEW RUN with a princess!")
+    print("Type [breed] to start breeding 2 KIMERAS!")
+    print("Type [sleep] to end the day")
+
     input_player_in_the_hole()
+
+def end_day():
+    from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses
+    print(f"you finished the Day [ TOTAL DAYS: {Globals.day} ]")
+    for baba in (allkimeras, allthekimerasforbreed, princesses):
+        baba.age += 1
+        baba.exhausted = False
+        Globals.day += 1
+        return
 
 def print_status(chosen):
     print(f"NAME: {chosen.name}")
@@ -22,6 +36,8 @@ def Start_Command():
     Globals.gamerunning = 1
 
 def Breeding_Command():
+    from Kimera import kimera
+    from Kimeras_Data import allthekimerasforbreed, allkimeras
     if Globals.breeding == True:
         print("You are breeding already, restarting the process...\n")
         Globals.breeding = False
@@ -80,7 +96,6 @@ def Breeding_Command():
                             print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
 
                             baby.acthp = baby.total_max_hp
-
                             allkimeras.append(baby)
 
                             kimeraescolhida01.exhausted = True
@@ -111,7 +126,8 @@ def Breeding_Command():
 
 actions = {
     "breed": Breeding_Command,
-    "start": Start_Command
+    "start": Start_Command,
+    "sleep": end_day,
 }
 
 def input_player_in_the_hole():

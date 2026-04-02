@@ -2,6 +2,7 @@ import sys
 import Globals
 from Skill_Data import *
 from Passive_Data import *
+from THE_HOLE import full_name_with_nickname
 # import copy
 # import random
 # from Bosses_Data import bossesact1
@@ -137,8 +138,10 @@ def removeitemfrominventory_command(player=None, enemy=None):
     print("This item ins`t in your inventory.")
 
 def EXIT_command(player=None, enemy=None):
+    print("Your princess can't accept the shame of RUNNING LIKE A COWARD!")
+    print(f"{player.nickname} commits SEPUKKU!!")
+    print("Going back to THE HOLE...")
     Globals.gamerunning = 2
-    print("You COWARDLY go back to THE HOLE!")
 
 def CallBoss_Command(player, enemy=None):
     if Globals.bosscall=="called":

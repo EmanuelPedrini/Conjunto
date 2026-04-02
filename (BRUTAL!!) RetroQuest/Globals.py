@@ -8,6 +8,7 @@ cents = 0
 breeding = False
 endofarun = False
 act = 1
+day = 1
 actualpool = list
 from Enemies_Data import enemiespool, enemiespoolact2
 
@@ -61,9 +62,10 @@ builtins._original_input = builtins.input
 builtins.input = safe_input
 
 def looktheirteeths(analized):
+    save = (analized.total_max_hp)
     builtins._original_print(f"\n=== {analized.nickname} STATS ===")
     builtins._original_print(f"Level: [ {analized.level} ]\nExperience Points:\n [ {analized.xp} / {analized.xptonext} ]")
-    builtins._original_print(f"Health Points   : [ {analized.acthp} / {analized.total_max_hp} ] + ( {analized.shield} ) SHIELD")
+    builtins._original_print(f"Health Points   : [ {analized.acthp} / {save} ] + ( {analized.shield} ) SHIELD")
     builtins._original_print(f"Mana Points : [ {analized.actmana} / {analized.max_mana} ]")
     builtins._original_print(f"Attributes:")
     builtins._original_print(f"STR : {analized.total_strg} ( {analized.base_strg} )")
