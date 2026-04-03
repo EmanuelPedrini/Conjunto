@@ -435,14 +435,13 @@ class kimera:
             st = "Princess"
         else:
             st = "Bone Eater"
-
-        filho_totalskills = parent1.skills + parent2.skills
+            
+        prttsk=parent1.skills + parent2.skills
         filho_possible_skills = []
-
-        if filho_totalskills:
-            for skill in filho_totalskills:
-                if skill not in filho_totalskills[]:
-                    skill.append(filho_possible_skills)
+        if prttsk:
+            for fisk in prttsk:
+                if fisk not in filho_possible_skills:
+                    filho_possible_skills.append(fisk)
         else:
             filho_possible_skills = []
 
@@ -454,11 +453,14 @@ class kimera:
             filho_passives = []
 
         
-        filho_totalmutations = parent1.mutations + parent2.mutations
-        if filho_totalmutations:
-            filho_mutations = [random.sample(filho_totalskills, random.randint(1, len(filho_totalskills)))]
+        ttmt = parent1.mutations + parent2.mutations
+        filho_mt = []
+        if ttmt:
+            for tt in ttmt:
+                if tt not in filho_mt:
+                    filho_mt.append(tt)
         else:
-            filho_mutations = []
+            filho_mt = []
 
         name = generate_a_random_name()
         surname = generate_a_random_surname()
@@ -474,11 +476,11 @@ class kimera:
         bs_thorns0 = 0
         bs_armor0 = 0
         bs_atkform0 = chooseATKFORM()
-        bs_skills0 = filho_skills
+        bs_skills0 = filho_possible_skills
         bs_passives0 = filho_passives
         bs_shieldstat0 = 0
         bs_status0 = st
-        bs_mutations0 = filho_mutations
+        bs_mutations0 = filho_mt
 
         return cls(name, surname, nickname, pronoun, pos,
                     bs_strg0, bs_dex0, bs_vit0, bs_luck0, bs_cha0, bs_intel0,

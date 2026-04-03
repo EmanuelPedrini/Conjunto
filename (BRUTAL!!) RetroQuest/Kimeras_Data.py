@@ -5,6 +5,7 @@ allthebabies = []
 
 #KIMERAS
 allkimeras = []
+
 #TODAS DISPÓNIVEIS PARA REPRODUZIR
 allthekimerasforbreed = []
 

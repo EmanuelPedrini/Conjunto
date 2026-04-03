@@ -2,7 +2,7 @@
 globaldanger = 1
 globaldangercalc = (0.5*(globaldanger + 1))
 globaldangermathsoftcap= (1+(globaldanger*5/((globaldanger*5)+15)))
-gamerunning = 0
+gamerunning = 2
 bosscall = str("notcalled")
 cents = 0
 breeding = False

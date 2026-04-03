@@ -1,6 +1,14 @@
 import Globals
 from ColorText import *
 
+def rdiniti():
+    from Kimera import kimera
+    from Kimeras_Data import allkimeras
+    for k in range(3):
+        rd = kimera.random("Queen")
+        rd.age += 50
+        allkimeras.append(rd)
+    
 
 def THE_HOLE():
     from Kimeras_Data import allkimeras, actualize_breed, actualize_princesses
@@ -16,20 +24,18 @@ def THE_HOLE():
 
 def end_day():
     from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses, actualize_breed, actualize_princesses
+
     print(f"you finished the Day [ TOTAL DAYS: {Globals.day} ]")
-    for baba in (allkimeras, allthekimerasforbreed, princesses):
-        for i in baba:
+
+    for i in allkimeras:
             i.age += 1
             i.exhausted = False
-        Globals.day += 1
-        actualize_breed(allkimeras)
-        actualize_princesses(allkimeras)
-        
 
-def print_status(chosen):
-    print(f"NAME: {chosen.name}")
-    # print(f": {}")
-    # print(f": {}")
+    Globals.day += 1
+
+    actualize_breed(allkimeras)
+    actualize_princesses(allkimeras)
+        
 def full_name_with_nickname(chose):
     full_name_nickname = f"{chose.name} {chose.nickname} {chose.surname}"
     return full_name_nickname
@@ -41,9 +47,11 @@ def Start_Command():
 def Breeding_Command():
     from Kimera import kimera
     from Kimeras_Data import allthekimerasforbreed, allkimeras
+
     if Globals.breeding == True:
         print("You are breeding already, restarting the process...\n")
         Globals.breeding = False
+
         return
     
     disponiveis = []
@@ -61,10 +69,9 @@ def Breeding_Command():
     print("Please, choose 2 kimeras to procreate!")
     for number, kimerainlist  in enumerate(allthekimerasforbreed):
         if kimerainlist.exhausted == True:
-            print((f"[{number+1}] - {kimerainlist.name} ( EXHAUSTED )"))
-            
+            print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( EXHAUSTED )"))
         else:    
-            print((f"[{number+1}] - {kimerainlist.name}"))
+            print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( DISPONIBLE )"))
 
     while Globals.gamerunning == 2:
         print("Choose the first kimera!")
@@ -87,7 +94,11 @@ def Breeding_Command():
                         kimeras_restantes.append(k)
                          
                 for number02, kimerainlist02  in enumerate(kimeras_restantes):
-                    print((f"[{number02+1}] - {kimerainlist02.name}"))
+                    if kimerainlist02.exhausted == True:
+                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( EXHAUSTED )"))
+                    else: 
+                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( DISPONIBLE )"))
+
                 print(f"Chose other kimera!")
 
                 choice_for_breed02 = input_player_in_the_hole()
@@ -95,19 +106,23 @@ def Breeding_Command():
                         index_kimera02 = int(choice_for_breed02) - 1
                         if 0<= index_kimera02 <len(kimeras_restantes):
                             kimeraescolhida02 = kimeras_restantes[index_kimera02]
-                            print(f"You choose {kimeraescolhida02.name} to be procreate!")
-                            baby = kimera.breeding(kimeraescolhida01, kimeraescolhida02)
-                            print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
+                            if kimeraescolhida01.exhausted == True:
+                                print("This kimera can't breed today anymore")
+                                continue
+                            else:
+                                print(f"You choose {kimeraescolhida02.name} to be procreate!")
+                                baby = kimera.breeding(kimeraescolhida01, kimeraescolhida02)
+                                print(f"{kimeraescolhida01.name} and {kimeraescolhida02.name} made a beatiful baby! and named as ( {full_name_with_nickname(baby)} )")
 
-                            baby.acthp = baby.total_max_hp
-                            allkimeras.append(baby)
+                                baby.acthp = baby.total_max_hp
+                                allkimeras.append(baby)
 
-                            kimeraescolhida01.exhausted = True
-                            kimeraescolhida02.exhausted = True
+                                kimeraescolhida01.exhausted = True
+                                kimeraescolhida02.exhausted = True
 
-                            Globals.breeding = False
+                                Globals.breeding = False
 
-                            return
+                                return
             
 
                         else:
