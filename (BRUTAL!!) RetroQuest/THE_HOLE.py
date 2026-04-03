@@ -6,7 +6,7 @@ def rdiniti():
     from Kimeras_Data import allkimeras
     for k in range(5):
         rd = kimera.random("Queen")
-        rd.age += 50
+        rd.age += 5
         allkimeras.append(rd)
 def show_list(listaesc):
     for numb, kimera  in enumerate(listaesc):   
@@ -82,6 +82,8 @@ def THE_HOLE():
     print("Type your action!")
     print("Type [start] to start a NEW RUN with a princess!")
     print("Type [breed] to start breeding 2 KIMERAS!")
+    print("Type [lookpoints] to see the score of one KIMERA!")
+    print("Type [lookallpoints] to see a list with all the KIMERAS and their scores")
     print("Type [sleep] to end the day")
 
     input_player_in_the_hole()
@@ -134,9 +136,9 @@ def Breeding_Command():
         print("Please, choose 2 kimeras to procreate!")
         for number, kimerainlist  in enumerate(allthekimerasforbreed):
             if kimerainlist.exhausted == True:
-                print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( EXHAUSTED )"))
+                print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( EXHAUSTED ) ( SCORE: {lookingsmaching(kimerainlist)} )"))
             else:    
-                print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( DISPONIBLE )"))
+                print((f"[{number+1}] - {kimerainlist.name} ( {kimerainlist.status} ) ( DISPONIBLE ) ( SCORE: {lookingsmaching(kimerainlist)} )"))
         print("Choose the first kimera!")
 
         choice_for_breed = input_player_in_the_hole()
@@ -158,9 +160,9 @@ def Breeding_Command():
                          
                 for number02, kimerainlist02  in enumerate(kimeras_restantes):
                     if kimerainlist02.exhausted == True:
-                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( EXHAUSTED )"))
+                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( EXHAUSTED ) ( SCORE: {lookingsmaching(kimerainlist02)} )"))
                     else: 
-                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( DISPONIBLE )"))
+                        print((f"[{number02+1}] - {kimerainlist02.name} ( {kimerainlist02.status} ) ( DISPONIBLE ) ( SCORE: {lookingsmaching(kimerainlist02)} )"))
 
                 print(f"Chose other kimera!")
 
@@ -208,11 +210,15 @@ def Breeding_Command():
 
 actions = {
     "breed": Breeding_Command,
+    "bd": Breeding_Command,
     "start": Start_Command,
     "sleep": end_day,
     "lookteeths": look_teeths_again_Command,
+    "lk": look_teeths_again_Command,
     "lookpoints": look_best_Command,
-    "thebests": Points_list,
+    "lkpt": look_best_Command,
+    "lookallpoints": Points_list,
+    "lkallpt": Points_list,
 }
 
 def input_player_in_the_hole():

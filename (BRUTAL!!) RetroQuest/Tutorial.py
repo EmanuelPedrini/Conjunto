@@ -44,14 +44,14 @@ def big_ass_choice(lista):
 def choice():
     print("Choice you MATRIARCH (Your first QUEEN)")
     escolhida = big_ass_choice(listatmp)
-    escolhida.age += 1
+    escolhida.age += 3
     allkimeras.append(escolhida)
 
     print(f"You choose {full_name_with_nickname(escolhida)}")
     print("OK, now choose some Princess!\n")
 
     escolhido01 = big_ass_choice(listasuitors)
-    escolhido01.age += 1
+    escolhido01.age += 3
     allkimeras.append(escolhido01)
     print(f"You choose {full_name_with_nickname(escolhido01)}")
     print("OK, NOW choose another princess!\n")
@@ -62,7 +62,7 @@ def choice():
              rest.append(k)
 
     escolhido02 = big_ass_choice(rest)
-    escolhido02.age += 1
+    escolhido02.age += 3
     allkimeras.append(escolhido02)
     print(f"You choose {full_name_with_nickname(escolhido02)}")
 

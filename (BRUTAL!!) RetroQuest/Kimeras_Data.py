@@ -15,12 +15,12 @@ princesses = []
 def actualize_breed(lista):
     allthekimerasforbreed.clear()
     for kim in lista:
-        if kim.age > 1:
+        if kim.age > 3:
             allthekimerasforbreed.append(kim)
 
 def actualize_princesses(lista):
     princesses.clear()
     for k in lista:
-        if k.age > 1 and k.status == "Princess":
+        if k.age > 3 and k.status == "Princess":
             princesses.append(k)
     
