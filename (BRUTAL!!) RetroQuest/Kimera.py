@@ -512,13 +512,13 @@ class kimera:
                     )
     
     @classmethod
-    def random(cls, statusquokk):
+    def randomkimera(cls, statusquokk, kimquality = 0):
 
         def random_status():
-            qualidade = random.randint(1, 100)
-            if qualidade <= 22:
+            qualidade = (random.randint(1, 100) * 1 + (kimquality / (kimquality + 10)))
+            if qualidade <= 30:
                 sts = 4
-            elif 22 < qualidade <= 76:
+            elif 30 < qualidade <= 80:
                 sts = 5
             else:
                 sts = 6

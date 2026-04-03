@@ -1,13 +1,41 @@
 import Globals
 from ColorText import *
+import random
+
+# def HOLE_shop():
+#         print(f"In distance, you can see a small hut and you decide to investigate.")
+#         print(f"Entering on the the small hut, you discover it is a shop, a buff woman in a armor is leaning on the counter")
+#         print(f"(Agnes) - Hey BRO! what`s up? want to buy something from my shop?")
+#         shoptop =
+#         shopactopt = random.sample(shoptop, min(5, len(shoptop)))
+
+#         while Globals.gamerunning == 1:
+#             for cont, itemI in enumerate(shopactoptions):
+#                 print(f"{cont+1} - {itemI.name}")
+
+#             buyintend= input_player(player, None)
+            
+#             if buyintend.isdigit():
+#                 realbuyintend = int(buyintend)-1
+#                 if 0<= realbuyintend <len(shopactoptions):
+#                     buyed = shopactoptions[realbuyintend]
+#                     player.add_item(buyed)
+#                     break
+#                 else:
+#                     print("BRO! STOP POINTING TO THE WALL!")
+#             else:
+#                 print(f"Lil sis, stop asking for {str(buyintend)}, you ask that every time!")
+     
+#      pass
 
 def rdiniti():
     from Kimera import kimera
     from Kimeras_Data import allkimeras
     for k in range(5):
-        rd = kimera.random("Queen")
-        rd.age += 5
+        rd = kimera.randomkimera("Queen")
+        rd.age += 3
         allkimeras.append(rd)
+
 def show_list(listaesc):
     for numb, kimera  in enumerate(listaesc):   
                 print((f"[{numb+1}] - {kimera.name} ( {kimera.status} )"))
@@ -80,16 +108,23 @@ def THE_HOLE():
     actualize_princesses(allkimeras)
 
     print("Type your action!")
-    print("Type [start] to start a NEW RUN with a princess!")
-    print("Type [breed] to start breeding 2 KIMERAS!")
-    print("Type [lookpoints] to see the score of one KIMERA!")
-    print("Type [lookallpoints] to see a list with all the KIMERAS and their scores")
-    print("Type [sleep] to end the day")
+    print(f"ACTUAL BONES : {Globals.bones}")
+    print("Type [ start ] to start a NEW RUN with a princess!")
+    print("Type [ breed ] to start breeding 2 KIMERAS!")
+    print("Type [ lookpoints ] to see the score of one KIMERA!")
+    print("Type [ lookallpoints ] to see a list with all the KIMERAS and their scores!")
+    print("Type [ shop ] to buy itens for your colony!")
+    print("Type [ sleep ] to end the day!")
 
     input_player_in_the_hole()
+        
+def full_name_with_nickname(chose):
+    full_name_nickname = f"{chose.name} {chose.nickname} {chose.surname}"
+    return full_name_nickname
 
 def end_day():
-    from Kimeras_Data import allkimeras, allthekimerasforbreed, princesses, actualize_breed, actualize_princesses
+    
+    from Kimeras_Data import allkimeras, kimera, actualize_breed, actualize_princesses
 
     print(f"you finished the Day [ TOTAL DAYS: {Globals.day} ]")
 
@@ -98,13 +133,37 @@ def end_day():
             i.exhausted = False
 
     Globals.day += 1
+    rtt = random.randint(1, 100) + Globals.foodquality
+
+    if rtt > 80:
+         rndstt = "Princess"
+    else:
+         rndstt = "Bone Eater"
+
+    straykimera = kimera.randomkimera(rndstt, Globals.pipeshine)
+    straykimera.age += 4
+    print(f"A {straykimera.status} named {full_name_with_nickname(straykimera)} ( SCORE: {lookingsmaching(straykimera)} ) wants to enter in the colony! should you let him enter?")
+
+    while Globals.gamerunning == 2:
+        print("[1] - YES")
+        print("[2] - NO")
+        ults = input("> ")
+
+        if ults == "1":
+            allkimeras.append(straykimera)
+            print(f"{full_name_with_nickname(straykimera)} entered in your colony!")
+            return
+
+        elif ults == "2":
+            print("You kick the stray kimera away!")
+            return
+
+        else:
+            print("Invalid choice.")
+            continue
 
     actualize_breed(allkimeras)
     actualize_princesses(allkimeras)
-        
-def full_name_with_nickname(chose):
-    full_name_nickname = f"{chose.name} {chose.nickname} {chose.surname}"
-    return full_name_nickname
 
 
 def Start_Command():

@@ -9,6 +9,18 @@ breeding = False
 endofarun = False
 act = 1
 day = 1
+
+#THE HOLE
+space = 100
+
+bones = 0
+bonepiles = 0
+pipes = 0
+waterquality = 0
+pipeshine = 0
+foodquality = 0
+
+
 actualpool = list
 from Enemies_Data import enemiespool, enemiespoolact2
 

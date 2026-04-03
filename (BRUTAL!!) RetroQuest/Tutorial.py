@@ -7,12 +7,12 @@ from Kimeras_Data import actualize_princesses
 from Globals import looktheirteeths
 listatmp =[]
 for i in range(3):
-    kimimpossible = kimera.random("Queen")
+    kimimpossible = kimera.randomkimera("Queen")
     listatmp.append(kimimpossible)
 
 listasuitors = []
 for i in range(5):
-    kimimpossible02 = kimera.random("Princess")
+    kimimpossible02 = kimera.randomkimera("Princess")
     listasuitors.append(kimimpossible02)
 
 def big_ass_choice(lista):
