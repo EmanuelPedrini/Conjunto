@@ -62,6 +62,7 @@ def Breeding_Command():
     for number, kimerainlist  in enumerate(allthekimerasforbreed):
         if kimerainlist.exhausted == True:
             print((f"[{number+1}] - {kimerainlist.name} ( EXHAUSTED )"))
+            
         else:    
             print((f"[{number+1}] - {kimerainlist.name}"))
 

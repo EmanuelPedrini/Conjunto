@@ -436,13 +436,16 @@ class kimera:
         else:
             st = "Bone Eater"
 
-        filho_totalskills = list(set(parent1.skills + parent2.skills))
+        filho_totalskills = parent1.skills + parent2.skills
+        filho_possible_skills = []
+
         if filho_totalskills:
-            filho_skills = random.sample(filho_totalskills, random.randint(1, min(2, len(filho_totalskills))))
+            for skill in filho_totalskills:
+                if skill not in filho_totalskills[]:
+                    skill.append(filho_possible_skills)
         else:
-            filho_skills = []
-        
-        
+            filho_possible_skills = []
+
         filho_totalpassives = parent1.passives + parent2.passives
 
         if filho_totalpassives:
@@ -451,7 +454,7 @@ class kimera:
             filho_passives = []
 
         
-        filho_totalmutations = list(set(parent1.mutations + parent2.mutations))
+        filho_totalmutations = parent1.mutations + parent2.mutations
         if filho_totalmutations:
             filho_mutations = [random.sample(filho_totalskills, random.randint(1, len(filho_totalskills)))]
         else:
