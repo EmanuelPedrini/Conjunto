@@ -35,18 +35,6 @@ def lookyourteeth_command(player, enemy=None):
     from Globals import looktheirteeths
     looktheirteeths(player)
     
-    print("YOUR SKILLS:")
-    if player.skills==[]:
-        print("You don`t have any skills for now!")
-    for l, b in enumerate(player.skills):
-            print(f"{l+1} - {b.basename}")
-
-    print("YOUR PASSIVES:")
-    if player.passives==[]:
-        print("You don`t have any passives for now!")
-    for f, d in enumerate(player.passives):
-            print(f"{f+1} - {d.basename}")
-    
 def showinventory_command(player=None, enemy=None):
     print("Your inventory:")
     for i, item in enumerate(player.inventory):

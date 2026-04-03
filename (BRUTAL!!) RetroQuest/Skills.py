@@ -80,6 +80,9 @@ class skill:
                   player.mana_use(cos)
                   dmgs = bdmgs
                   print(f"{player.name} used {self.basename}!")
+                  for sp in player.passives:
+                        if sp.trigger=="on_spell":
+                              sp.passiveactivationtrigger(player)
 
                   if self.skproperty=="MassHealOnDmg":
                        for u in actenemy:
@@ -89,10 +92,6 @@ class skill:
                         #     if u.acthp<=0:
                         #          actenemy.remove(u)
 
-                            for up in player.passives:
-                                 if up.trigger=="on_spell":
-                                      up.passiveactivationtrigger(player)
-
                   elif self.damage!=0:
                         for e in actenemy:
                              e.toma(dmgs, player)
@@ -100,10 +99,6 @@ class skill:
                              print(f"{player.name} dealed {dmgs} DAMAGE to {e.name}!")
                         #      if e.acthp<=0:
                         #           actenemy.remove(e)
-
-                             for sp in player.passives:
-                                  if sp.trigger=="on_spell":
-                                       sp.passiveactivationtrigger(player)
             else:
                   print("invalid target")
                   return

@@ -432,33 +432,56 @@ class kimera:
             return (random.choice([stat1, stat2]) + random.randint(-1, 1))
         
         if parent1.status=="Queen" or parent2.status=="Queen":
+
             st = "Princess"
         else:
             st = "Bone Eater"
+
+        prttsk = []
             
-        prttsk=parent1.skills + parent2.skills
+        skillsposrepetido = parent1.skills + parent2.skills
+        for k in skillsposrepetido:
+            if k not in prttsk:
+                prttsk.append(k)
+
         filho_possible_skills = []
-        if prttsk:
-            for fisk in prttsk:
-                if fisk not in filho_possible_skills:
-                    filho_possible_skills.append(fisk)
+
+        if len(prttsk) >= 2:
+            filho_possible_skills = random.sample(prttsk, (random.randint(1, 2)))
+
+        elif len(prttsk) == 1:
+            filho_possible_skills = [prttsk]
+
         else:
             filho_possible_skills = []
-
+        
         filho_totalpassives = parent1.passives + parent2.passives
 
         if filho_totalpassives:
-            filho_passives = [random.choice(filho_totalpassives)]
+            res = random.randint(1,100)
+            if res > 40:
+                filho_passives = [random.choice(filho_totalpassives)]
+            else:
+                filho_passives = []
         else:
             filho_passives = []
 
-        
-        ttmt = parent1.mutations + parent2.mutations
+        ttmt = []
+
+        totalposrepetido = parent1.mutations + parent2.mutations
+
+        for k in  totalposrepetido:
+            if k not in ttmt:
+                ttmt.append(k)
+
         filho_mt = []
-        if ttmt:
-            for tt in ttmt:
-                if tt not in filho_mt:
-                    filho_mt.append(tt)
+         
+        if len(ttmt) >= 2:
+            filho_mt = random.sample(ttmt, (random.randint(2, len(ttmt))))
+
+        elif len(ttmt) == 1:
+            filho_mt = [ttmt]
+
         else:
             filho_mt = []
 

@@ -24,4 +24,4 @@ gg=passive("Hard Mind", "+1 intel when you take damage", intelonhit, "on_damage"
 
 
 #lista de passivas
-todasaspassivas =[incansavel]
+todasaspassivas =[incansavel, professionalconjurer, gg]

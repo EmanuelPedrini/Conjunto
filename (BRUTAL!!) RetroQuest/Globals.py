@@ -75,9 +75,20 @@ def looktheirteeths(analized):
     builtins._original_print(f"CHA : {analized.total_cha} ( {analized.base_cha} )")
     builtins._original_print(f"LUCK: {analized.total_luck} ( {analized.base_luck} )")
     builtins._original_print(f"ARMOR: {analized.armor} [ {reds(analized)}% ]")
+    builtins._original_print(f"THORNS: {analized.thorns}")
     builtins._original_print(f"DODGE: {analized.total_dodge} %")
     builtins._original_print(f"VAMPIRISM: {analized.vampirism} %")
-    builtins._original_print(f"THORNS: {analized.thorns}")
+    builtins._original_print("SKILLS:")
+    if analized.skills==[]:
+        builtins._original_print("Any skills.")
+    for l, b in enumerate(analized.skills):
+            builtins._original_print(f"{l+1} - {b.basename}")
+
+    builtins._original_print("PASSIVES:")
+    if analized.passives==[]:
+        builtins._original_print("Any passives.")
+    for f, d in enumerate(analized.passives):
+            builtins._original_print(f"{f+1} - {d.basename}")
 
 def banned_from_twitter(banned):
     for lista in (allkimeras, allthekimerasforbreed, princesses):
