@@ -3,7 +3,6 @@ from ColorText import *
 import random
 from Furniture import furniture
 from Furniture_Data import allthefurnitures
-from pgterminal import tick
 
 #THE HOLE
 #FURNITURE
@@ -79,7 +78,7 @@ def show_list(listaesc):
 
 def big_ass_print(choice, listap):
             while True:
-                tick()
+                ()
                 if choice.isdigit():
                         index = int(choice) - 1
                         if 0<= index <len(listap):
@@ -183,7 +182,7 @@ def end_day():
     print(f"A {straykimera.status} named {full_name_with_nickname(straykimera)} ( SCORE: {lookingsmaching(straykimera)} ) wants to enter in the colony! should you let him enter?")
 
     while Globals.gamerunning==2:
-        tick()
+        ()
         print("[1] - YES")
         print("[2] - NO")
         ults = input("> ")
@@ -231,7 +230,7 @@ def Breeding_Command():
     Globals.breeding = True
 
     while Globals.gamerunning == 2:
-        tick()
+        ()
         print("Please, choose 2 kimeras to procreate!")
         for number, kimerainlist  in enumerate(allthekimerasforbreed):
             if kimerainlist.exhausted == True:
@@ -321,9 +320,9 @@ actions = {
 }
 
 def input_player_in_the_hole():
-    tick()
+    ()
     while Globals.gamerunning==2:
-        tick()
+        ()
         comm = input("> ")
         if comm in actions:
             actions[comm]()

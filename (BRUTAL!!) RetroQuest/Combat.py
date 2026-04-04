@@ -7,7 +7,6 @@ from Commands import escolhadealvo
 from ColorText import*
 from Bosses import boss
 import Globals
-from pgterminal import tick
 # sav = None
 
 def check_alive(playercur, enemieslist):
@@ -39,7 +38,6 @@ def combat_end(player):
 
     resetbonus(player)
     while Globals.gamerunning==1:
-        tick()
         if player.xp >= player.xptonext:
                player.level_system()
         if player.xp < player.xptonext:
@@ -73,7 +71,6 @@ def playerturn(player, actenemy, sav2):
 
         #Escolha do player
         while Globals.gamerunning==1:
-            tick()
             choice = input_player(player, actenemy)
 
             if not isinstance(choice, str):
@@ -157,7 +154,6 @@ def combat(player, enemies):
             
     #essa é a parte que define o loop do combat
     while Globals.gamerunning==1:
-        tick()
         #primeiro ele usa a função que remove os inimigos mortos, ela vem do turnmaster que ta em outro arquivo
         tm.removermortos()
 

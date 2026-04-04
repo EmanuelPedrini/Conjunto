@@ -1,6 +1,5 @@
 import pygame
 import sys
-import builtins
 
 pygame.init()
 
@@ -14,14 +13,18 @@ clock = pygame.time.Clock()
 lines = []
 current_input = ""
 
-def tick():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+
+class Stdout:
+    def write(self, text):
+        if text.strip() != "":
+            lines.append(text.rstrip("\n"))
+        draw()
+
+    def flush(self):
+        pass
+
 
 def draw():
-    tick()
     screen.fill((0, 0, 0))
 
     y = 10
@@ -34,14 +37,6 @@ def draw():
     screen.blit(input_text, (10, HEIGHT - 30))
 
     pygame.display.flip()
-    clock.tick(60)
-
-
-def print(*args, sep=" ", end="\n"):
-    text = sep.join(str(a) for a in args) + end
-    lines.append(text.rstrip("\n"))
-    draw()
-    builtins.print(*args, sep=sep, end=end)
 
 
 def input(prompt=""):
@@ -53,7 +48,6 @@ def input(prompt=""):
     current_input = ""
 
     while True:
-        tick()
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -76,3 +70,7 @@ def input(prompt=""):
                     current_input += event.unicode
 
         draw()
+        clock.tick(60)
+
+
+sys.stdout = Stdout()
