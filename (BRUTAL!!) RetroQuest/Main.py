@@ -1,4 +1,4 @@
-from pgterminal import print, input
+from pgterminal import print, input, tick
 import Globals
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
@@ -20,6 +20,7 @@ def run_expedition():
 #kimeras
     def kimera_choice():
         while Globals.gamerunning==1:
+            tick()
             print("Choose your kimera!")
             for i, char in enumerate(princesses):
                 print(f"[{i+1}] - { full_name_with_nickname(char) }")
@@ -66,6 +67,7 @@ def run_expedition():
         filadeeventos.append(gerador_de_eventos(player))
 
     while Globals.gamerunning==1:
+        tick()
         if Globals.bosscall == "called":
             Globals.bosscall = "notcalled"
             filadeeventos.clear()

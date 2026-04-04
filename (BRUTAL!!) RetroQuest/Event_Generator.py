@@ -15,7 +15,7 @@ def shop(player):
         shop_total_options = todososequipamentos
         shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
 
-        while Globals.gamerunning == 1:
+        while Globals.gamerunning==1:
             for cont, itemI in enumerate(shopactoptions):
                 print(f"{cont+1} - {itemI.name}")
 

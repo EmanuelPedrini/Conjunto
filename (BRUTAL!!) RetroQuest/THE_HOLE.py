@@ -45,7 +45,7 @@ def removefurn(rmvfurn):
 #         shoptop =
 #         shopactopt = random.sample(shoptop, min(5, len(shoptop)))
 
-#         while Globals.gamerunning == 1:
+#         while Globals.gamerunning==1:
 #             for cont, itemI in enumerate(shopactoptions):
 #                 print(f"{cont+1} - {itemI.name}")
 
@@ -180,7 +180,7 @@ def end_day():
     straykimera.age += 4
     print(f"A {straykimera.status} named {full_name_with_nickname(straykimera)} ( SCORE: {lookingsmaching(straykimera)} ) wants to enter in the colony! should you let him enter?")
 
-    while Globals.gamerunning == 2:
+    while Globals.gamerunning==2:
         print("[1] - YES")
         print("[2] - NO")
         ults = input("> ")

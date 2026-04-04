@@ -377,7 +377,7 @@ class kimera:
         currentoptions = []
         currentoptions = random.sample(totaloptions, 3)
 
-        while Globals.gamerunning == 1:
+        while Globals.gamerunning==1:
             for x, y in enumerate(currentoptions):
                 print(f"{x+1} - {y.basename}")
             choice = input_player(player=self, actenemy=None)
