@@ -2,7 +2,7 @@
 globaldanger = 1
 globaldangercalc = (0.5*(globaldanger + 1))
 globaldangermathsoftcap= (1+(globaldanger*5/((globaldanger*5)+15)))
-gamerunning = 2
+gamerunning = 0
 bosscall = str("notcalled")
 cents = 0
 bones = 0
@@ -33,33 +33,21 @@ def reds(who):
 
 # def slowprint(*args, sep=" ", end="\n", delay=0.00001, line_delay=0.2, flush=True):
 #     text = sep.join(map(str, args)) + end
-#     skip = False
-#     i=0
-#     while i < len(text):
-#             if msvcrt.kbhit():
-#                 msvcrt.getch()
-#                 skip = True
+#     # time.sleep(delay)
 
-#             if skip:
-#                print(text[i:], end="", flush=True)
-#                break
-
-#             print(text[i], end="", flush=True)
-#             time.sleep(delay)
-#             i += 1
         
 #     time.sleep(line_delay)
 
 # print = builtins.print
-# builtins.print = slowprint
+# # builtins.print = slowprint
 
 # import builtins
 # import msvcrt
 
 # def safe_input(prompt=""):
 #     while msvcrt.kbhit():
-#         msvcrt.getch()
-#     return builtins._original_input(prompt)
+# #         msvcrt.getch()
+# #     return builtins._original_input(prompt)
 
 # builtins._original_input = builtins.input
 # builtins.input = safe_input

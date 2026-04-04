@@ -21,7 +21,7 @@ def big_ass_choice(lista):
         print("Your options:")
         for number, kimerainlist  in enumerate(lista):
              print((f"[{number+1}] - {full_name_with_nickname(kimerainlist)}"))
-        bixachoice = input("> ")
+        bixachoice = input("")
         if bixachoice.isdigit():
             sex_kimera = int(bixachoice) - 1
             if 0<= sex_kimera < len(lista):
@@ -31,7 +31,7 @@ def big_ass_choice(lista):
                 print("WHY ARE POINTING TO THE WALL?!")
 
         elif bixachoice == "lookteeths" or bixachoice=="lk":
-            examchoice = input("Which one you want to see more closely?\n> ")
+            examchoice = input("Which one you want to see more closely?")
             if examchoice.isdigit():
                 ex_kimera = int(examchoice) - 1
                 if 0<= ex_kimera < len(lista):
@@ -73,25 +73,25 @@ def choice():
     Globals.gamerunning = 1
 
 def tutorial():
-    # print("Hello! I see it's your first time, playing so i need to teach you how things work here")
-    # print("First of all you gonna need a MATRIARCH for your KIMERA family!")
-    # print(red("Uh WHAT???!!!"))
-    # print("YOU DON'T KNOW WHAT IS A KIMERA??!!")
-    # print("OH MAN!")
-    # print("WHAT KIDS LEARN THESE DAYS ON SCHOOL??!!")
-    # print("But ok... How can i describe what is a kimera?")
-    # print("Kimeras are like the NEW GENETIC INVENTION OF THE CENTURY!!")
-    # print("They are like tiny humanoid with animal features, THEY CAN COME IN EVERY FORM! or ANY SHAPE!")
-    # print("You can STRETCH and SMASH THEM!")
-    # print("AND THEY STILL ALIVE!")
-    # print("So kimeras have a very restrictive HIERARCHY.")
-    # print("You have 3 kimera status in a colony, QUEENS, PRINCESSES AND BONE EATERS.")
-    # print("BONE EATERS are the lowest rank in a colony, they serve only to reproduce between them and create new PRINCESS")
-    # print("Only the QUEEN can give birth to new PRINCESSES")
-    # print("And only the PRINCESSES, can go in expeditions!")
-    # print("Yeah, you can send them in expeditions to collect things for you")
-    # print("Very convinient, RIGHT?")
-    # print("So in a act of of kindness, i'll give you some of my kimeras")
+    print("Hello! I see it's your first time, playing so i need to teach you how things work here")
+    print("First of all you gonna need a MATRIARCH for your KIMERA family!")
+    print(red("Uh WHAT???!!!"))
+    print("YOU DON'T KNOW WHAT IS A KIMERA??!!")
+    print("OH MAN!")
+    print("WHAT KIDS LEARN THESE DAYS ON SCHOOL??!!")
+    print("But ok... How can i describe what is a kimera?")
+    print("Kimeras are like the NEW GENETIC INVENTION OF THE CENTURY!!")
+    print("They are like tiny humanoid with animal features, THEY CAN COME IN EVERY FORM! or ANY SHAPE!")
+    print("You can STRETCH and SMASH THEM!")
+    print("AND THEY STILL ALIVE!")
+    print("So kimeras have a very restrictive HIERARCHY.")
+    print("You have 3 kimera status in a colony, QUEENS, PRINCESSES AND BONE EATERS.")
+    print("BONE EATERS are the lowest rank in a colony, they serve only to reproduce between them and create new PRINCESS")
+    print("Only the QUEEN can give birth to new PRINCESSES")
+    print("And only the PRINCESSES, can go in expeditions!")
+    print("Yeah, you can send them in expeditions to collect things for you")
+    print("Very convinient, RIGHT?")
+    print("So in a act of of kindness, i'll give you some of my kimeras")
 
     choice()
 

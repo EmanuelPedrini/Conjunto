@@ -113,7 +113,7 @@ def look_teeths_again_Command():
     from Kimeras_Data import allkimeras
     print("Choose a Kimera to analize!")
     show_list(allkimeras)
-    cxp = input("> ")
+    cxp = input("")
     alisada = big_ass_print(cxp, allkimeras)
     if alisada == None:
          return
@@ -124,7 +124,7 @@ def look_best_Command():
     from Kimeras_Data import allkimeras
     print("Choose a Kimera to analize!")
     show_list(allkimeras)
-    chcc = input("> ")
+    chcc = input("")
     alisada = big_ass_print(chcc, allkimeras)
     if alisada == None:
         return
@@ -185,7 +185,7 @@ def end_day():
         ()
         print("[1] - YES")
         print("[2] - NO")
-        ults = input("> ")
+        ults = input("")
 
         if ults == "1":
             allkimeras.append(straykimera)
@@ -323,7 +323,7 @@ def input_player_in_the_hole():
     ()
     while Globals.gamerunning==2:
         ()
-        comm = input("> ")
+        comm = input("")
         if comm in actions:
             actions[comm]()
             continue

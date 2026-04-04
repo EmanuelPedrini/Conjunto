@@ -190,7 +190,7 @@ def input_player(player, actenemy=None):
         if Globals.gamerunning!=1:
             return None
         
-        comando = input("> ")
+        comando = input("")
 
         if comando in comandosglobais:
             comandosglobais[comando](player, actenemy)

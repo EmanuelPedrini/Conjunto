@@ -1,23 +1,29 @@
 import pygame
 import sys
 import builtins
+import time
+PRINT_DELAY = 0.2
 
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load("Music/music1.mp3")
+pygame.mixer.music.load("Music/music2.mp3")
 pygame.mixer.music.play(-1)
 
 WIDTH, HEIGHT = 900, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption("RetroQuest")
+pygame.display.set_caption("KIMERAHALLA")
 
-font = pygame.font.SysFont("consolas", 20)
+font = pygame.font.Font("Fonts/font2.ttf", 20)
 clock = pygame.time.Clock()
 
 lines = []
 current_input = ""
 scroll_offset = 0
 fullscreen = False
+
+# área da imagem
+image_surface = None
+IMAGE_HEIGHT = 300
 
 
 class Stdout:
@@ -27,6 +33,7 @@ class Stdout:
             lines.append(text.rstrip("\n"))
             scroll_offset = 0
         draw()
+        time.sleep(PRINT_DELAY)
 
     def flush(self):
         pass
@@ -37,17 +44,31 @@ def draw():
 
     width, height = screen.get_size()
 
+    # ---------- IMAGEM SUPERIOR ----------
+    if image_surface:
+        img = pygame.transform.scale(image_surface, (width, IMAGE_HEIGHT))
+        screen.blit(img, (0, 0))
+
+    pygame.draw.line(
+        screen,
+        (80,80,80),
+        (0, IMAGE_HEIGHT),
+        (width, IMAGE_HEIGHT)
+    )
+
+    # ---------- TERMINAL ----------
     line_height = 22
     input_area = 40
 
-    max_lines = (height - input_area) // line_height
+    usable_height = height - IMAGE_HEIGHT
+    max_lines = (usable_height - input_area) // line_height
 
     start = max(0, len(lines) - max_lines - scroll_offset)
     end = start + max_lines
 
-    y = 10
+    y = IMAGE_HEIGHT + 10
     for line in lines[start:end]:
-        text = font.render(line, True, (255,255,255))
+        text = font.render(line, False, (0,255,110))
         screen.blit(text, (10, y))
         y += line_height
 
@@ -58,10 +79,22 @@ def draw():
         (width, height - input_area)
     )
 
-    input_text = font.render("> " + current_input, True, (0,255,0))
+    input_text = font.render("" + current_input, True, (255,255,255))
     screen.blit(input_text, (10, height - 30))
 
     pygame.display.flip()
+
+
+def set_image(path):
+    global image_surface
+    image_surface = pygame.image.load(path).convert_alpha()
+    draw()
+
+
+def clear_image():
+    global image_surface
+    image_surface = None
+    draw()
 
 
 def custom_input(prompt=""):
@@ -83,7 +116,6 @@ def custom_input(prompt=""):
                 screen = pygame.display.set_mode(event.size, pygame.RESIZABLE)
 
             elif event.type == pygame.MOUSEWHEEL:
-                # scroll invertido
                 scroll_offset += event.y
                 scroll_offset = max(0, min(scroll_offset, len(lines)))
 
@@ -106,7 +138,7 @@ def custom_input(prompt=""):
 
                 elif event.key == pygame.K_RETURN:
                     value = current_input
-                    lines.append("> " + current_input)
+                    lines.append("" + current_input)
                     current_input = ""
                     scroll_offset = 0
                     draw()

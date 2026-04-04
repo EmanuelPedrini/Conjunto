@@ -1,4 +1,5 @@
 import pgterminal
+pgterminal.set_image("Images/imagemteste.jpg")
 import Globals
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
@@ -36,7 +37,7 @@ def run_expedition():
                     return actonrun
                 
             elif choice == "lookteeths" or choice == "lk":
-                lookedteeths = input("Who you wanna see closely?\n> ")
+                lookedteeths = input("Who you wanna see closely?")
                 if lookedteeths.isdigit():
                     lkth=int(lookedteeths)-1
                     if 0<= lkth <len(princesses):
