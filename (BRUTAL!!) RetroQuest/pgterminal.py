@@ -53,6 +53,7 @@ def input(prompt=""):
     current_input = ""
 
     while True:
+        tick()
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:

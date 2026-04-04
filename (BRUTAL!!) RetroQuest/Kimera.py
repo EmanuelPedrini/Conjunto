@@ -9,6 +9,7 @@ from ColorText import *
 import Globals
 from Random_Names import generate_a_random_name, generate_a_random_nickname, generate_a_random_surname
 from Mutation import allthemuts
+from pgterminal import tick
 
 class kimera:
     def __init__(self, name, surname, nickname, pronoun, possessive, 
@@ -378,6 +379,7 @@ class kimera:
         currentoptions = random.sample(totaloptions, 3)
 
         while Globals.gamerunning==1:
+            tick()
             for x, y in enumerate(currentoptions):
                 print(f"{x+1} - {y.basename}")
             choice = input_player(player=self, actenemy=None)

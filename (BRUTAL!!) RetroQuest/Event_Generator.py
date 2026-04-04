@@ -6,6 +6,7 @@ from Commands import input_player
 from Bosses_Data import bossesact1
 from Itens_Data import todososequipamentos
 from ColorText import *
+from pgterminal import tick
 # from Commands import 
 
 def shop(player):
@@ -16,6 +17,7 @@ def shop(player):
         shopactoptions = random.sample(shop_total_options, min(5, len(shop_total_options)))
 
         while Globals.gamerunning==1:
+            tick()
             for cont, itemI in enumerate(shopactoptions):
                 print(f"{cont+1} - {itemI.name}")
 

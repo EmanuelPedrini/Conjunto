@@ -5,6 +5,7 @@ from THE_HOLE import full_name_with_nickname
 from Kimeras_Data import allkimeras
 from Kimeras_Data import actualize_princesses
 from Globals import looktheirteeths
+from pgterminal import tick
 listatmp =[]
 for i in range(3):
     kimimpossible = kimera.randomkimera("Queen")
@@ -17,6 +18,7 @@ for i in range(5):
 
 def big_ass_choice(lista):
     while True:
+        tick()
         print("Your options:")
         for number, kimerainlist  in enumerate(lista):
              print((f"[{number+1}] - {full_name_with_nickname(kimerainlist)}"))

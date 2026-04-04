@@ -3,6 +3,7 @@ import Globals
 from Skill_Data import *
 from Passive_Data import *
 from THE_HOLE import full_name_with_nickname
+from pgterminal import tick
 # import copy
 # import random
 # from Bosses_Data import bossesact1
@@ -18,6 +19,7 @@ def escolhadealvo(player, enemies):
         print(f"[{v+1}] {r.name} ({r.acthp} / {r.totalmaxhp} HP)")
 
     while Globals.gamerunning==1:
+        tick()
         choice = input_player(player, None)
         if not isinstance(choice, str):
             return
@@ -185,6 +187,7 @@ comandosglobais={
 # negocio para ler input sempe
 def input_player(player, actenemy=None):
     while True:
+        tick()
         if Globals.gamerunning!=1:
             return None
         

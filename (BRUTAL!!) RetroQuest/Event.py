@@ -1,5 +1,6 @@
 from Commands import input_player
 import Globals
+from pgterminal import tick
 class event:
     def __init__(self, name, text, choices):
         self.name=name
@@ -14,6 +15,7 @@ class event:
         for i, (optiontext, _) in enumerate(self.choices,1):
              print(f"{i} - {optiontext}")
         while Globals.gamerunning==1:
+            tick()
             choice = input_player(player)
             if not isinstance(choice, str):
                 return
