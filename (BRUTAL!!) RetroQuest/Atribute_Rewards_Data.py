@@ -9,3 +9,4 @@ gcha   = atribute_reward(f"{pink('+2 Charisma')}", "gained_cha", 2)
 
 todososgatr=[gstrg, gdex, gvit, gintel, gluck, gcha]
 
+teste=6
