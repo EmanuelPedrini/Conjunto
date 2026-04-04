@@ -1,6 +1,42 @@
 import Globals
 from ColorText import *
 import random
+from Furniture import furniture
+from Furniture_Data import allthefurnitures
+
+#THE HOLE
+#FURNITURE
+space = 100
+ocuppiedspace = 0
+furnitureonthecolony = []
+yourfurnitures = []
+
+#STATS
+bones = 0
+bonepiles = 0
+pipes = 0
+waterquality = 0
+pipeshine = 0
+foodquality = 0
+
+def lose_money(moneyused):
+        Globals.bones -= moneyused
+def gain_money(moneyused):
+        Globals.bones += moneyused
+
+def move(movedfurniture):
+     furnitureonthecolony.append(movedfurniture)
+
+def remove(removedfurnitute):
+     furnitureonthecolony.remove(removedfurnitute)
+
+def gainfurn(furn):
+     yourfurnitures.append(furn)
+
+def removefurn(rmvfurn):
+     yourfurnitures.remove(rmvfurn)
+
+
 
 # def HOLE_shop():
 #         print(f"In distance, you can see a small hut and you decide to investigate.")
@@ -63,11 +99,11 @@ def lookingsmaching(theone):
 
     mtpt = len(theone.mutations)
 
-    ptprtt = (skpt * 11) + (pspt * 20) + (mtpt * 5)
+    ptprtt = ((skpt * 11) + (pspt * 20) + (mtpt * 5))
 
     hdpt = (ptprtt / (ptprtt + 12))
 
-    points = int((sumallstats * 100) * hdpt) 
+    points = int((sumallstats * 100) * (1 + hdpt)) 
 
     return points
         
@@ -133,14 +169,14 @@ def end_day():
             i.exhausted = False
 
     Globals.day += 1
-    rtt = random.randint(1, 100) + Globals.foodquality
+    rtt = random.randint(1, 100) + foodquality
 
     if rtt > 80:
          rndstt = "Princess"
     else:
          rndstt = "Bone Eater"
 
-    straykimera = kimera.randomkimera(rndstt, Globals.pipeshine)
+    straykimera = kimera.randomkimera(rndstt, pipeshine)
     straykimera.age += 4
     print(f"A {straykimera.status} named {full_name_with_nickname(straykimera)} ( SCORE: {lookingsmaching(straykimera)} ) wants to enter in the colony! should you let him enter?")
 

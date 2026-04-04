@@ -208,6 +208,7 @@ class kimera:
         for atrr, value in item.bonus.items():
             if hasattr(self, atrr):
                 self.gain_atr(atrr, -value)
+                
             if item.slot=="Weapon":
                 self.atkform = "melee"
 
@@ -436,26 +437,25 @@ class kimera:
             st = "Princess"
         else:
             st = "Bone Eater"
-
+    
         prttsk = []
-            
-        skillsposrepetido = parent1.skills + parent2.skills
-        for k in skillsposrepetido:
-            if k not in prttsk:
-                prttsk.append(k)
 
-        filho_possible_skills = []
+        for s in parent1.skills + parent2.skills:
 
-        if len(prttsk) >= 2:
-            filho_possible_skills = random.sample(prttsk, (random.randint(1, 2)))
+            if isinstance(s, list):
+                prttsk.extend(s)
 
-        elif len(prttsk) == 1:
-            filho_possible_skills = [prttsk]
+            else:
+                prttsk.append(s)
 
+        prttsk = list(set(prttsk))
+
+        if prttsk:
+            filho_possible_skills = random.sample(prttsk, random.randint(1, min(2, len(prttsk))))
         else:
             filho_possible_skills = []
-        
-        filho_totalpassives = parent1.passives + parent2.passives
+
+        filho_totalpassives = []
 
         if filho_totalpassives:
             res = random.randint(1,100)
@@ -468,20 +468,17 @@ class kimera:
 
         ttmt = []
 
-        totalposrepetido = parent1.mutations + parent2.mutations
+        for m in parent1.mutations + parent2.mutations:
+            if isinstance(m, list):
+                ttmt.extend(m)
 
-        for k in  totalposrepetido:
-            if k not in ttmt:
-                ttmt.append(k)
+            else:
+                ttmt.append(m)
 
-        filho_mt = []
-         
-        if len(ttmt) >= 2:
-            filho_mt = random.sample(ttmt, (random.randint(2, len(ttmt))))
+        ttmt = list(set(ttmt))
 
-        elif len(ttmt) == 1:
-            filho_mt = [ttmt]
-
+        if ttmt:
+            filho_mt = random.sample(ttmt, random.randint(1, min(2, len(ttmt))))
         else:
             filho_mt = []
 
