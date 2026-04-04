@@ -1,4 +1,4 @@
-from pgterminal import print, input
+import pgterminal
 
 print("Welcome to RetroQuest!")
 print("This is a test")

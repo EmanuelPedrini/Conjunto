@@ -1,4 +1,4 @@
-from pgterminal import print, input
+import pgterminal
 import Globals
 import random; import sys; import tkinter as tk; import copy;
 from Combat import combat
